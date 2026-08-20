@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-2-04: フォーカスインジケーターを非表示にしている（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 悪い例：フォーカスインジケーターを非表示にしている（CSS）*/
+		* {
+			outline: none;
+		}
+
+		nav {
+			display: flex;
+			gap: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-2-04: フォーカスインジケーターを非表示にしている（悪い例）</h1>
+
+	<nav>
+		<a href="#">リンク1</a>
+		<a href="#">リンク2</a>
+		<button type="button">送信</button>
+	</nav>
+</body>
+</html>

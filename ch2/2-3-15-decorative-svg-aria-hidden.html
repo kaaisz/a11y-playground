@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-3-15: 装飾svg要素にaria-hidden属性を付与する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		button {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 8px 20px;
+		}
+
+		svg {
+			width: 16px;
+			height: 16px;
+			fill: #333;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-3-15: 装飾svg要素にaria-hidden属性を付与する（改善例）</h1>
+
+	<!--改善例：装飾のsvg要素 aria-hidden属性-->
+	<button type="button">
+		<svg aria-hidden="true" viewBox="0 0 448 512">
+			<title>fa fa-plus</title>
+			<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path>
+		</svg>
+		追加
+	</button>
+</body>
+</html>

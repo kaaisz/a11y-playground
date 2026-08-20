@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-2-10: 必要なときだけフォーカスインジケーターを表示する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/*（改善例：focus-visible 擬似クラスを用いてフォーカスインジケーターの表示を出し分けする）*/
+		*:focus {
+			outline: none;
+			box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+		}
+
+		*:focus-visible {
+			outline: none;
+			box-shadow: 0 0 0 2px white, 0 0 0 4px blue;
+		}
+
+		nav {
+			display: flex;
+			gap: 16px;
+		}
+
+		button {
+			padding: 8px 20px;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-2-10: 必要なときだけフォーカスインジケーターを表示する（改善例）</h1>
+
+	<nav>
+		<a href="#">リンク1</a>
+		<button type="button">送信</button>
+	</nav>
+</body>
+</html>

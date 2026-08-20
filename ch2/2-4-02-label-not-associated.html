@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-4-02: 入力とKeyが関連付けられていない入力欄（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 悪い例：入力とKey が関連付けられていない入力欄（CSS) */
+		p {
+			display: flex;
+			gap: 1em;
+		}
+
+		p > * {
+			width: 50%;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-4-02: 入力とKeyが関連付けられていない入力欄（悪い例）</h1>
+
+	<!--悪い例：入力とKey が関連付けられていない入力欄（HTML）-->
+	<p>
+		<span>姓</span>
+		<span>名</span>
+	</p>
+	<p>
+		<input type="text" />
+		<input type="text" />
+	</p>
+</body>
+</html>

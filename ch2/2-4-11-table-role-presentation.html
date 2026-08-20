@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-4-11: レイアウト目的のtable要素のロールを削除する（良い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		table {
+			border-collapse: collapse;
+		}
+
+		td {
+			vertical-align: top;
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-4-11: レイアウト目的のtable要素のロールを削除する（良い例）</h1>
+
+	<!--良い例：レイアウト目的の table 要素のロールを削除する-->
+	<table role="presentation">
+		<tbody> <!--以下のtbody, tr, tdのロールは削除される-->
+			<tr>
+				<td>
+					<h2>見出し</h2> <!--このh2のロールは残る-->
+					<table role="presentation"> <!--ネストされている場合でもロールを削除するには個別に付与する-->
+						<tbody>
+							<tr>
+								<td>ネストされたレイアウト用テーブル</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

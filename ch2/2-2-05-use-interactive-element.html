@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-2-05: インタラクティブ要素を使用する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.Button {
+			padding: 8px 20px;
+			border: none;
+			border-radius: 4px;
+			background-color: #333;
+			color: #fff;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-2-05: インタラクティブ要素を使用する（改善例）</h1>
+
+	<!--（改善例：インタラクティブな要素を使用する（HTML）-->
+	<script>
+		const clickButton = (e) => { alert('追加しました'); }
+	</script>
+
+	<button class="Button" onclick="clickButton();">追加</button>
+</body>
+</html>

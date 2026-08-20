@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-2-08: フォーカス可能なまま要素を隠す（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			cursor: pointer;
+		}
+
+		.Checkbox__wrapper {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 18px;
+			height: 18px;
+			border: 1px solid #999;
+			border-radius: 4px;
+		}
+
+		/* 改善例：フォーカス可能なまま要素を隠す（CSS） */
+		/* input[type="checkbox"] を display、 visibility 以外のプロパティで視覚的に表示されないようにする */
+		input[type="checkbox"] {
+			position: fixed;
+			width: 4px;
+			height: 4px;
+			opacity: 0.01;
+			clip-path: inset(50%);
+			overflow: hidden;
+		}
+
+		/* input[type="checkbox"] にフォーカスがあたっているときに可視の要素にフォーカスインジケーターを表示 */
+		input[type="checkbox"]:focus + .Checkbox__wrapper {
+			outline: 2px solid blue;
+			outline-offset: 2px;
+		}
+
+		input:not(:checked) ~ .Checkbox__wrapper > svg {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-2-08: フォーカス可能なまま要素を隠す（改善例）</h1>
+
+	<!--改善例：フォーカス可能なまま要素を隠す（HTML）-->
+	<label>
+		<input type="checkbox" checked />
+		<span class="Checkbox__wrapper">
+			<svg viewBox="0 0 512 512" width="14">
+				<path fill="#0770c7" d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+			</svg>
+		</span>
+		同意する
+	</label>
+</body>
+</html>

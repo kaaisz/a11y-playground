@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-3-09: アイコンに代替テキストを付与する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		button {
+			display: inline-flex;
+			align-items: center;
+			padding: 8px;
+			margin-right: 8px;
+		}
+
+		button img {
+			width: 24px;
+			height: 24px;
+		}
+
+		button svg {
+			width: 24px;
+			height: 24px;
+			fill: #333;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-3-09: アイコンに代替テキストを付与する（改善例）</h1>
+
+	<!--改善例：アイコンのみのボタンのアイコンに代替テキストを付与する-->
+	<!-- img 要素を用いた例 -->
+	<button type="button">
+		<img src="./assets/icon-add-dark.svg" alt="追加" />
+	</button>
+
+	<!--svg 要素とWAI-ARIA (aria-label) を用いた例-->
+	<button type="button">
+		<svg role="img" aria-label="追加" viewBox="0 0 448 512">
+			<path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+		</svg>
+	</button>
+</body>
+</html>

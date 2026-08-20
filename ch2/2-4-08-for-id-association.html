@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-4-08: for属性とid属性で関連付ける（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		div {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		label {
+			margin-right: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-4-08: for属性とid属性で関連付ける（改善例）</h1>
+
+	<!--改善例：for属性とid属性でラベルと入力欄を関連付ける-->
+	<div>
+		<span>
+			<label for="family-name">姓</label>
+			<input id="family-name" type="text">
+		</span>
+		<span>
+			<label for="given-name">名</label>
+			<input id="given-name" type="text">
+		</span>
+	</div>
+</body>
+</html>
