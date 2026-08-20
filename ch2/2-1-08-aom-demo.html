@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-1-08: DOMとCSSから生成されるアクセシビリティオブジェクトモデル（例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 例：追加完了メッセージを非表示にするスタイル */
+		p {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-1-08: DOMとCSSから生成されるアクセシビリティオブジェクトモデル（例）</h1>
+
+	<!--例：追加ボタンと追加完了メッセージのマークアップ-->
+	<button onclick="document.getElementById('message').style.display = 'block';">
+		<img src="assets/icon-add-dark.svg" alt="" />
+		追加
+	</button>
+	<p id="message">追加しました</p>
+</body>
+</html>

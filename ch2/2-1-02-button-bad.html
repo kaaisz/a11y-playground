@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2-1-02: セマンティクスのないボタン（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.Button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+			background-color: #333;
+			cursor: pointer;
+		}
+
+		.Icon.-add {
+			width: 20px;
+			height: 20px;
+			fill: #fff;
+		}
+	</style>
+</head>
+<body>
+	<h1>2-1-02: セマンティクスのないボタン（悪い例）</h1>
+
+	<!--（悪い例：スクリーンリーダーで読み上げられない）-->
+	<div class="Button" onclick="alert('追加しました')">
+		<svg class="Icon -add" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" /></svg>
+	</div>
+</body>
+</html>
