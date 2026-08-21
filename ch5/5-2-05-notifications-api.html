@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-2-05: Notifications APIによるページ外への通知（良い例）</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>5-2-05: Notifications APIによるページ外への通知（良い例）</h1>
+	<div id="root"></div>
+
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+	<script type="text/babel-tsx" id="app-source">
+		const { useEffect, useState } = React;
+
+		// 良い例：Notifications APIによるページ外への通知
+		const NotificationAPI = () => {
+			// ブラウザの通知の許可状態を保持する state
+			const [permission, setPermission] = useState<NotificationPermission>('default');
+
+			useEffect(() => {
+				// マウント時に現在の通知の許可状態を保持
+				setPermission(Notification.permission);
+			}, []);
+
+			return (
+				<>
+					{permission === 'granted' ? (
+						<button onClick={() => {
+							// 通知を送信
+							new Notification('処理が完了しました', {
+								body: '実行していた処理はすべて完了しました',
+							});
+						}}>
+							通知を表示
+						</button>
+					) : permission === 'default' ? (
+						<button onClick={async () => {
+							// 通知の許可をリクエスト
+							const result = await Notification.requestPermission();
+							// コンポーネントに状態を保持
+							setPermission(result);
+						}}>
+							通知を許可
+						</button>
+					) : (
+						<p>通知が許可されていません</p>
+					)}
+				</>
+			);
+		};
+
+		ReactDOM.createRoot(document.getElementById('root')).render(<NotificationAPI />);
+	</script>
+	<script>
+		const source = document.getElementById('app-source').textContent;
+		const { code } = Babel.transform(source, {
+			presets: [['react', { runtime: 'classic' }], 'typescript'],
+			filename: 'app.tsx',
+		});
+		const script = document.createElement('script');
+		script.textContent = code;
+		document.body.appendChild(script);
+	</script>
+</body>
+</html>
