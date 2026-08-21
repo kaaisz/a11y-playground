@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-1-04: role属性でダイアログを明示する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.screen {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, .4);
+			z-index: 1000;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.dialog {
+			background: #fff;
+			color: #111;
+			padding: 2rem;
+			border-radius: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-1-04: role属性でダイアログを明示する（改善例）</h1>
+	<div id="root"></div>
+
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+	<script type="text/babel-tsx" id="app-source">
+		const { useEffect, useState, useRef } = React;
+		const { createPortal } = ReactDOM;
+
+		// 良い例：ダイアログ部分に role="dialog" を指定し、aria-labelledby 属性で見出しを参照する
+		const ModalSampleAriaDialog = () => {
+			const [isOpen, setOpen] = useState(false);
+			const modalElm = useRef<HTMLDivElement | null>(null);
+
+			const titleRef = useRef<HTMLHeadingElement | null>(null);
+			const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+			const triggerRef = useRef<Element | null>(null);
+
+			useEffect(() => {
+				const el = document.createElement('div');
+				document.body.appendChild(el);
+				modalElm.current = el;
+				return () => {
+					document.body.removeChild(el);
+				};
+			}, []);
+
+			useEffect(() => {
+				if (isOpen) {
+					triggerRef.current = document.activeElement;
+					titleRef.current?.focus();
+				} else {
+					triggerRef.current instanceof HTMLElement && triggerRef.current.focus();
+				}
+			}, [isOpen]);
+
+			return (
+				<>
+					<ul>
+						<li>
+							<button onClick={() => setOpen(true)}>ダイアログを開く</button>
+						</li>
+						<li>
+							<a href="https://gihyo.jp">技術評論社のWebサイト</a>
+						</li>
+					</ul>
+					{isOpen && modalElm.current && createPortal(
+						<div className="screen">
+							<div tabIndex={0} onFocus={() => titleRef.current?.focus()} />
+							<div className="dialog" role="dialog" aria-labelledby="dialogTitle">
+								<h1 id="dialogTitle" ref={titleRef} tabIndex={-1}>モーダルダイアログ</h1>
+								<p>この部分がモーダルダイアログです</p>
+								<button ref={closeButtonRef} onClick={() => setOpen(false)}>
+									ダイアログを閉じる
+								</button>
+							</div>
+							<div tabIndex={0} onFocus={() => closeButtonRef.current?.focus()} />
+						</div>,
+						modalElm.current
+					)}
+				</>
+			);
+		};
+
+		ReactDOM.createRoot(document.getElementById('root')).render(<ModalSampleAriaDialog />);
+	</script>
+	<script>
+		const source = document.getElementById('app-source').textContent;
+		const { code } = Babel.transform(source, {
+			presets: [['react', { runtime: 'classic' }], 'typescript'],
+			filename: 'app.tsx',
+		});
+		const script = document.createElement('script');
+		script.textContent = code;
+		document.body.appendChild(script);
+	</script>
+</body>
+</html>
