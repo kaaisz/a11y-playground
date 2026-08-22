@@ -4,8 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A11y Playground</title>
+    <script>
+        // 初回訪問時はダークをデフォルトにする。保存済みの選択があればそれを優先し、
+        // CSS適用前に data-theme を設定してちらつき（FOUC）を防ぐ。
+        (function () {
+            var saved = localStorage.getItem('theme');
+            document.documentElement.dataset.theme = saved === 'light' ? 'light' : 'dark';
+        })();
+    </script>
+    <style>
+        :root {
+            --bg: #121212;
+            --fg: #f0f0f0;
+            --muted: #aaa;
+            --border: #444;
+            --link: #8ab4f8;
+            --link-visited: #c58af9;
+            --button-bg: #2a2a2a;
+            --button-border: #555;
+            color-scheme: dark;
+        }
+
+        :root[data-theme="light"] {
+            --bg: #ffffff;
+            --fg: #111111;
+            --muted: #555;
+            --border: #ccc;
+            --link: #0b57d0;
+            --link-visited: #7b3fb5;
+            --button-bg: #f0f0f0;
+            --button-border: #999;
+            color-scheme: light;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            background: var(--bg);
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+            line-height: 1.6;
+        }
+
+        h1 {
+            margin: 0 40px 20px 0;
+        }
+
+        h2 {
+            margin-top: 40px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        h3 {
+            margin-top: 24px;
+            color: var(--muted);
+        }
+
+        a {
+            color: var(--link);
+        }
+
+        a:visited {
+            color: var(--link-visited);
+        }
+
+        #theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            font-size: 20px;
+            line-height: 1;
+            border-radius: 50%;
+            border: 1px solid var(--button-border);
+            background: var(--button-bg);
+            color: var(--fg);
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+    <button type="button" id="theme-toggle" aria-pressed="false">🌙</button>
+
     <h1>A11y Playground</h1>
 
     <h2>第2章 Web アクセシビリティの基礎</h2>
@@ -110,5 +192,31 @@
         <li><a href="ch5/5-4-07-tooltip-aria-describedby.html">5-4-07: ツールチップをaria-describedby属性で関連付ける（良い例）</a></li>
         <li><a href="ch5/5-4-08-tooltip-help-icon.html">5-4-08: アイコンのクリックで表示・非表示を切り替えるツールチップ（改善例）</a></li>
     </ul>
+
+    <script>
+        (function () {
+            var button = document.getElementById('theme-toggle');
+
+            function currentTheme() {
+                return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+            }
+
+            function updateButton() {
+                var isDark = currentTheme() === 'dark';
+                button.textContent = isDark ? '🌙' : '☀️';
+                button.setAttribute('aria-pressed', String(!isDark));
+                button.setAttribute('aria-label', isDark ? 'ライトモードに切り替える' : 'ダークモードに切り替える');
+            }
+
+            button.addEventListener('click', function () {
+                var next = currentTheme() === 'dark' ? 'light' : 'dark';
+                document.documentElement.dataset.theme = next;
+                localStorage.setItem('theme', next);
+                updateButton();
+            });
+
+            updateButton();
+        })();
+    </script>
 </body>
 </html>
