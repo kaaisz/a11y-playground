@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-3-02: はみ出た画像をdisplay:noneで非表示にする（良い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		img {
+			width: 160px;
+			height: 100px;
+			background: #ccc;
+			border-radius: 4px;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-3-02: はみ出た画像をdisplay:noneで非表示にする（良い例）</h1>
+
+	<!--良い例：はみ出た画像を非表示にする（display:none を使った場合）-->
+	<ul>
+		<li style="display: none">
+			<a href="/page1">
+				<img src="assets/icon-dot.svg" alt="スライド1">
+			</a>
+		</li>
+		<li style="display: none">
+			<a href="/page2">
+				<img src="assets/icon-dot.svg" alt="スライド2">
+			</a>
+		</li>
+		<li>
+			<a href="/page3">
+				<!--現在表示されている画像-->
+				<img src="assets/icon-dot.svg" alt="スライド3">
+			</a>
+		</li>
+		<li style="display: none">
+			<a href="/page4">
+				<img src="assets/icon-dot.svg" alt="スライド4">
+			</a>
+		</li>
+		<li style="display: none">
+			<a href="/page5">
+				<img src="assets/icon-dot.svg" alt="スライド5">
+			</a>
+		</li>
+	</ul>
+</body>
+</html>

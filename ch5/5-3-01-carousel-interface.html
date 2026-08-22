@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-3-01: カルーセルのインタフェース（良い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.Carousel__list {
+			display: flex;
+			gap: 8px;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.Carousel__list img {
+			width: 80px;
+			height: 60px;
+			background: #ccc;
+			border-radius: 4px;
+		}
+
+		button {
+			padding: 8px;
+			margin-right: 4px;
+		}
+
+		button img {
+			width: 16px;
+			height: 16px;
+			vertical-align: middle;
+		}
+
+		.Carousel__nav {
+			margin-top: 8px;
+		}
+
+		.Carousel__nav label {
+			display: inline-flex;
+			align-items: center;
+			gap: 4px;
+			margin-right: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-3-01: カルーセルのインタフェース（良い例）</h1>
+
+	<!--（良い例：カルーセルのインタフェース -->
+	<!--画像のリスト-->
+	<ul class="Carousel__list">
+		<li><a href="#"><img src="assets/icon-dot.svg" alt="スライド1"></a></li>
+		<li><a href="#"><img src="assets/icon-dot.svg" alt="スライド2"></a></li>
+		<li><a href="#"><img src="assets/icon-dot.svg" alt="スライド3"></a></li>
+	</ul>
+	<button type="button">
+		<img src="assets/icon-pause-dark.svg" alt="一時停止">
+	</button>
+
+	<!--前後切り替えボタン-->
+	<button type="button">
+		<img src="assets/icon-prev-dark.svg" alt="前の画像へ切り替え">
+	</button>
+	<button type="button">
+		<img src="assets/icon-next-dark.svg" alt="次の画像へ切り替え">
+	</button>
+
+	<!-- ナビゲーションボタン-->
+	<div class="Carousel__nav">
+		<label>
+			<input type="radio" name="carousel">
+			<img src="assets/icon-dot.svg" alt="1ページ目">
+		</label>
+		<label>
+			<input type="radio" name="carousel">
+			<img src="assets/icon-dot.svg" alt="2ページ目">
+		</label>
+		<!--現在選択されているナビゲーションボタン-->
+		<label>
+			<input type="radio" name="carousel" checked>
+			<img src="assets/icon-dot.svg" alt="3ページ目">
+		</label>
+		<label>
+			<input type="radio" name="carousel">
+			<img src="assets/icon-dot.svg" alt="4ページ目">
+		</label>
+		<label>
+			<input type="radio" name="carousel">
+			<img src="assets/icon-dot.svg" alt="5ページ目">
+		</label>
+	</div>
+</body>
+</html>

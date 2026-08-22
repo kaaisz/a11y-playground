@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-3-03: はみ出た画像をaria-hiddenで非表示にする（良い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* overflow: hidden でアニメーションしながら領域外へ移動する画像を表現する構成の例 */
+		.Carousel {
+			width: 160px;
+			overflow: hidden;
+		}
+
+		ul {
+			display: flex;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			/* 3枚目（インデックス2）が見えるようにリスト全体をずらす */
+			transform: translateX(-320px);
+		}
+
+		li {
+			flex: 0 0 160px;
+		}
+
+		img {
+			width: 160px;
+			height: 100px;
+			background: #ccc;
+			border-radius: 4px;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-3-03: はみ出た画像をaria-hiddenで非表示にする（良い例）</h1>
+
+	<!-- 良い例：はみ出た画像を非表示にする（aria-hidden="true"と tabindex="-1"を使った場合）-->
+	<div class="Carousel">
+		<ul>
+			<li aria-hidden="true">
+				<a href="/page1" tabindex="-1">
+					<img src="assets/icon-dot.svg" alt="スライド1">
+				</a>
+			</li>
+			<li aria-hidden="true">
+				<a href="/page2" tabindex="-1">
+					<img src="assets/icon-dot.svg" alt="スライド2">
+				</a>
+			</li>
+			<li>
+				<a href="/page3">
+					<!-- 現在表示されている画像 -->
+					<img src="assets/icon-dot.svg" alt="スライド3">
+				</a>
+			</li>
+			<li aria-hidden="true">
+				<a href="/page4" tabindex="-1">
+					<img src="assets/icon-dot.svg" alt="スライド4">
+				</a>
+			</li>
+			<li aria-hidden="true">
+				<a href="/page5" tabindex="-1">
+					<img src="assets/icon-dot.svg" alt="スライド5">
+				</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
