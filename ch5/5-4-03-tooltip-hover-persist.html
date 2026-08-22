@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-4-03: ツールチップ自体へのホバーでも消えないようにする（改善途中例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.withTooltip {
+			position: relative;
+		}
+
+		.tooltip {
+			position: absolute;
+			bottom: calc(100% + 8px);
+			left: 0;
+			border: 1px solid #949494;
+			border-radius: 4px;
+			padding: 4px;
+			width: max-content;
+			background: #fff;
+			color: #111;
+		}
+
+		.tooltip::before,
+		.tooltip::after {
+			position: absolute;
+			content: '';
+			border-width: 8px 8px 0;
+			border-style: solid;
+			width: 0;
+			height: 0;
+		}
+
+		.tooltip::before {
+			bottom: -8px;
+			left: 8px;
+			border-color: #949494 transparent;
+		}
+
+		.tooltip::after {
+			bottom: -7px;
+			left: 8px;
+			border-color: #fff transparent;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-4-03: ツールチップ自体へのホバーでも消えないようにする（改善途中例）</h1>
+	<div id="root"></div>
+
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+	<script type="text/babel-tsx" id="app-source">
+		const { useRef, useState } = React;
+
+		// 改善途中例：ツールチップ自体へのマウスオーバー時にもツールチップが消えないようにする
+		const TooltipSample = () => {
+			const [isTooltipVisible, setTooltipVisible] = useState(false);
+			// setTimeout の戻り値を保持するための RefObject
+			const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+			// 1秒後に isTooltipVisible を切り替えるメソッド
+			const changeVisibility = (visible: boolean) => {
+				if (timeoutId.current) {
+					// 事前に予定されているフラグ切り替えをキャンセル
+					clearTimeout(timeoutId.current);
+					timeoutId.current = null;
+				}
+				timeoutId.current = setTimeout(() => {
+					setTooltipVisible(visible);
+				}, 1000);
+			};
+
+			return (
+				<span className="withTooltip">
+					<a
+						href="https://gihyo.jp/"
+						// mouseenter, mouseleave から 1秒後に表示・非表示を切り替える
+						onMouseEnter={() => changeVisibility(true)}
+						onMouseLeave={() => changeVisibility(false)}
+					>
+						技術評論社のWebサイト
+					</a>
+					{isTooltipVisible &&
+						<span
+							className="tooltip"
+							// ツールチップ側でも mouseenter, mouseleave から 1秒後に表示・非表示を切り替える
+							onMouseEnter={() => changeVisibility(true)}
+							onMouseLeave={() => changeVisibility(false)}
+						>
+							この本を出版している会社のWebサイト
+						</span>
+					}
+				</span>
+			);
+		};
+
+		ReactDOM.createRoot(document.getElementById('root')).render(<TooltipSample />);
+	</script>
+	<script>
+		const source = document.getElementById('app-source').textContent;
+		const { code } = Babel.transform(source, {
+			presets: [['react', { runtime: 'classic' }], 'typescript'],
+			filename: 'app.tsx',
+		});
+		const script = document.createElement('script');
+		script.textContent = code;
+		document.body.appendChild(script);
+	</script>
+</body>
+</html>

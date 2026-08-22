@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-4-07: ツールチップをaria-describedby属性で関連付ける（良い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: block;
+			margin-bottom: 4px;
+		}
+
+		.tooltip {
+			display: inline-block;
+			border: 1px solid #949494;
+			border-radius: 4px;
+			padding: 4px 8px;
+			margin-bottom: 8px;
+			background: #f5f5f5;
+			color: #111;
+			font-size: 0.9em;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-4-07: ツールチップをaria-describedby属性で関連付ける（良い例）</h1>
+
+	<!--良い例：ツールチップを aria-describedby 属性で関連付ける-->
+	<label for="username-input">ユーザー名</label>
+	<span class="tooltip" id="tooltip" role="tooltip">
+		半角英数字で入力
+	</span>
+	<input type="text" id="username-input" aria-describedby="tooltip">
+</body>
+</html>
