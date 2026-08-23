@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-5-02: 対象から離れた場所に挿入される、リンクを含むツールチップ（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 悪い例：対象から離れた場所に挿入される、リンクを含むツールチップのコンポーネント */
+		.tooltip {
+			position: absolute;
+			/*body要素の直下に挿入した親要素を基準に表示するため、bottom: 8px に変更した*/
+			bottom: 8px;
+			left: 0;
+			border: 1px solid #949494;
+			border-radius: 4px;
+			padding: 4px;
+			width: max-content;
+			max-width: 260px;
+			background: #fff;
+			color: #111;
+		}
+
+		.tooltip::before,
+		.tooltip::after {
+			position: absolute;
+			content: '';
+			border-width: 8px 8px 0;
+			border-style: solid;
+			width: 0;
+			height: 0;
+		}
+
+		.tooltip::before {
+			bottom: -8px;
+			left: 8px;
+			border-color: #949494 transparent;
+		}
+
+		.tooltip::after {
+			bottom: -7px;
+			left: 8px;
+			border-color: #fff transparent;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-5-02: 対象から離れた場所に挿入される、リンクを含むツールチップ（悪い例）</h1>
+	<!-- ツールチップは対象要素の上側に開くため、デモ用に上の余白を確保している -->
+	<div style="height: 200px"></div>
+	<div id="root"></div>
+
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+	<script type="text/babel-tsx" id="app-source">
+		const { useEffect, useRef, useState } = React;
+		const { createPortal } = ReactDOM;
+
+		// 悪い例：対象から離れた場所に挿入される、リンクを含むツールチップのコンポーネント
+		const TooltipSample = () => {
+			// body 直下に差し込んだ要素を参照するための RefObject
+			const portalElm = useRef<HTMLDivElement | null>(null);
+			// ツールチップの対象要素を参照するための RefObject
+			const targetRef = useRef<HTMLAnchorElement | null>(null);
+			// ツールチップの表示状態を保持する state
+			// ※マウスオーバーやフォーカスによる表示・非表示の切り替えは書籍では省略されているため、
+			//   最小限の実装を補っている
+			const [isTooltipVisible, setTooltipVisible] = useState(false);
+
+			useEffect(() => {
+				// コンポーネントが mount されたときの処理
+				// body 直下にツールチップを差し込むための要素を作成
+				const el = document.createElement('div');
+				document.body.appendChild(el);
+				el.style.setProperty('position', 'absolute');
+				portalElm.current = el;
+				return () => {
+					// コンポーネントが unmount されるとき、body 直下に差し込んだ要素も削除する
+					document.body.removeChild(el);
+				};
+			}, []);
+
+			useEffect(() => {
+				// ツールチップが表示されている場合のみ
+				if (isTooltipVisible) {
+					// ツールチップが表示されたとき、表示される位置を調整する
+					if (targetRef.current && portalElm.current) {
+						const rect = targetRef.current.getBoundingClientRect();
+						portalElm.current.style.setProperty('top', `${rect.top}px`);
+						portalElm.current.style.setProperty('left', `${rect.left}px`);
+					}
+				}
+			}, [isTooltipVisible]);
+
+			return (
+				<>
+					<span className="withTooltip" onClick={(e) => e.stopPropagation()}>
+						<a
+							href="./aoiro.html"
+							ref={targetRef}
+							onMouseEnter={() => setTooltipVisible(true)}
+							onMouseLeave={() => setTooltipVisible(false)}
+							onFocus={() => setTooltipVisible(true)}
+							onBlur={() => setTooltipVisible(false)}
+						>
+							青色申告
+						</a>
+						{isTooltipVisible && portalElm.current && createPortal(
+							<span className="tooltip" role="tooltip">
+								青色申告とは、税務署長の承認を受けて、簿記に基づいて帳簿付けをし、
+								その内容から申告を行う制度です。
+								<br />
+								詳しくは、
+								<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2070.htm">
+									国税庁のページ
+								</a>
+								をご覧ください
+							</span>,
+							portalElm.current
+						)}
+					</span>
+				</>
+			);
+		};
+
+		ReactDOM.createRoot(document.getElementById('root')).render(<TooltipSample />);
+	</script>
+	<script>
+		const source = document.getElementById('app-source').textContent;
+		const { code } = Babel.transform(source, {
+			presets: [['react', { runtime: 'classic' }], 'typescript'],
+			filename: 'app.tsx',
+		});
+		const script = document.createElement('script');
+		script.textContent = code;
+		document.body.appendChild(script);
+	</script>
+</body>
+</html>

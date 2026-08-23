@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-5-01: body要素の直下にツールチップを配置する（例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		header, main, footer {
+			border: 1px dashed var(--border, #444);
+			padding: 8px 12px;
+			margin-bottom: 8px;
+		}
+
+		.tooltip {
+			position: relative;
+			display: inline-block;
+			margin-top: 24px;
+			border: 1px solid #949494;
+			border-radius: 4px;
+			padding: 8px;
+			width: max-content;
+			max-width: 280px;
+			background: #fff;
+			color: #111;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-5-01: body要素の直下にツールチップを配置する（例）</h1>
+
+	<!--例：body要素の直下にツールチップが配置されている-->
+	<header>ヘッダー</header>
+	<main>
+		<!--コンテンツ内にツールチップの対象要素が配置されている-->
+		<a href="./aoiro.html">青色申告</a>
+	</main>
+	<footer>フッター</footer>
+
+	<!--overflow: auto や overflow: hidden との干渉を避けるため、body 直下にツー
+	ルチップだけ配置されている-->
+	<span class="tooltip">
+		青色申告とは、税務署長の承認を受けて、簿記に基づいて帳簿付けをし、その
+		内容から申告を行う制度です。
+		<br />
+		詳しくは、<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shot
+		oku/2070.htm">国税庁のページ</a>をご覧ください
+	</span>
+</body>
+</html>

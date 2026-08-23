@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-5-03: フォーカス制御を実装したリッチなツールチップ（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 良い例：キーボードやスクリーンリーダーで利用できるリッチなツールチップ（CSS）*/
+		.button {
+			border: 0;
+			background: transparent;
+			padding: 4px;
+			cursor: pointer;
+		}
+
+		.icon {
+			width: 24px;
+			height: 24px;
+			fill: #767676;
+		}
+
+		.tooltip {
+			position: absolute;
+			bottom: 8px;
+			left: 0;
+			border: 1px solid #949494;
+			border-radius: 4px;
+			padding: 4px;
+			width: max-content;
+			max-width: 260px;
+			background: #fff;
+			color: #111;
+		}
+
+		.tooltip::before,
+		.tooltip::after {
+			position: absolute;
+			content: "";
+			border-width: 8px 8px 0;
+			border-style: solid;
+			width: 0;
+			height: 0;
+		}
+
+		.tooltip::before {
+			bottom: -8px;
+			left: 8px;
+			border-color: #949494 transparent;
+		}
+
+		.tooltip::after {
+			bottom: -7px;
+			left: 8px;
+			border-color: #fff transparent;
+		}
+
+		.visuallyHidden {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			clip-path: inset(100%);
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-5-03: フォーカス制御を実装したリッチなツールチップ（改善例）</h1>
+	<!-- ツールチップは対象要素の上側に開くため、デモ用に上の余白を確保している -->
+	<div style="height: 200px"></div>
+	<div id="root"></div>
+
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+	<script type="text/babel-tsx" id="app-source">
+		const { useEffect, useRef, useState } = React;
+		const { createPortal } = ReactDOM;
+
+		// 改善例：キーボードやスクリーンリーダーで利用できるリッチなツールチップ（TypeScript）
+		// ※ react-icons の MdHelp の代わりに、同等のクエスチョンマークアイコンをインラインSVGで用意している
+		const RichContentTooltip = () => {
+			// body 直下に差し込んだ要素を参照するための RefObject
+			const portalElm = useRef<HTMLDivElement | null>(null);
+			// ツールチップの対象要素（ヘルプボタン）を参照するための RefObject
+			const targetRef = useRef<HTMLButtonElement | null>(null);
+			// ツールチップの要素を参照するための RefObject
+			const tooltipRef = useRef<HTMLSpanElement | null>(null);
+
+			// ツールチップの表示状態を保持する state
+			const [isTooltipVisible, setTooltipVisible] = useState(false);
+			// setTimeout の戻り値を保持するための RefObject
+			const timeoutId = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+			// 1秒後に isTooltipVisible を切り替えるメソッド
+			const changeVisibility = (visible: boolean, immediate: boolean = false) => {
+				if (timeoutId.current) {
+					// 事前に予定されているフラグ切り替えをキャンセル
+					clearTimeout(timeoutId.current);
+					timeoutId.current = null;
+				}
+				if (immediate) {
+					setTooltipVisible(visible);
+				} else {
+					timeoutId.current = setTimeout(() => {
+						setTooltipVisible(visible);
+					}, 1000);
+				}
+			};
+
+			useEffect(() => {
+				// コンポーネントが mount されたときの処理
+				// body 直下にツールチップを差し込むための要素を作成
+				const el = document.createElement('div');
+				document.body.appendChild(el);
+				el.style.setProperty('position', 'absolute');
+				portalElm.current = el;
+				return () => {
+					// コンポーネントが unmount されるとき、body 直下に差し込んだ要素も削除する
+					document.body.removeChild(el);
+				};
+			}, []);
+
+			useEffect(() => {
+				// ツールチップが表示されている場合のみ
+				if (isTooltipVisible) {
+					// ツールチップが表示されたときの処理
+					if (targetRef.current && portalElm.current) {
+						const rect = targetRef.current.getBoundingClientRect();
+						portalElm.current.style.setProperty('top', `${rect.top}px`);
+						portalElm.current.style.setProperty('left', `${rect.left}px`);
+					}
+					// Esc キーが押下された場合には、ツールチップを非表示にする
+					const escKeyHandler = (e: KeyboardEvent) => {
+						if (e.key === 'Escape') {
+							changeVisibility(false, true);
+						}
+					};
+					// 関係のない場所にフォーカスしていても処理されるよう、
+					// window に対して addEventListener する
+					window.addEventListener('keydown', escKeyHandler);
+					// isTooltipVisible の値が変わったり
+					// コンポーネントがアンマウントされる場合には
+					// removeEventListener する
+					return () => window.removeEventListener('keydown', escKeyHandler);
+				}
+			}, [isTooltipVisible]);
+
+			return (
+				<>
+					<span className="withTooltip" onClick={(e) => e.stopPropagation()}>
+						<a href="./aoiro.html">青色申告</a>
+					</span>
+					<button
+						className="button"
+						onMouseEnter={() => changeVisibility(true)}
+						onMouseLeave={() => changeVisibility(false)}
+						onClick={() => {
+							changeVisibility(!isTooltipVisible, true);
+							// ツールチップが開いたらフォーカスを移す
+							// レンダリングを待つため、100ms遅延させている
+							setTimeout(() => tooltipRef.current?.focus(), 100);
+						}}
+						onKeyDown={(e) => {
+							if (e.key === 'Tab' && isTooltipVisible) {
+								// ツールチップが開いているときに Tab キーを押下したら、
+								// ツールチップにフォーカスを移す
+								e.preventDefault();
+								tooltipRef.current?.focus();
+							}
+						}}
+						aria-label="ヘルプ"
+						aria-haspopup="true"
+						aria-expanded={isTooltipVisible}
+						aria-controls="rich-content-tooltip"
+						ref={targetRef}
+					>
+						<svg className="icon" viewBox="0 0 512 512" aria-hidden="true">
+							<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM169.8 165.3c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/>
+						</svg>
+					</button>
+					{isTooltipVisible && portalElm.current && createPortal(
+						<>
+							<span
+								className="tooltip"
+								id="rich-content-tooltip"
+								role="tooltip"
+								onMouseEnter={() => changeVisibility(true)}
+								onMouseLeave={() => changeVisibility(false)}
+								tabIndex={-1}
+								ref={tooltipRef}
+							>
+								青色申告とは、税務署長の承認を受けて、簿記に基づいて帳簿付けをし、
+								その内容から申告を行う制度です。
+								<br />
+								詳しくは、
+								<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2070.htm">
+									国税庁のページ
+								</a>
+								をご覧ください
+							</span>
+							{/* ツールチップの終端までフォーカスが移動した場合は、ヘルプボタンにフォーカスを戻す */}
+							<span tabIndex={0} onFocus={() => targetRef.current?.focus()}></span>
+							{/* スクリーンリーダーの仮想カーソルでも迷わず閉じられるよう、視覚的には隠した専用ボタンを用意する */}
+							<span className="visuallyHidden">
+								<button onClick={() => {
+									changeVisibility(false, true);
+									targetRef.current?.focus();
+								}}>
+									ヘルプを閉じる
+								</button>
+							</span>
+						</>,
+						portalElm.current
+					)}
+				</>
+			);
+		};
+
+		ReactDOM.createRoot(document.getElementById('root')).render(<RichContentTooltip />);
+	</script>
+	<script>
+		const source = document.getElementById('app-source').textContent;
+		const { code } = Babel.transform(source, {
+			presets: [['react', { runtime: 'classic' }], 'typescript'],
+			filename: 'app.tsx',
+		});
+		const script = document.createElement('script');
+		script.textContent = code;
+		document.body.appendChild(script);
+	</script>
+</body>
+</html>
