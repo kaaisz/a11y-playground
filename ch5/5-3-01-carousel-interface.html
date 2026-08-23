@@ -15,8 +15,8 @@
 		}
 
 		.Carousel__list img {
-			width: 80px;
-			height: 60px;
+			width: 320px;
+			height: 213px;
 			border-radius: 4px;
 			object-fit: cover;
 			background: #ccc;
@@ -56,35 +56,36 @@
 	<!--（良い例：カルーセルのインタフェース -->
 	<!--画像のリスト-->
 	<ul class="Carousel__list">
-		<li><a href="#"><img src="https://picsum.photos/id/1015/160/120" alt="断崖の上から見下ろす、山に囲まれた青いフィヨルド"></a></li>
-		<li><a href="#"><img src="https://picsum.photos/id/1025/160/120" alt="タータンチェックの毛布にくるまれ、森の小道に座るパグ"></a></li>
-		<li><a href="#"><img src="https://picsum.photos/id/1035/160/120" alt="虹のかかる滝の前で両手を広げる人"></a></li>
+		<li><a href="#"><img src="https://picsum.photos/id/1015/480/320" alt="断崖の上から見下ろす、山に囲まれた青いフィヨルド"></a></li>
+		<li><a href="#"><img src="https://picsum.photos/id/1025/480/320" alt="タータンチェックの毛布にくるまれ、森の小道に座るパグ"></a></li>
+		<li><a href="#"><img src="https://picsum.photos/id/1035/480/320" alt="虹のかかる滝の前で両手を広げる人"></a></li>
+		<li><a href="#"><img src="https://picsum.photos/id/1043/480/320" alt="針葉樹と切り立った岩山に囲まれた渓流"></a></li>
+		<li><a href="#"><img src="https://picsum.photos/id/1050/480/320" alt="海食崖と岩の柱が連なる海岸線"></a></li>
 	</ul>
-	<button type="button">
+	<button type="button" id="playPauseButton">
 		<img src="assets/icon-pause-dark.svg" alt="一時停止">
 	</button>
 
 	<!--前後切り替えボタン-->
-	<button type="button">
+	<button type="button" id="prevButton">
 		<img src="assets/icon-prev-dark.svg" alt="前の画像へ切り替え">
 	</button>
-	<button type="button">
+	<button type="button" id="nextButton">
 		<img src="assets/icon-next-dark.svg" alt="次の画像へ切り替え">
 	</button>
 
 	<!-- ナビゲーションボタン-->
 	<div class="Carousel__nav">
 		<label>
-			<input type="radio" name="carousel">
+			<input type="radio" name="carousel" checked>
 			<img src="assets/icon-dot.svg" alt="1ページ目">
 		</label>
 		<label>
 			<input type="radio" name="carousel">
 			<img src="assets/icon-dot.svg" alt="2ページ目">
 		</label>
-		<!--現在選択されているナビゲーションボタン-->
 		<label>
-			<input type="radio" name="carousel" checked>
+			<input type="radio" name="carousel">
 			<img src="assets/icon-dot.svg" alt="3ページ目">
 		</label>
 		<label>
@@ -96,5 +97,78 @@
 			<img src="assets/icon-dot.svg" alt="5ページ目">
 		</label>
 	</div>
+
+	<script>
+		(function () {
+			var slides = Array.prototype.slice.call(document.querySelectorAll('.Carousel__list > li'));
+			var radios = Array.prototype.slice.call(document.querySelectorAll('.Carousel__nav input[type="radio"]'));
+			var playPauseButton = document.getElementById('playPauseButton');
+			var playPauseIcon = playPauseButton.querySelector('img');
+			var prevButton = document.getElementById('prevButton');
+			var nextButton = document.getElementById('nextButton');
+			var carousel = document.querySelector('.Carousel__list');
+
+			var currentIndex = 0;
+			var userPaused = false;
+			var hoverPaused = false;
+			var timer = null;
+
+			function showSlide(index) {
+				currentIndex = (index + slides.length) % slides.length;
+
+				slides.forEach(function (li, i) {
+					// 表示中のスライド以外は display: none で非表示にし、
+					// スクリーンリーダーやキーボード操作からも除外する
+					li.style.display = i === currentIndex ? '' : 'none';
+				});
+
+				radios.forEach(function (radio, i) {
+					radio.checked = i === currentIndex;
+				});
+			}
+
+			function updateTimer() {
+				var shouldRun = !userPaused && !hoverPaused;
+				if (shouldRun && !timer) {
+					timer = setInterval(function () {
+						showSlide(currentIndex + 1);
+					}, 3000);
+				} else if (!shouldRun && timer) {
+					clearInterval(timer);
+					timer = null;
+				}
+			}
+
+			playPauseButton.addEventListener('click', function () {
+				userPaused = !userPaused;
+				playPauseIcon.src = userPaused ? 'assets/icon-play-dark.svg' : 'assets/icon-pause-dark.svg';
+				playPauseIcon.alt = userPaused ? '再生' : '一時停止';
+				updateTimer();
+			});
+
+			prevButton.addEventListener('click', function () {
+				showSlide(currentIndex - 1);
+			});
+
+			nextButton.addEventListener('click', function () {
+				showSlide(currentIndex + 1);
+			});
+
+			radios.forEach(function (radio, i) {
+				radio.addEventListener('change', function () {
+					showSlide(i);
+				});
+			});
+
+			// カルーセルにマウスオーバー・フォーカスしている間は自動切り替えを一時停止する
+			carousel.addEventListener('mouseenter', function () { hoverPaused = true; updateTimer(); });
+			carousel.addEventListener('mouseleave', function () { hoverPaused = false; updateTimer(); });
+			carousel.addEventListener('focusin', function () { hoverPaused = true; updateTimer(); });
+			carousel.addEventListener('focusout', function () { hoverPaused = false; updateTimer(); });
+
+			showSlide(0);
+			updateTimer();
+		})();
+	</script>
 </body>
 </html>
