@@ -17,8 +17,11 @@
 		.Carousel__list img {
 			width: 80px;
 			height: 60px;
+			padding: 12px;
+			box-sizing: border-box;
 			background: #ccc;
 			border-radius: 4px;
+			object-fit: contain;
 		}
 
 		button {
@@ -42,6 +45,11 @@
 			gap: 4px;
 			margin-right: 8px;
 		}
+
+		.Carousel__nav img {
+			width: 16px;
+			height: 16px;
+		}
 	</style>
 </head>
 <body>
@@ -50,9 +58,9 @@
 	<!--（良い例：カルーセルのインタフェース -->
 	<!--画像のリスト-->
 	<ul class="Carousel__list">
-		<li><a href="#"><img src="assets/icon-dot.svg" alt="スライド1"></a></li>
-		<li><a href="#"><img src="assets/icon-dot.svg" alt="スライド2"></a></li>
-		<li><a href="#"><img src="assets/icon-dot.svg" alt="スライド3"></a></li>
+		<li><a href="#"><img src="assets/icon-image-placeholder.svg" alt="スライド1"></a></li>
+		<li><a href="#"><img src="assets/icon-image-placeholder.svg" alt="スライド2"></a></li>
+		<li><a href="#"><img src="assets/icon-image-placeholder.svg" alt="スライド3"></a></li>
 	</ul>
 	<button type="button">
 		<img src="assets/icon-pause-dark.svg" alt="一時停止">
