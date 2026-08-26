@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-6-01: ファイル選択ダイアログでも操作可能なファイルアップロード（良い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/*（良い例：ファイル選択ダイアログでも操作可能なファイルアップロード（CSS））*/
+		.fileDrop {
+			width: 30rem;
+			height: 18rem;
+			background: #dfdfdf;
+			color: #111;
+			border: 2px dashed #949494;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-6-01: ファイル選択ダイアログでも操作可能なファイルアップロード（良い例）</h1>
+	<div id="root"></div>
+
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
+
+	<script type="text/babel-tsx" id="app-source">
+		const { useState } = React;
+
+		// 良い例：ファイル選択ダイアログでも操作可能なファイルアップロード（TypeScript）
+		const FileDrop = () => {
+			const [files, setFiles] = useState<File[]>([]);
+
+			return (
+				<>
+					<div
+						className="fileDrop"
+						onDragOver={e => e.preventDefault()}
+						onDragEnter={e => e.preventDefault()}
+						onDrop={e => {
+							e.preventDefault();
+							setFiles(Array.from(e.dataTransfer.files));
+						}}
+					>
+						<div>
+							<p>ここにファイルをドロップ</p>
+							<input
+								type="file"
+								multiple
+								aria-label="ファイルを選択"
+								onChange={e => {
+									if (e.target.files) {
+										setFiles(Array.from(e.target.files));
+									}
+								}}
+							/>
+						</div>
+					</div>
+					{files.length > 0 ? (
+						<ul>
+							{files.map((file, i) => (
+								<li key={i}>{file.name} ({file.size} Byte)</li>
+							))}
+						</ul>
+					) : (
+						<p>選択中のファイルはありません</p>
+					)}
+				</>
+			);
+		};
+
+		ReactDOM.createRoot(document.getElementById('root')).render(<FileDrop />);
+	</script>
+	<script>
+		const source = document.getElementById('app-source').textContent;
+		const { code } = Babel.transform(source, {
+			presets: [['react', { runtime: 'classic' }], 'typescript'],
+			filename: 'app.tsx',
+		});
+		const script = document.createElement('script');
+		script.textContent = code;
+		document.body.appendChild(script);
+	</script>
+</body>
+</html>
