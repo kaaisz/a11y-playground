@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-5-12: グラフの代替テキストに提供されているデータを設定する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		img {
+			width: 400px;
+			border: 1px solid #767676;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-5-12: グラフの代替テキストに提供されているデータを設定する（改善例）</h1>
+
+	<!--改善例：画像の種類（グラフ）に続けてキャプションと具体的な数値を設定する-->
+	<img id="graph" alt="グラフ：直近3年と今年の達成率推移。2019年79%、2020年97.2%、2021年51.9%、2022年（予測）は80.3%。">
+
+	<canvas id="canvas" width="500" height="300" hidden></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#fff';
+		ctx.fillRect(0, 0, 500, 300);
+		ctx.fillStyle = '#333';
+		ctx.font = '18px sans-serif';
+		ctx.fillText('今年の達成率推移', 20, 30);
+		const values = [79, 97.2, 51.9, 80.3];
+		const labels = ['2019', '2020', '2021', '2022(予測)'];
+		values.forEach((v, i) => {
+			const x = 60 + i * 100;
+			const h = v * 2;
+			ctx.fillStyle = '#0057a8';
+			ctx.fillRect(x, 260 - h, 60, h);
+			ctx.fillStyle = '#333';
+			ctx.fillText(labels[i], x, 280);
+		});
+		document.getElementById('graph').src = canvas.toDataURL();
+	</script>
+</body>
+</html>

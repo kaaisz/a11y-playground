@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-6-02: 動画・音声にキャプションを提供する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.player {
+			width: 360px;
+			background: #111;
+			color: #fff;
+			border-radius: 4px;
+			overflow: hidden;
+		}
+
+		.frame {
+			height: 160px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.caption {
+			min-height: 1.4em;
+			padding: 8px;
+			background: #000;
+			font-size: 0.95rem;
+			text-align: center;
+		}
+
+		button {
+			margin-top: 16px;
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-6-02: 動画・音声にキャプションを提供する（改善例）</h1>
+
+	<!--改善例：音声の内容と同期したキャプション（字幕）を画面に表示する
+		音声を聞けないユーザーもキャプションを読んで同等の内容を理解できる-->
+	<div class="player">
+		<div class="frame" aria-hidden="true">▶ 動画</div>
+		<div class="caption" id="caption" aria-live="polite"></div>
+	</div>
+	<button type="button" id="play">再生する（キャプション付き）</button>
+
+	<script>
+		const captions = [
+			'この製品には3つの新機能があります。',
+			'1つ目は自動保存、',
+			'2つ目は共有リンク、',
+			'3つ目はダークモードです。',
+		];
+
+		document.getElementById('play').addEventListener('click', () => {
+			const captionEl = document.getElementById('caption');
+			const utterance = new SpeechSynthesisUtterance(captions.join(''));
+			utterance.lang = 'ja-JP';
+
+			let index = 0;
+			captionEl.textContent = captions[0];
+
+			utterance.onboundary = () => {
+				// 良い例：発話の進行にあわせてキャプションを更新する（簡易的な同期）
+				if (index < captions.length - 1) {
+					index += 1;
+					captionEl.textContent = captions[index];
+				}
+			};
+			utterance.onend = () => {
+				captionEl.textContent = '';
+			};
+
+			speechSynthesis.speak(utterance);
+		});
+	</script>
+</body>
+</html>

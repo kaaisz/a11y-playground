@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-9-01: 見出しの直前に関連コンテンツを配置している（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		h2 {
+			font-size: 1rem;
+		}
+
+		button {
+			padding: 8px 16px;
+			margin-right: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-9-01: 見出しの直前に関連コンテンツを配置している（悪い例）</h1>
+
+	<!--悪い例：見出しの直前に見出しに関連したコンテンツを配置している
+		見出しジャンプしたユーザーは見出し直後から読み進めるため、このボタンを読み落としてしまう-->
+	<button type="button">購入する</button>
+	<button type="button">お気に入りに登録する</button>
+	<h2>Webアプリケーションアクセシビリティ</h2>
+	<p>この本ではWebアクセシビリティの実践的な改善方法を解説しています。</p>
+</body>
+</html>

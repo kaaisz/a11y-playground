@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-4-09: HTMLでリンクの文脈を補足する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			max-width: 400px;
+			margin-bottom: 24px;
+		}
+
+		h2 {
+			font-size: 1rem;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-4-09: HTMLでリンクの文脈を補足する（改善例）</h1>
+
+	<!--改善例：title 属性と組み合わせてリンク先がわかるリンク
+		デザイン上リンクテキストを変えにくい場合の代替手段-->
+	<section>
+		<ul>
+			<li>コメント 1</li>
+			<li>コメント 2</li>
+			<li>コメント 3</li>
+		</ul>
+		<a href="#" title="コメント一覧">さらに表示</a>
+	</section>
+
+	<!--改善例：直前の見出しと組み合わせてリンク先がわかるリンク-->
+	<section>
+		<h2>コメント一覧</h2>
+		<ul>
+			<li>コメント 1</li>
+			<li>コメント 2</li>
+			<li>コメント 3</li>
+		</ul>
+		<a href="#">さらに表示</a>
+	</section>
+</body>
+</html>

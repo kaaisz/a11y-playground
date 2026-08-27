@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-4-08: リンクテキスト単独でリンク先が理解できるようにする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		div {
+			max-width: 400px;
+			margin-bottom: 12px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-4-08: リンクテキスト単独でリンク先が理解できるようにする（改善例）</h1>
+
+	<!--改善例：リンクテキストを読めばリンク先がわかる-->
+	<div>機能Aの詳細については<a href="#">機能Aのヘルプ</a>をご覧ください。</div>
+	<div>機能Bの詳細については<a href="#">機能Bのヘルプ</a>をご覧ください。</div>
+
+	<!--改善例：リンクテキストにリンク先を含める-->
+	<ul>
+		<li>コメント 1</li>
+		<li>コメント 2</li>
+		<li>コメント 3</li>
+	</ul>
+	<a href="#">コメントをさらに表示</a>
+</body>
+</html>

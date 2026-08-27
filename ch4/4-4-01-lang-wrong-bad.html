@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-4-01: ページの言語が指定されていない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<!--悪い例：日本語で書かれたページの言語に英語が指定されている（html lang="en"）-->
+	<h1>4-4-01: ページの言語が指定されていない（悪い例）</h1>
+
+	<p>
+		このページは日本語で書かれていますが、<code>&lt;html lang="en"&gt;</code> のように
+		英語が指定されています。スクリーンリーダーが正しい発音で読み上げず、
+		特にiOS VoiceOverではユーザーが自分で言語を切り替えない限り、日本語のテキストが読み上げられなくなってしまいます。
+	</p>
+</body>
+</html>

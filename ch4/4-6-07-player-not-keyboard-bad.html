@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-6-07: メディアプレイヤーのアクセシビリティが低い（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.player {
+			width: 360px;
+			background: #111;
+			border-radius: 4px;
+			padding: 12px;
+		}
+
+		.controls {
+			display: flex;
+			gap: 12px;
+			align-items: center;
+		}
+
+		/* 悪い例：div要素にonclickだけを付与しており、キーボードで操作できない
+			フォーカスインジケーターも表示されない */
+		.control {
+			cursor: pointer;
+			color: #fff;
+			font-size: 1.2rem;
+			outline: none;
+		}
+
+		.seekbar {
+			flex: 1;
+			height: 4px;
+			background: #555;
+			position: relative;
+			cursor: pointer;
+		}
+
+		.seekbar-fill {
+			position: absolute;
+			left: 0;
+			top: 0;
+			height: 100%;
+			width: 30%;
+			background: #0af;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-6-07: メディアプレイヤーのアクセシビリティが低い（悪い例）</h1>
+
+	<div class="player">
+		<div class="controls">
+			<div class="control" id="playBtn" onclick="toggle()">▶</div>
+			<div class="seekbar"><div class="seekbar-fill"></div></div>
+		</div>
+	</div>
+
+	<script>
+		let playing = false;
+		function toggle() {
+			playing = !playing;
+			document.getElementById('playBtn').textContent = playing ? '❚❚' : '▶';
+		}
+	</script>
+</body>
+</html>

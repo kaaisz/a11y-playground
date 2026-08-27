@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-7-04: prefers-reduced-motionでモーションアニメーションを無効にする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.menu {
+			width: 0;
+			overflow: hidden;
+			background: #ddd;
+			transition: width 0.6s ease-in-out;
+		}
+
+		.menu.open {
+			width: 240px;
+		}
+
+		/* 良い例：OSで「視差効果を減らす」などが有効なときは、
+			移動を伴わないアニメーション（不透明度の変化）に切り替える
+			達成基準2.3.3では、ぼかしや不透明度の変更はモーションアニメーションに含まれない */
+		@media (prefers-reduced-motion: reduce) {
+			.menu {
+				width: 240px;
+				transition: opacity 0.3s ease-in-out;
+				opacity: 0;
+			}
+
+			.menu.open {
+				opacity: 1;
+			}
+
+			.menu:not(.open) {
+				width: 0;
+				transition: none;
+			}
+		}
+
+		.menu ul {
+			list-style: none;
+			padding: 16px;
+			margin: 0;
+			white-space: nowrap;
+		}
+
+		button {
+			padding: 8px 16px;
+		}
+
+		.note {
+			max-width: 360px;
+			color: #666;
+			margin-top: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-7-04: prefers-reduced-motionでモーションアニメーションを無効にする（改善例）</h1>
+
+	<button type="button" id="toggle">メニューを開く</button>
+	<div class="menu" id="menu">
+		<ul>
+			<li>ホーム</li>
+			<li>商品一覧</li>
+			<li>お問い合わせ</li>
+		</ul>
+	</div>
+
+	<p class="note">
+		OS・ブラウザで「視差効果を減らす」（<code>prefers-reduced-motion: reduce</code>）が有効な場合、
+		幅が変化する動きを止め、不透明度の変化のみに切り替えます。
+	</p>
+
+	<script>
+		document.getElementById('toggle').addEventListener('click', () => {
+			document.getElementById('menu').classList.toggle('open');
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-9-06: ページのレイアウトを共通化する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.page {
+			border: 1px solid #767676;
+			padding: 16px;
+			margin-bottom: 24px;
+			max-width: 360px;
+		}
+
+		.page h2 {
+			font-size: 1rem;
+			margin-top: 0;
+		}
+
+		header {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		nav {
+			margin-top: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-9-06: ページのレイアウトを共通化する（改善例）</h1>
+
+	<!--改善例：どのページでも「ロゴ・検索欄・ナビゲーション」の位置とDOM構造の順序を統一する
+		ユーザーは1度学習すれば、どのページでも同じ場所から目的の要素を探せる-->
+	<div class="page">
+		<h2>ページA（商品一覧）</h2>
+		<header>
+			<span>ロゴ</span>
+			<input type="search" aria-label="検索">
+		</header>
+		<nav>ホーム / 商品一覧 / お問い合わせ</nav>
+	</div>
+
+	<div class="page">
+		<h2>ページB（お問い合わせ）</h2>
+		<header>
+			<span>ロゴ</span>
+			<input type="search" aria-label="検索">
+		</header>
+		<nav>ホーム / 商品一覧 / お問い合わせ</nav>
+	</div>
+</body>
+</html>

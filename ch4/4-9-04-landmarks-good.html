@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-9-04: ランドマークを利用してページの領域に到達しやすくする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		header,
+		nav,
+		main,
+		footer {
+			padding: 12px;
+			border: 1px dashed #767676;
+			margin-bottom: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-9-04: ランドマークを利用してページの領域に到達しやすくする（改善例）</h1>
+
+	<!--改善例：header・nav・main・footer要素でページ全体をランドマークに分割する
+		main要素はページに1つだけ配置する-->
+	<header>
+		<div>サイトロゴ</div>
+	</header>
+	<nav aria-label="グローバルナビゲーション">
+		<div>ホーム</div>
+		<div>商品一覧</div>
+		<div>お問い合わせ</div>
+	</nav>
+	<main>
+		<h2>商品一覧</h2>
+		<p>ここに商品の一覧が表示されます。</p>
+	</main>
+	<footer>
+		<div>© 2026 サンプルサイト</div>
+	</footer>
+
+	<p id="readout"></p>
+	<script>
+		const landmarkTags = ['header', 'nav', 'main', 'footer', 'aside'];
+		const found = landmarkTags.filter((tag) => document.querySelector(tag));
+		document.getElementById('readout').textContent = `このページに存在するランドマーク要素：${found.join(', ')}`;
+	</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-03: 色のみで状態を表したブックマークのアイコン（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.icons {
+			display: flex;
+			gap: 24px;
+			background: #fff;
+			padding: 16px;
+			border-radius: 4px;
+		}
+
+		figure {
+			margin: 0;
+			text-align: center;
+		}
+
+		svg {
+			width: 32px;
+			height: 32px;
+		}
+
+		figcaption {
+			color: #111;
+			font-size: 0.9rem;
+			margin-top: 4px;
+		}
+
+		/* 悪い例：3つの状態がすべて同じ形状で、色のみで見分けている */
+		.not-bookmarked path { fill: #888; }
+		.bookmarked path { fill: #c00; }
+		.disabled path { fill: #ddd; }
+	</style>
+</head>
+<body>
+	<h1>4-1-03: 色のみで状態を表したブックマークのアイコン（悪い例）</h1>
+
+	<div class="icons">
+		<figure>
+			<svg class="not-bookmarked" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16l-6-3-6 3V4Z"/>
+			</svg>
+			<figcaption>未ブックマーク</figcaption>
+		</figure>
+		<figure>
+			<svg class="bookmarked" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16l-6-3-6 3V4Z"/>
+			</svg>
+			<figcaption>ブックマーク済み</figcaption>
+		</figure>
+		<figure>
+			<svg class="disabled" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16l-6-3-6 3V4Z"/>
+			</svg>
+			<figcaption>ブックマーク不可</figcaption>
+		</figure>
+	</div>
+</body>
+</html>

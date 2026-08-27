@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-4-12: 画面に表示されているテキストのNameプロパティを上書きしている（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.visually-hidden {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			clip-path: inset(100%);
+			overflow: hidden;
+		}
+
+		.readout {
+			margin-top: 16px;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-4-12: 画面に表示されているテキストのNameプロパティを上書きしている（悪い例）</h1>
+
+	<!--悪い例：aria-label属性を用いてName プロパティを上書きしたテキストボタン
+		画面には「検索」と表示されているが、Nameプロパティは「サイト内サーチ」になる
+		音声コントロールユーザーが「検索をクリック」と発声しても反応しない-->
+	<button id="btn" aria-label="サイト内サーチ">検索</button>
+
+	<!--悪い例：Visually Hidden と aria-hidden 属性を用いてName プロパティを上書きしたテキストリンク-->
+	<a href="#" id="link">
+		<span class="visually-hidden">機能Aの詳細</span>
+		<span aria-hidden="true">ヘルプ</span>
+	</a>
+
+	<p class="readout" id="readout"></p>
+
+	<script>
+		document.getElementById('readout').textContent =
+			`ボタンの表示テキスト「検索」に対し、Nameプロパティ（accessible name）は「${document.getElementById('btn').getAttribute('aria-label')}」になっています。`;
+	</script>
+</body>
+</html>

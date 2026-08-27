@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-5-13: 代替テキストの読みをスクリーンリーダー向けに調整しない（比較）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			margin-bottom: 24px;
+		}
+
+		img {
+			height: 32px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-5-13: 代替テキストの読みをスクリーンリーダー向けに調整しない（比較）</h1>
+
+	<section>
+		<h2>悪い例：読みが正しくなるように代替テキストをひらがなにした</h2>
+		<!--悪い例：スクリーンリーダー向けに読みをチューニングすると、画像のダウンロード失敗時や
+			コピー＆ペースト時に「ぎひょうじぇーぴー」という不自然な文字列が表示されてしまう-->
+		<img id="logo1" alt="ぎひょうじぇーぴー">
+	</section>
+
+	<section>
+		<h2>良い例：本文中に括弧書きで読みを併記する</h2>
+		<!--良い例：代替テキストは表記どおりのまま、読みを伝えたい箇所に括弧書きを添える
+			スクリーンリーダーユーザーを含むすべてのユーザーに正しい読みが伝わる-->
+		<p><img id="logo2" alt="gihyo.jp"> （ぎひょうじぇーぴー）とは技術評論社のWebサイトです。</p>
+	</section>
+
+	<canvas id="canvas" width="200" height="60" hidden></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#111';
+		ctx.font = 'bold 28px sans-serif';
+		ctx.fillText('gihyo.jp', 8, 40);
+		const data = canvas.toDataURL();
+		document.getElementById('logo1').src = data;
+		document.getElementById('logo2').src = data;
+	</script>
+</body>
+</html>

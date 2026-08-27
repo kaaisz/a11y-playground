@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-5-02: 画像の内容を表す代替テキストを設定する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		img {
+			width: 48px;
+			height: 48px;
+		}
+
+		figcaption {
+			font-size: 0.9rem;
+			color: #666;
+			margin-top: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-5-02: 画像の内容を表す代替テキストを設定する（改善例）</h1>
+
+	<figure>
+		<!--改善例：画像が表す意味（設定）を代替テキストに設定する-->
+		<img id="icon" alt="設定">
+		<figcaption>alt="設定"</figcaption>
+	</figure>
+
+	<canvas id="canvas" width="96" height="96" hidden></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#333';
+		ctx.beginPath();
+		ctx.arc(48, 48, 30, 0, Math.PI * 2);
+		ctx.fill();
+		document.getElementById('icon').src = canvas.toDataURL();
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-7-01: 自動再生されるアニメーションを抑制できない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.ticker {
+			width: 360px;
+			overflow: hidden;
+			white-space: nowrap;
+			border: 1px solid #767676;
+			padding: 8px 0;
+		}
+
+		/* 悪い例：ユーザーが停止・非表示にする手段がなく、ずっと動き続ける */
+		.ticker span {
+			display: inline-block;
+			padding-left: 100%;
+			animation: scroll 8s linear infinite;
+		}
+
+		@keyframes scroll {
+			from { transform: translateX(0); }
+			to { transform: translateX(-100%); }
+		}
+	</style>
+</head>
+<body>
+	<h1>4-7-01: 自動再生されるアニメーションを抑制できない（悪い例）</h1>
+
+	<div class="ticker">
+		<span id="ticker-text">お知らせ：システムメンテナンスを実施します。詳細はヘルプページをご確認ください。</span>
+	</div>
+</body>
+</html>

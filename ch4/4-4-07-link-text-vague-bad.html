@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-4-07: リンクテキストがリンク先を表していない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		div {
+			max-width: 400px;
+			margin-bottom: 12px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-4-07: リンクテキストがリンク先を表していない（悪い例）</h1>
+
+	<!--悪い例：「こちら」というリンクテキスト-->
+	<div>機能Aの詳細については<a href="#">こちら</a>をご覧ください。</div>
+	<div>機能Bの詳細については<a href="#">こちら</a>をご覧ください。</div>
+
+	<!--悪い例：「さらに表示」というリンクテキスト-->
+	<ul>
+		<li>コメント 1</li>
+		<li>コメント 2</li>
+		<li>コメント 3</li>
+	</ul>
+	<a href="#">さらに表示</a>
+</body>
+</html>

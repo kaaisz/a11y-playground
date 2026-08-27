@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-10: 文字以外の要素のコントラスト比を改善する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.sample {
+			background: #ffffff;
+			padding: 24px;
+			border-radius: 4px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: #111;
+			margin-bottom: 16px;
+		}
+
+		/* 良い例：チェックマークと枠線に、背景に対して3:1以上のコントラスト比を確保する */
+		input[type="checkbox"] {
+			appearance: none;
+			width: 20px;
+			height: 20px;
+			border: 2px solid #595959;
+			border-radius: 3px;
+			position: relative;
+		}
+
+		input[type="checkbox"]:checked {
+			background: #0057a8;
+			border-color: #0057a8;
+		}
+
+		input[type="checkbox"]:checked::after {
+			content: "";
+			position: absolute;
+			left: 5px;
+			top: 2px;
+			width: 5px;
+			height: 9px;
+			border: solid #fff;
+			border-width: 0 2px 2px 0;
+			transform: rotate(45deg);
+		}
+
+		/* 良い例：テキスト入力欄の枠線に十分なコントラスト比を確保する */
+		input[type="text"] {
+			padding: 8px;
+			border: 1px solid #595959;
+			display: block;
+			width: 240px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-1-10: 文字以外の要素のコントラスト比を改善する（改善例）</h1>
+
+	<div class="sample">
+		<label><input type="checkbox" checked> 利用規約に同意する</label>
+		<input type="text" placeholder="ユーザー名">
+	</div>
+</body>
+</html>

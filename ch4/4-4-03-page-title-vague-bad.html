@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>一覧</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.tabs {
+			display: flex;
+			gap: 2px;
+			margin-bottom: 16px;
+		}
+
+		.tab {
+			padding: 8px 16px;
+			background: #ddd;
+			color: #111;
+			border-radius: 4px 4px 0 0;
+			font-size: 0.9rem;
+			max-width: 140px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.tab.active {
+			background: #fff;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-4-03: ページタイトルがページの主題を表していない（悪い例）</h1>
+
+	<!--悪い例：ページタイトルが「一覧」のみで、何の一覧なのかがわからない
+		同一サイト内の複数ページで同じタイトルが使われるとブラウザのタブが区別できなくなる-->
+	<p>このページの&lt;title&gt;要素：<code id="title-display"></code></p>
+
+	<p>同様のページが複数あった場合、ブラウザのタブは次のように区別がつかなくなります。</p>
+	<div class="tabs">
+		<div class="tab active">一覧</div>
+		<div class="tab">一覧</div>
+		<div class="tab">一覧</div>
+		<div class="tab">一覧</div>
+	</div>
+
+	<script>
+		document.getElementById('title-display').textContent = document.title;
+	</script>
+</body>
+</html>

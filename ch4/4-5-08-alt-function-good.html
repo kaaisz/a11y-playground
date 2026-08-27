@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-5-08: 機能を持つ画像の代替テキストには機能の説明を設定する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			margin-bottom: 24px;
+		}
+
+		img {
+			width: 24px;
+			height: 24px;
+			vertical-align: middle;
+		}
+
+		button {
+			padding: 8px;
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-5-08: 機能を持つ画像の代替テキストには機能の説明を設定する（改善例）</h1>
+
+	<section>
+		<h2>単独で表示されるアイコン</h2>
+		<!--改善例：アイコンが表す機能の説明（設定）を代替テキストに設定する-->
+		<button type="button">
+			<img id="gear" alt="設定">
+		</button>
+	</section>
+
+	<section>
+		<h2>文中に表示されるアイコン</h2>
+		<!--改善例：アイコンが表す機能の説明を括弧書きで代替テキストに設定する-->
+		<p>詳細は <a href="#" target="_blank">ユーザーヘルプ<img id="external" alt="（新しいタブで開く）"></a> を参照してください</p>
+	</section>
+
+	<section>
+		<h2>アイコンと同等の内容が併記されている場合</h2>
+		<!--改善例：テキストと重複するため代替テキストを空にする（冗長な読み上げを防ぐ）-->
+		<button type="button">
+			<img id="add" alt="">
+			<span>追加</span>
+		</button>
+	</section>
+
+	<canvas id="canvas" width="48" height="48" hidden></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#333';
+		ctx.beginPath();
+		ctx.arc(24, 24, 16, 0, Math.PI * 2);
+		ctx.fill();
+		for (let i = 0; i < 8; i += 1) {
+			ctx.save();
+			ctx.translate(24, 24);
+			ctx.rotate((Math.PI / 4) * i);
+			ctx.fillRect(-3, -22, 6, 8);
+			ctx.restore();
+		}
+		const gearData = canvas.toDataURL();
+		document.getElementById('gear').src = gearData;
+
+		ctx.clearRect(0, 0, 48, 48);
+		ctx.strokeStyle = '#0057a8';
+		ctx.lineWidth = 3;
+		ctx.strokeRect(8, 8, 24, 24);
+		ctx.beginPath();
+		ctx.moveTo(20, 28);
+		ctx.lineTo(40, 8);
+		ctx.moveTo(30, 8);
+		ctx.lineTo(40, 8);
+		ctx.lineTo(40, 18);
+		ctx.stroke();
+		document.getElementById('external').src = canvas.toDataURL();
+
+		ctx.clearRect(0, 0, 48, 48);
+		ctx.strokeStyle = '#333';
+		ctx.lineWidth = 4;
+		ctx.beginPath();
+		ctx.moveTo(24, 10);
+		ctx.lineTo(24, 38);
+		ctx.moveTo(10, 24);
+		ctx.lineTo(38, 24);
+		ctx.stroke();
+		document.getElementById('add').src = canvas.toDataURL();
+	</script>
+</body>
+</html>

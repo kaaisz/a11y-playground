@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-3-08: CSSを使って文字の間隔を調整する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		#sample {
+			font-size: 1.5rem;
+		}
+
+		.note {
+			font-size: 1rem;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-3-08: CSSを使って文字の間隔を調整する（改善例）</h1>
+
+	<!--改善例：CSSを使って文字の間隔を調整する-->
+	<p id="sample"><span id="text" style="letter-spacing: 1rem;">技術評論社</span></p>
+	<p class="note" id="note"></p>
+
+	<script>
+		const length = document.getElementById('text').textContent.length;
+		document.getElementById('note').textContent =
+			`テキストの文字数（空白なし）：${length}文字（スクリーンリーダーは「ぎじゅつひょうろんしゃ」と正しく読み上げ、ページ内検索でも「技術評論社」がヒットする）`;
+	</script>
+</body>
+</html>

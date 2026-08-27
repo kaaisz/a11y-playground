@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-07: 文字のコントラスト比が低すぎる（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.sample {
+			max-width: 360px;
+			padding: 16px;
+			border-radius: 4px;
+			margin-bottom: 12px;
+		}
+
+		/* 悪い例：白背景に薄いグレー文字（コントラスト比 約1.6:1） */
+		.low {
+			background: #ffffff;
+			color: #cccccc;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		.ratio {
+			font-size: 0.8rem;
+			color: #666;
+			margin-top: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-1-07: 文字のコントラスト比が低すぎる（悪い例）</h1>
+
+	<div class="sample low">
+		<p>このテキストは白背景に薄いグレー文字で書かれています。読みづらくありませんか？</p>
+	</div>
+	<p class="ratio">背景 #FFFFFF ・ 文字 #CCCCCC ・ コントラスト比 約1.6:1（WCAG AAの4.5:1を満たさない）</p>
+</body>
+</html>

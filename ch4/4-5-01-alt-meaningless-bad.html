@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-5-01: 代替テキストが画像の内容を表していない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		img {
+			width: 48px;
+			height: 48px;
+		}
+
+		.row {
+			display: flex;
+			gap: 32px;
+			align-items: center;
+		}
+
+		figcaption {
+			font-size: 0.9rem;
+			color: #666;
+			margin-top: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-5-01: 代替テキストが画像の内容を表していない（悪い例）</h1>
+
+	<div class="row">
+		<figure>
+			<!--悪い例：代替テキストが「画像」になっている-->
+			<img id="icon1" alt="画像">
+			<figcaption>alt="画像"</figcaption>
+		</figure>
+		<figure>
+			<!--悪い例：代替テキストがファイル名になっている-->
+			<img id="icon2" alt="setting.svg">
+			<figcaption>alt="setting.svg"</figcaption>
+		</figure>
+	</div>
+
+	<canvas id="canvas" width="96" height="96" hidden></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#333';
+		ctx.beginPath();
+		ctx.arc(48, 48, 30, 0, Math.PI * 2);
+		ctx.fill();
+		const data = canvas.toDataURL();
+		document.getElementById('icon1').src = data;
+		document.getElementById('icon2').src = data;
+	</script>
+</body>
+</html>

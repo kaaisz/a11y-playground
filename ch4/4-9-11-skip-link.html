@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-9-11: スキップリンクの実装例（参考）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 参考実装：スキップリンクは普段は視覚的に隠し、フォーカスされたときのみ表示する
+			見出しやランドマークを利用する方法を実践したうえで、さらに必要であれば検討する（必須ではない） */
+		.skip-link {
+			position: absolute;
+			left: -9999px;
+			top: 0;
+			padding: 8px 16px;
+			background: #0057a8;
+			color: #fff;
+			z-index: 1;
+		}
+
+		.skip-link:focus {
+			left: 8px;
+			top: 8px;
+		}
+
+		nav ul {
+			list-style: none;
+			display: flex;
+			gap: 16px;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<a class="skip-link" href="#main">メインコンテンツにスキップ</a>
+
+	<h1>4-9-11: スキップリンクの実装例（参考）</h1>
+
+	<nav aria-label="グローバルナビゲーション">
+		<ul>
+			<li><a href="#">ホーム</a></li>
+			<li><a href="#">商品一覧</a></li>
+			<li><a href="#">お問い合わせ</a></li>
+			<li><a href="#">会社概要</a></li>
+			<li><a href="#">採用情報</a></li>
+		</ul>
+	</nav>
+
+	<main id="main" tabindex="-1">
+		<h2>メインコンテンツ</h2>
+		<p>ページの先頭でTabキーを押すとスキップリンクが表示され、クリックするとナビゲーションを飛ばしてここにフォーカスします。</p>
+	</main>
+</body>
+</html>

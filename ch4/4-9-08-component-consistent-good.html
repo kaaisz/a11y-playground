@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-9-08: ページのコンポーネントを共通化する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			border: 1px solid #767676;
+			padding: 16px;
+			margin-bottom: 16px;
+			max-width: 360px;
+		}
+
+		section h2 {
+			font-size: 1rem;
+			margin-top: 0;
+		}
+
+		/* 改善例：削除ボタンのラベル・見た目を共通化した「Buttonコンポーネント」を
+			どのページでも同じように使う */
+		.btn-danger {
+			background: #c00;
+			color: #fff;
+			border: none;
+			padding: 8px 16px;
+			border-radius: 4px;
+			font: inherit;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-9-08: ページのコンポーネントを共通化する（改善例）</h1>
+
+	<section>
+		<h2>ページA</h2>
+		<button type="button" class="btn-danger">削除する</button>
+	</section>
+
+	<section>
+		<h2>ページB</h2>
+		<button type="button" class="btn-danger">削除する</button>
+	</section>
+</body>
+</html>

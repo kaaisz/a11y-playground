@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-9-09: 現在位置がわからない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		nav ul {
+			list-style: none;
+			display: flex;
+			gap: 16px;
+			padding: 0;
+		}
+
+		nav a {
+			color: #06c;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-9-09: 現在位置がわからない（悪い例）</h1>
+
+	<!--悪い例：現在どのページを開いているかを示す手段（パンくずリストやナビゲーションの強調表示）がない
+		深い階層のページに直接アクセスすると、サイト全体のどこにいるのか把握できない-->
+	<nav aria-label="グローバルナビゲーション">
+		<ul>
+			<li><a href="#">ホーム</a></li>
+			<li><a href="#">商品一覧</a></li>
+			<li><a href="#">書籍</a></li>
+			<li><a href="#">お問い合わせ</a></li>
+		</ul>
+	</nav>
+
+	<h2>Webアプリケーションアクセシビリティ</h2>
+	<p>この本の詳細ページです。今どのカテゴリにいるのかは、ページを見てもわかりません。</p>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-6-05: BGMの音量が発話に対して大きすぎる（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		button {
+			padding: 8px 16px;
+		}
+
+		.status {
+			margin-top: 16px;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-6-05: BGMの音量が発話に対して大きすぎる（悪い例）</h1>
+
+	<!--悪い例：BGM（この例ではオシレーター音）の音量が発話（音声合成）に対して大きすぎる
+		音が聞き取りづらいユーザーは発話をBGMから聞き分けられなくなる-->
+	<button type="button" id="play">再生する（BGM大音量）</button>
+	<p class="status" id="status"></p>
+
+	<script>
+		let audioContext;
+
+		document.getElementById('play').addEventListener('click', () => {
+			audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+
+			const oscillator = audioContext.createOscillator();
+			const gain = audioContext.createGain();
+			const bgmGain = 0.8;
+			gain.gain.value = bgmGain;
+			oscillator.frequency.value = 220;
+			oscillator.connect(gain).connect(audioContext.destination);
+			oscillator.start();
+			oscillator.stop(audioContext.currentTime + 4);
+
+			const utterance = new SpeechSynthesisUtterance('この音声がBGMに埋もれて聞き取りづらくなっていませんか。');
+			utterance.lang = 'ja-JP';
+			utterance.volume = 1;
+			speechSynthesis.speak(utterance);
+
+			document.getElementById('status').textContent = `BGMの音量: ${bgmGain}（発話に対して約 ${Math.round(20 * Math.log10(bgmGain))}dB）`;
+		});
+	</script>
+</body>
+</html>

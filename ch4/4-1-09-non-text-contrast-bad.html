@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-09: 文字以外の要素のコントラスト比が低すぎる（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.sample {
+			background: #ffffff;
+			padding: 24px;
+			border-radius: 4px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: #111;
+			margin-bottom: 16px;
+		}
+
+		/* 悪い例：チェックボックスの枠線・チェックマークが薄すぎて背景に埋もれる */
+		input[type="checkbox"] {
+			appearance: none;
+			width: 20px;
+			height: 20px;
+			border: 1px solid #eee;
+			border-radius: 3px;
+			position: relative;
+		}
+
+		input[type="checkbox"]:checked::after {
+			content: "";
+			position: absolute;
+			inset: 4px;
+			background: #eee;
+		}
+
+		/* 悪い例：テキスト入力欄の枠線が薄すぎて背景と区別がつかない */
+		input[type="text"] {
+			padding: 8px;
+			border: 1px solid #f2f2f2;
+			display: block;
+			width: 240px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-1-09: 文字以外の要素のコントラスト比が低すぎる（悪い例）</h1>
+
+	<div class="sample">
+		<label><input type="checkbox" checked> 利用規約に同意する</label>
+		<input type="text" placeholder="ユーザー名">
+	</div>
+</body>
+</html>

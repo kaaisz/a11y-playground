@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-8-02: レスポンシブデザインを採用する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 改善例：画面幅に応じて1カラムに切り替わるレスポンシブデザイン
+			幅320px相当の画面でも横スクロールが発生しない */
+		.layout {
+			display: flex;
+			flex-wrap: wrap;
+			max-width: 900px;
+		}
+
+		.sidebar {
+			flex: 1 1 200px;
+			background: #ddd;
+			padding: 16px;
+			box-sizing: border-box;
+		}
+
+		.main {
+			flex: 3 1 300px;
+			padding: 16px;
+			box-sizing: border-box;
+			min-width: 0;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-8-02: レスポンシブデザインを採用する（改善例）</h1>
+
+	<div class="layout" id="layout">
+		<div class="sidebar">サイドバー</div>
+		<div class="main">メインコンテンツ（画面幅に応じて折り返す）</div>
+	</div>
+
+	<p id="readout"></p>
+
+	<script>
+		document.getElementById('readout').textContent =
+			`このレイアウトの実際の幅：${document.getElementById('layout').scrollWidth}px（ウィンドウ幅を狭めると自動的に縮み、横スクロールが発生しない）`;
+	</script>
+</body>
+</html>

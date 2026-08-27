@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-5-06: 装飾画像の代替テキストを空にする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		img {
+			width: 320px;
+			height: 120px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-5-06: 装飾画像の代替テキストを空にする（改善例）</h1>
+
+	<!--改善例：意味を伝えていない装飾画像には空の代替テキスト（alt=""）を設定する
+		スクリーンリーダーは画像そのものを読み上げなくなる-->
+	<img id="bg" alt="">
+
+	<canvas id="canvas" width="640" height="240" hidden></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		const gradient = ctx.createLinearGradient(0, 0, 640, 240);
+		gradient.addColorStop(0, '#dbeafe');
+		gradient.addColorStop(1, '#bfdbfe');
+		ctx.fillStyle = gradient;
+		ctx.fillRect(0, 0, 640, 240);
+		for (let i = 0; i < 20; i += 1) {
+			ctx.beginPath();
+			ctx.arc(Math.random() * 640, Math.random() * 240, 10, 0, Math.PI * 2);
+			ctx.fillStyle = 'rgba(255,255,255,0.4)';
+			ctx.fill();
+		}
+		document.getElementById('bg').src = canvas.toDataURL();
+	</script>
+</body>
+</html>

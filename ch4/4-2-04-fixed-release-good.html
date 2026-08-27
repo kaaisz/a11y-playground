@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-2-04: ズームしたときに固定を解除する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.demo-header,
+		.demo-footer {
+			position: fixed;
+			left: 0;
+			right: 0;
+			background: #0057a8;
+			color: #fff;
+			padding: 12px 16px;
+			box-sizing: border-box;
+			font-weight: bold;
+		}
+
+		.demo-header {
+			top: 0;
+		}
+
+		.demo-footer {
+			bottom: 0;
+		}
+
+		main {
+			padding: 60px 0;
+		}
+
+		/* 改善例：ズームして画面の高さが低くなったとき（狭い画面と同じ状態）は
+			位置の固定を解除し、通常のコンテンツと同じように流れるようにする */
+		@media (max-height: 480px) {
+			.demo-header,
+			.demo-footer {
+				position: static;
+			}
+
+			main {
+				padding: 16px 0;
+			}
+		}
+	</style>
+</head>
+<body>
+	<h1>4-2-04: ズームしたときに固定を解除する（改善例）</h1>
+
+	<div class="demo-header">デモ用ヘッダ（画面が低いと固定解除）</div>
+	<main>
+		<p>ウィンドウの高さを480px未満にしてみてください（ブラウザのズーム機能で拡大した状態を再現しています）。</p>
+		<p>ヘッダとフッタの位置の固定が解除され、画面全体を使ってコンテンツを閲覧できます。</p>
+	</main>
+	<div class="demo-footer">デモ用フッタ（画面が低いと固定解除）</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-9-07: コンポーネントが一貫していない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			border: 1px solid #767676;
+			padding: 16px;
+			margin-bottom: 16px;
+			max-width: 360px;
+		}
+
+		section h2 {
+			font-size: 1rem;
+			margin-top: 0;
+		}
+
+		.btn-a {
+			background: #0057a8;
+			color: #fff;
+			border: none;
+			padding: 8px 16px;
+			border-radius: 4px;
+		}
+
+		.btn-b {
+			background: #fff;
+			color: #0057a8;
+			border: 2px solid #0057a8;
+			padding: 6px 20px;
+			border-radius: 999px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-9-07: コンポーネントが一貫していない（悪い例）</h1>
+
+	<!--悪い例：同じ「削除する」という機能のボタンなのに、ページによってラベル・見た目が異なる
+		ユーザーは毎回異なるコンポーネントとして再学習しなければならない-->
+	<section>
+		<h2>ページA</h2>
+		<button type="button" class="btn-a">削除する</button>
+	</section>
+
+	<section>
+		<h2>ページB</h2>
+		<button type="button" class="btn-b">削除</button>
+	</section>
+</body>
+</html>

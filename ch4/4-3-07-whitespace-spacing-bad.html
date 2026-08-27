@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-3-07: 空白文字を使って文字の間隔を調整している（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		#sample {
+			font-size: 1.5rem;
+		}
+
+		.note {
+			font-size: 1rem;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-3-07: 空白文字を使って文字の間隔を調整している（悪い例）</h1>
+
+	<!--悪い例：空白文字を使って文字の間隔を調整している-->
+	<p id="sample"><span id="text">技 術 評 論 社</span></p>
+	<p class="note" id="note"></p>
+
+	<script>
+		const length = document.getElementById('text').textContent.length;
+		document.getElementById('note').textContent =
+			`テキストの文字数（空白込み）：${length}文字（スクリーンリーダーでは1文字ずつ読み上げられたり、ページ内検索で「技術評論社」が見つからなくなったりする）`;
+	</script>
+</body>
+</html>

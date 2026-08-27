@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-01: 必須項目を色のみで示している入力フォーム（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+			background: #fff;
+			color: #111;
+			padding: 16px;
+			border-radius: 4px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		/* 悪い例：入力必須であることを赤色のみで示している */
+		label.required {
+			color: #c00;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+			color: #111;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-1-01: 必須項目を色のみで示している入力フォーム（悪い例）</h1>
+
+	<form>
+		<label class="required">氏名<input type="text"></label>
+		<label class="required">メールアドレス<input type="text"></label>
+		<label>会社名<input type="text"></label>
+		<button type="submit">送信</button>
+	</form>
+</body>
+</html>

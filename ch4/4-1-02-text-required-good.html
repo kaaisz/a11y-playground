@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-02: 色以外でも必須項目を示す（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+			background: #fff;
+			color: #111;
+			padding: 16px;
+			border-radius: 4px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		/* 改善例：色だけでなく「※必須」というテキストでも入力必須を示す */
+		.required-text {
+			color: #b00;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+			color: #111;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-1-02: 色以外でも必須項目を示す（改善例）</h1>
+
+	<form>
+		<label>氏名<span class="required-text">※必須</span><input type="text" required></label>
+		<label>メールアドレス<span class="required-text">※必須</span><input type="text" required></label>
+		<label>会社名<input type="text"></label>
+		<button type="submit">送信</button>
+	</form>
+</body>
+</html>

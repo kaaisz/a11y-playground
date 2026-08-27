@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>新刊書籍一覧 | 技術評論社</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.tabs {
+			display: flex;
+			gap: 2px;
+			margin-bottom: 16px;
+		}
+
+		.tab {
+			padding: 8px 16px;
+			background: #ddd;
+			color: #111;
+			border-radius: 4px 4px 0 0;
+			font-size: 0.9rem;
+			max-width: 140px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.tab.active {
+			background: #fff;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-4-04: 主題を説明したページタイトルを付ける（改善例）</h1>
+
+	<!--改善例：ページ固有の主題を前に、サイト名を後ろに配置したページタイトル
+		「新刊書籍一覧 | 技術評論社」のように、何のページかが一意にわかる-->
+	<p>このページの&lt;title&gt;要素：<code id="title-display"></code></p>
+
+	<p>同様の構成のページでも、タブごとに主題を見分けられます。</p>
+	<div class="tabs">
+		<div class="tab active">新刊書籍一覧 | 技術評論社</div>
+		<div class="tab">著者インタビュー一覧 | 技術評論社</div>
+		<div class="tab">WEB+DB PRESS の詳細 | 技術評論社</div>
+	</div>
+
+	<script>
+		document.getElementById('title-display').textContent = document.title;
+	</script>
+</body>
+</html>

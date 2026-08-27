@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-8-03: タッチターゲットが小さすぎる（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.toolbar {
+			display: flex;
+			gap: 2px;
+		}
+
+		/* 悪い例：タッチターゲットが小さく、かつ密集している */
+		button {
+			width: 20px;
+			height: 20px;
+			padding: 0;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-8-03: タッチターゲットが小さすぎる（悪い例）</h1>
+
+	<div class="toolbar">
+		<button type="button" id="target" aria-label="太字">B</button>
+		<button type="button" aria-label="斜体">I</button>
+		<button type="button" aria-label="下線">U</button>
+	</div>
+
+	<p id="readout"></p>
+
+	<script>
+		const rect = document.getElementById('target').getBoundingClientRect();
+		document.getElementById('readout').textContent = `ボタンのサイズ：${Math.round(rect.width)}×${Math.round(rect.height)}px`;
+	</script>
+</body>
+</html>

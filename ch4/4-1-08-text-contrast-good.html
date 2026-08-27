@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-08: 文字のコントラスト比を改善する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.sample {
+			max-width: 360px;
+			padding: 16px;
+			border-radius: 4px;
+			margin-bottom: 12px;
+		}
+
+		/* 良い例：WCAG AAの基準（4.5:1以上）を満たす配色 */
+		.aa {
+			background: #ffffff;
+			color: #767676;
+		}
+
+		/* より発展的な良い例：WCAG AAAの基準（7:1以上）を満たす配色 */
+		.aaa {
+			background: #ffffff;
+			color: #111111;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		.ratio {
+			font-size: 0.8rem;
+			color: #666;
+			margin: 4px 0 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-1-08: 文字のコントラスト比を改善する（改善例）</h1>
+
+	<div class="sample aa">
+		<p>このテキストは白背景に濃いグレー文字で書かれています。</p>
+	</div>
+	<p class="ratio">背景 #FFFFFF ・ 文字 #767676 ・ コントラスト比 約4.5:1（WCAG AA 達成基準 1.4.3 を満たす）</p>
+
+	<div class="sample aaa">
+		<p>このテキストはさらにコントラストを高めています。</p>
+	</div>
+	<p class="ratio">背景 #FFFFFF ・ 文字 #111111 ・ コントラスト比 約18:1（WCAG AAA 達成基準 1.4.6 も満たす）</p>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-7-03: ユーザーインタラクションによるアニメーションを抑制できない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.menu {
+			width: 0;
+			overflow: hidden;
+			background: #ddd;
+			transition: width 0.6s ease-in-out;
+		}
+
+		/* 悪い例：prefers-reduced-motion を考慮しておらず、
+			OSで視差効果や動きを減らす設定にしていてもモーションアニメーションが発生する */
+		.menu.open {
+			width: 240px;
+		}
+
+		.menu ul {
+			list-style: none;
+			padding: 16px;
+			margin: 0;
+			white-space: nowrap;
+		}
+
+		button {
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-7-03: ユーザーインタラクションによるアニメーションを抑制できない（悪い例）</h1>
+
+	<button type="button" id="toggle">メニューを開く</button>
+	<div class="menu" id="menu">
+		<ul>
+			<li>ホーム</li>
+			<li>商品一覧</li>
+			<li>お問い合わせ</li>
+		</ul>
+	</div>
+
+	<script>
+		document.getElementById('toggle').addEventListener('click', () => {
+			document.getElementById('menu').classList.toggle('open');
+		});
+	</script>
+</body>
+</html>

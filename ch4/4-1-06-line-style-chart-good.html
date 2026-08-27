@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-06: 線のスタイルやマーカーの形状でも凡例とデータを結び付ける（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.chart-wrap {
+			background: #fff;
+			padding: 16px;
+			border-radius: 4px;
+			max-width: 420px;
+		}
+
+		.legend {
+			display: flex;
+			gap: 16px;
+			margin-bottom: 8px;
+			color: #111;
+		}
+
+		.legend span {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		/* 改善例：色に加えて実線／破線とマーカー形状（丸／四角）でも見分けられるようにする */
+		.swatch {
+			width: 20px;
+			height: 2px;
+			display: inline-block;
+			background: #c00;
+		}
+
+		.swatch.b {
+			background: repeating-linear-gradient(to right, #06c 0 4px, transparent 4px 8px);
+		}
+
+		.line-a { fill: none; stroke: #c00; stroke-width: 2; }
+		.line-b { fill: none; stroke: #06c; stroke-width: 2; stroke-dasharray: 6 4; }
+		.marker-a { fill: #c00; }
+		.marker-b { fill: #06c; }
+
+		text.label {
+			font-size: 11px;
+			fill: #111;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-1-06: 線のスタイルやマーカーの形状でも凡例とデータを結び付ける（改善例）</h1>
+
+	<div class="chart-wrap">
+		<div class="legend">
+			<span><i class="swatch a"></i>データA（実線・丸マーカー）</span>
+			<span><i class="swatch b"></i>データB（破線・四角マーカー）</span>
+		</div>
+		<svg viewBox="0 0 360 160" role="img" aria-label="データAとデータBの推移を示す折れ線グラフ">
+			<polyline class="line-a" points="20,120 100,90 180,40 260,60 340,20"/>
+			<polyline class="line-b" points="20,140 100,130 180,110 260,100 340,80"/>
+
+			<circle class="marker-a" cx="20" cy="120" r="4"/>
+			<circle class="marker-a" cx="100" cy="90" r="4"/>
+			<circle class="marker-a" cx="180" cy="40" r="4"/>
+			<circle class="marker-a" cx="260" cy="60" r="4"/>
+			<circle class="marker-a" cx="340" cy="20" r="4"/>
+
+			<rect class="marker-b" x="16" y="136" width="8" height="8"/>
+			<rect class="marker-b" x="96" y="126" width="8" height="8"/>
+			<rect class="marker-b" x="176" y="106" width="8" height="8"/>
+			<rect class="marker-b" x="256" y="96" width="8" height="8"/>
+			<rect class="marker-b" x="336" y="76" width="8" height="8"/>
+
+			<!--改善例：グラフ上に直接データ名を配置し、凡例を見比べなくても対応がわかるようにする-->
+			<text class="label" x="344" y="18">A</text>
+			<text class="label" x="344" y="83">B</text>
+		</svg>
+	</div>
+</body>
+</html>

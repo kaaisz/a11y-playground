@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-04: 塗りの範囲や形状も変えたブックマークのアイコン（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.icons {
+			display: flex;
+			gap: 24px;
+			background: #fff;
+			padding: 16px;
+			border-radius: 4px;
+		}
+
+		figure {
+			margin: 0;
+			text-align: center;
+		}
+
+		svg {
+			width: 32px;
+			height: 32px;
+		}
+
+		figcaption {
+			color: #111;
+			font-size: 0.9rem;
+			margin-top: 4px;
+		}
+
+		/* 改善例：色に加えて、線のみ／塗りつぶし／斜線ありという形状の違いでも状態を伝える */
+		.not-bookmarked path { fill: none; stroke: #888; stroke-width: 2; }
+		.bookmarked path { fill: #c00; }
+		.disabled path { fill: none; stroke: #ccc; stroke-width: 2; }
+		.disabled line { stroke: #ccc; stroke-width: 2; }
+	</style>
+</head>
+<body>
+	<h1>4-1-04: 塗りの範囲や形状も変えたブックマークのアイコン（改善例）</h1>
+
+	<div class="icons">
+		<figure>
+			<svg class="not-bookmarked" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16l-6-3-6 3V4Z"/>
+			</svg>
+			<figcaption>未ブックマーク（線のみ）</figcaption>
+		</figure>
+		<figure>
+			<svg class="bookmarked" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16l-6-3-6 3V4Z"/>
+			</svg>
+			<figcaption>ブックマーク済み（塗りつぶし）</figcaption>
+		</figure>
+		<figure>
+			<svg class="disabled" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M6 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16l-6-3-6 3V4Z"/>
+				<line x1="4" y1="4" x2="20" y2="20"/>
+			</svg>
+			<figcaption>ブックマーク不可（斜線）</figcaption>
+		</figure>
+	</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-6-08: メディアプレイヤーのアクセシビリティを確保する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.player {
+			width: 360px;
+			background: #111;
+			border-radius: 4px;
+			padding: 12px;
+		}
+
+		.controls {
+			display: flex;
+			gap: 12px;
+			align-items: center;
+		}
+
+		/* 良い例：button要素とinput[type="range"]を使い、キーボード操作・
+			フォーカスインジケーター・Nameプロパティを標準で確保する */
+		button {
+			font-size: 1.2rem;
+			padding: 4px 10px;
+		}
+
+		input[type="range"] {
+			flex: 1;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-6-08: メディアプレイヤーのアクセシビリティを確保する（改善例）</h1>
+
+	<div class="player">
+		<div class="controls">
+			<button type="button" id="playBtn" aria-label="再生">▶</button>
+			<input type="range" id="seek" min="0" max="100" value="30" aria-label="再生位置">
+		</div>
+	</div>
+
+	<p>
+		HTML標準の<code>video</code>要素の<code>controls</code>属性を使えば、
+		これらのキーボード操作・フォーカス表示・ラベル付与がブラウザ標準の実装として提供されます。
+	</p>
+
+	<script>
+		let playing = false;
+		const playBtn = document.getElementById('playBtn');
+		playBtn.addEventListener('click', () => {
+			playing = !playing;
+			playBtn.textContent = playing ? '❚❚' : '▶';
+			playBtn.setAttribute('aria-label', playing ? '一時停止' : '再生');
+		});
+	</script>
+</body>
+</html>

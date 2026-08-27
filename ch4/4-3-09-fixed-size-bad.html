@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-3-09: テキストブロックのサイズを固定している（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 悪い例：height を絶対単位で固定しているため、
+			行送りや文字間隔をユーザーが広げるとテキストが見切れてしまう */
+		.card {
+			width: 280px;
+			height: 90px;
+			overflow: hidden;
+			border: 1px solid #767676;
+			padding: 12px;
+			box-sizing: border-box;
+		}
+
+		button {
+			margin-top: 16px;
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-3-09: テキストブロックのサイズを固定している（悪い例）</h1>
+
+	<div class="card" id="card">
+		<p style="margin: 0;">お知らせ：システムメンテナンスのため、8月30日 2:00〜5:00の間サービスをご利用いただけません。ご不便をおかけしますが、よろしくお願いいたします。</p>
+	</div>
+
+	<button type="button" id="widen">行間・文字間隔をユーザーが広げた想定で再描画</button>
+
+	<script>
+		document.getElementById('widen').addEventListener('click', () => {
+			const p = document.querySelector('#card p');
+			p.style.lineHeight = '2';
+			p.style.letterSpacing = '0.1em';
+			p.style.wordSpacing = '0.2em';
+		});
+	</script>
+</body>
+</html>

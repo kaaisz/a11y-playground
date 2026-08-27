@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-3-12: 文字画像は最低限の使用にとどめる（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 良い例：HTML・CSSで再現できる見出しは文字画像にせず、実際のテキストとして実装する
+			文字色・フォント・行間などをユーザー側で自由に上書きでき、自動翻訳やルビの付与も可能 */
+		.banner {
+			display: flex;
+			align-items: center;
+			width: 320px;
+			height: 80px;
+			background: #0057a8;
+			color: #ffffff;
+			font-size: 2rem;
+			font-weight: bold;
+			padding: 0 20px;
+			box-sizing: border-box;
+			margin: 0;
+		}
+
+		.note {
+			max-width: 400px;
+			color: #666;
+			margin-top: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-3-12: 文字画像は最低限の使用にとどめる（改善例）</h1>
+
+	<p class="banner">セール開催中</p>
+
+	<p class="note">
+		実際のテキストとして実装しているため、拡大してもジャギーが出ず、
+		文字色やフォントの変更・自動翻訳・ルビの付与にも対応できます。
+		どうしても文字画像が必要な場合（ロゴなど）は、拡大しても輪郭が崩れず色も変更できる SVG 形式を検討しましょう。
+	</p>
+</body>
+</html>

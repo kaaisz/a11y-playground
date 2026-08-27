@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-5-07: 機能を持つ画像の代替テキストが見た目を表している（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		img {
+			width: 24px;
+			height: 24px;
+		}
+
+		button {
+			padding: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-5-07: 機能を持つ画像の代替テキストが見た目を表している（悪い例）</h1>
+
+	<!--悪い例：代替テキストがアイコンの形状（歯車）を表している
+		スクリーンリーダーは「歯車 ボタン」と読み上げてしまい、機能がわからない-->
+	<button type="button">
+		<img id="icon" alt="歯車">
+	</button>
+
+	<canvas id="canvas" width="48" height="48" hidden></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#333';
+		ctx.beginPath();
+		ctx.arc(24, 24, 16, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.fillStyle = '#111';
+		for (let i = 0; i < 8; i += 1) {
+			ctx.save();
+			ctx.translate(24, 24);
+			ctx.rotate((Math.PI / 4) * i);
+			ctx.fillRect(-3, -22, 6, 8);
+			ctx.restore();
+		}
+		document.getElementById('icon').src = canvas.toDataURL();
+	</script>
+</body>
+</html>

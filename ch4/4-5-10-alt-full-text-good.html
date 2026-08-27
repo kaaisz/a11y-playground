@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-5-10: 文字画像の代替テキストには書かれているテキストを過不足なく設定する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		img {
+			width: 400px;
+			border: 1px solid #767676;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-5-10: 文字画像の代替テキストには書かれているテキストを過不足なく設定する（改善例）</h1>
+
+	<!--改善例：文字画像に書かれているテキストを過不足なく代替テキストに設定する
+		「／」でフレーズを区切り、正確に内容が伝わるようにしている-->
+	<img id="banner" alt="アクセシビリティ勉強会／Webアプリケーションのアクセシビリティ／11月26日@オンライン配信">
+
+	<canvas id="canvas" width="800" height="240" hidden></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#0057a8';
+		ctx.fillRect(0, 0, 800, 240);
+		ctx.fillStyle = '#fff';
+		ctx.font = 'bold 40px sans-serif';
+		ctx.fillText('アクセシビリティ勉強会', 40, 90);
+		ctx.font = '24px sans-serif';
+		ctx.fillText('Webアプリケーションのアクセシビリティ', 40, 140);
+		ctx.fillText('11月26日 @ オンライン配信', 40, 180);
+		document.getElementById('banner').src = canvas.toDataURL();
+	</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-7-02: 自動再生されるアニメーションを一時停止・停止・非表示にできるようにする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.ticker-wrap {
+			width: 360px;
+		}
+
+		.ticker {
+			overflow: hidden;
+			white-space: nowrap;
+			border: 1px solid #767676;
+			padding: 8px 0;
+		}
+
+		.ticker span {
+			display: inline-block;
+			padding-left: 100%;
+			animation: scroll 8s linear infinite;
+		}
+
+		.ticker.paused span {
+			animation-play-state: paused;
+		}
+
+		@keyframes scroll {
+			from { transform: translateX(0); }
+			to { transform: translateX(-100%); }
+		}
+
+		.controls {
+			margin-top: 8px;
+			display: flex;
+			gap: 8px;
+		}
+
+		button {
+			padding: 4px 12px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-7-02: 自動再生されるアニメーションを一時停止・停止・非表示にできるようにする（改善例）</h1>
+
+	<!--改善例：アニメーションの直後にわかりやすく一時停止・非表示のボタンを配置する-->
+	<div class="ticker-wrap">
+		<div class="ticker" id="ticker">
+			<span>お知らせ：システムメンテナンスを実施します。詳細はヘルプページをご確認ください。</span>
+		</div>
+		<div class="controls">
+			<button type="button" id="toggle" aria-pressed="false">一時停止</button>
+			<button type="button" id="hide">非表示にする</button>
+		</div>
+	</div>
+
+	<script>
+		const ticker = document.getElementById('ticker');
+		const toggle = document.getElementById('toggle');
+		const wrap = document.querySelector('.ticker-wrap');
+
+		toggle.addEventListener('click', () => {
+			const paused = ticker.classList.toggle('paused');
+			toggle.textContent = paused ? '再開' : '一時停止';
+			toggle.setAttribute('aria-pressed', String(paused));
+		});
+
+		document.getElementById('hide').addEventListener('click', () => {
+			wrap.hidden = true;
+		});
+	</script>
+</body>
+</html>

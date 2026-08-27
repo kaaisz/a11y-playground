@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-4-13: 表示されているテキストとNameプロパティを一致させる（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.readout {
+			margin-top: 16px;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-4-13: 表示されているテキストとNameプロパティを一致させる（改善例）</h1>
+
+	<!--改善例：Nameプロパティを書き換えず、title属性でDescriptionプロパティのみを追加する
+		音声コントロールユーザーは表示どおり「検索をクリック」と発声すれば操作できる-->
+	<button id="btn" title="サイト内サーチ">検索</button>
+
+	<a href="#" id="link" title="機能Aの詳細">
+		<span>ヘルプ</span>
+	</a>
+
+	<p class="readout" id="readout"></p>
+
+	<script>
+		document.getElementById('readout').textContent =
+			`ボタンの表示テキスト「検索」とNameプロパティが一致しています。title属性「${document.getElementById('btn').getAttribute('title')}」はDescriptionプロパティとして補足的に伝わります。`;
+	</script>
+</body>
+</html>

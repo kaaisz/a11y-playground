@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-3-04: 行の間隔・段落の間隔を広くする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 良い例：行の高さをフォントサイズの1.5倍、段落の間隔をフォントサイズの2倍に設定する */
+		p {
+			max-width: 80ch;
+			line-height: 1.5;
+			font-size: 1rem;
+			margin: 0;
+		}
+
+		p + p {
+			margin-top: 2rem;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-3-04: 行の間隔・段落の間隔を広くする（改善例）</h1>
+
+	<p>
+		行の間隔が狭すぎることも多くのユーザーにとってテキストを読みにくくします。行の間隔が狭いと、今読んでいる行に別の行が被って見えてしまったり、同じ行を何度も読み進めてしまったりします。
+	</p>
+	<p>
+		段落の間隔が行の間隔に比べて狭い場合は、段落ごとのまとまりを認識することが難しくなります。人によっては段落の先頭だけを読んで文章の概要を把握することがあります。
+	</p>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-1-05: 凡例とデータの結び付きを色のみで示した折れ線グラフ（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.chart-wrap {
+			background: #fff;
+			padding: 16px;
+			border-radius: 4px;
+			max-width: 420px;
+		}
+
+		.legend {
+			display: flex;
+			gap: 16px;
+			margin-bottom: 8px;
+			color: #111;
+		}
+
+		.legend span {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		/* 悪い例：凡例とデータの対応が色のみで示されている */
+		.swatch {
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			display: inline-block;
+		}
+
+		.swatch.a { background: #c00; }
+		.swatch.b { background: #06c; }
+
+		.line-a { fill: none; stroke: #c00; stroke-width: 2; }
+		.line-b { fill: none; stroke: #06c; stroke-width: 2; }
+	</style>
+</head>
+<body>
+	<h1>4-1-05: 凡例とデータの結び付きを色のみで示した折れ線グラフ（悪い例）</h1>
+
+	<div class="chart-wrap">
+		<div class="legend">
+			<span><i class="swatch a"></i>データA</span>
+			<span><i class="swatch b"></i>データB</span>
+		</div>
+		<svg viewBox="0 0 360 160" role="img" aria-label="データAとデータBの推移を示す折れ線グラフ">
+			<polyline class="line-a" points="20,120 100,90 180,40 260,60 340,20"/>
+			<polyline class="line-b" points="20,140 100,130 180,110 260,100 340,80"/>
+		</svg>
+	</div>
+</body>
+</html>

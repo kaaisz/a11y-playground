@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-6-06: BGMの音量を十分小さくする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		button {
+			padding: 8px 16px;
+		}
+
+		.status {
+			margin-top: 16px;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-6-06: BGMの音量を十分小さくする（改善例）</h1>
+
+	<!--改善例：WCAG 2.1 達成基準1.4.7に従い、BGMの音量を発話より少なくとも20dB低くする
+		（20dB低い ≒ 音量比0.1）-->
+	<button type="button" id="play">再生する（BGM控えめ）</button>
+	<p class="status" id="status"></p>
+
+	<script>
+		let audioContext;
+
+		document.getElementById('play').addEventListener('click', () => {
+			audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+
+			const oscillator = audioContext.createOscillator();
+			const gain = audioContext.createGain();
+			const bgmGain = 0.1;
+			gain.gain.value = bgmGain;
+			oscillator.frequency.value = 220;
+			oscillator.connect(gain).connect(audioContext.destination);
+			oscillator.start();
+			oscillator.stop(audioContext.currentTime + 4);
+
+			const utterance = new SpeechSynthesisUtterance('BGMを抑えたことで、この発話が聞き取りやすくなっているはずです。');
+			utterance.lang = 'ja-JP';
+			utterance.volume = 1;
+			speechSynthesis.speak(utterance);
+
+			document.getElementById('status').textContent = `BGMの音量: ${bgmGain}（発話に対して約 ${Math.round(20 * Math.log10(bgmGain))}dB、WCAG 1.4.7の基準を満たす）`;
+		});
+	</script>
+</body>
+</html>

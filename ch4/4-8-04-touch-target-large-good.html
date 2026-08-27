@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-8-04: タッチターゲットのサイズを大きくする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.toolbar {
+			display: flex;
+			gap: 8px;
+		}
+
+		/* 改善例：タッチターゲットを44px以上に広げ、余白も十分に確保する */
+		button {
+			width: 44px;
+			height: 44px;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-8-04: タッチターゲットのサイズを大きくする（改善例）</h1>
+
+	<div class="toolbar">
+		<button type="button" id="target" aria-label="太字">B</button>
+		<button type="button" aria-label="斜体">I</button>
+		<button type="button" aria-label="下線">U</button>
+	</div>
+
+	<p id="readout"></p>
+
+	<script>
+		const rect = document.getElementById('target').getBoundingClientRect();
+		document.getElementById('readout').textContent = `ボタンのサイズ：${Math.round(rect.width)}×${Math.round(rect.height)}px（主要ガイドラインの目安である44px以上を満たす）`;
+	</script>
+</body>
+</html>

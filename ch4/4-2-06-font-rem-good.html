@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-2-06: フォントサイズを相対単位で指定する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 改善例：フォントサイズを相対単位（rem）で指定している
+			幅・高さもフォントサイズに応じて変化するよう rem で指定する */
+		.save-button {
+			font-size: 1rem;
+			min-width: 5rem;
+			height: 2rem;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-2-06: フォントサイズを相対単位で指定する（改善例）</h1>
+
+	<button type="button" class="save-button">保存</button>
+
+	<p>
+		下のボタンでブラウザの「標準フォントサイズ」を変更した想定を再現します（<code>html</code>要素の
+		<code>font-size</code> を書き換えます）。上のボタンは<code>rem</code>指定のため、
+		文字とボタンの大きさが連動して拡大します。
+	</p>
+	<button type="button" id="simulate">標準フォントサイズを32pxに変更した想定で再描画</button>
+
+	<script>
+		document.getElementById('simulate').addEventListener('click', () => {
+			document.documentElement.style.fontSize = '32px';
+		});
+	</script>
+</body>
+</html>

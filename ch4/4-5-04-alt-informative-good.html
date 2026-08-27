@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-5-04: 情報を提供する画像の代替テキストで重要な情報を短く伝える（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		img {
+			width: 280px;
+			border: 1px solid #767676;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-5-04: 情報を提供する画像の代替テキストで重要な情報を短く伝える（改善例）</h1>
+
+	<!--改善例：画像の種類（スクリーンショット）に続けて具体的な内容を伝える-->
+	<img id="shot" alt="スクリーンショット：ログインフォーム。ログインボタンが枠で囲われ強調されている。">
+
+	<canvas id="canvas" width="560" height="360" hidden></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#f5f5f5';
+		ctx.fillRect(0, 0, 560, 360);
+		ctx.fillStyle = '#333';
+		ctx.font = '20px sans-serif';
+		ctx.fillText('ユーザー名', 40, 80);
+		ctx.strokeStyle = '#999';
+		ctx.strokeRect(40, 100, 480, 40);
+		ctx.fillText('パスワード', 40, 180);
+		ctx.strokeRect(40, 200, 480, 40);
+		ctx.fillStyle = '#0057a8';
+		ctx.fillRect(40, 260, 160, 48);
+		ctx.fillStyle = '#fff';
+		ctx.fillText('ログイン', 70, 292);
+		ctx.strokeStyle = '#c00';
+		ctx.lineWidth = 4;
+		ctx.strokeRect(34, 254, 172, 60);
+		document.getElementById('shot').src = canvas.toDataURL();
+	</script>
+</body>
+</html>

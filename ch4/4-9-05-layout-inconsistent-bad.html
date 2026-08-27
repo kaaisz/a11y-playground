@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-9-05: ページレイアウトが一貫していない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.page {
+			border: 1px solid #767676;
+			padding: 16px;
+			margin-bottom: 24px;
+			max-width: 360px;
+		}
+
+		.page h2 {
+			font-size: 1rem;
+			margin-top: 0;
+		}
+
+		nav {
+			margin-top: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-9-05: ページレイアウトが一貫していない（悪い例）</h1>
+
+	<!--悪い例：ページによって検索欄・ナビゲーションの位置やDOM構造の順序が異なる
+		ユーザーは毎回ページ構造を学習しなおす必要がある-->
+	<div class="page">
+		<h2>ページA（商品一覧）：検索欄がヘッダの右</h2>
+		<header style="display:flex; justify-content: space-between;">
+			<span>ロゴ</span>
+			<input type="search" aria-label="検索">
+		</header>
+		<nav>ホーム / 商品一覧 / お問い合わせ</nav>
+	</div>
+
+	<div class="page">
+		<h2>ページB（お問い合わせ）：検索欄がナビゲーションの下</h2>
+		<header>
+			<span>ロゴ</span>
+		</header>
+		<nav>ホーム / 商品一覧 / お問い合わせ</nav>
+		<input type="search" aria-label="検索" style="margin-top: 8px; display: block;">
+	</div>
+</body>
+</html>

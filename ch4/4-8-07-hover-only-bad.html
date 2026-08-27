@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-8-07: デスクトップ特有の操作のみに依存している（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.menu {
+			position: relative;
+			display: inline-block;
+		}
+
+		.submenu {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			background: #ddd;
+			padding: 8px;
+			list-style: none;
+			margin: 0;
+		}
+
+		/* 悪い例：マウスオーバー（:hover）でのみサブメニューを表示している
+			タッチデバイスにはホバー操作がなく、サブメニューを開けない -->*/
+		.menu:hover .submenu {
+			display: block;
+		}
+
+		button {
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-8-07: デスクトップ特有の操作のみに依存している（悪い例）</h1>
+
+	<div class="menu">
+		<button type="button">商品カテゴリ</button>
+		<ul class="submenu">
+			<li>家電</li>
+			<li>書籍</li>
+			<li>食品</li>
+		</ul>
+	</div>
+</body>
+</html>

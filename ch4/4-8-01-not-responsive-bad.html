@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-8-01: 画面の大きさにコンテンツを最適化していない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 悪い例：デスクトップ用の固定幅レイアウトをそのまま表示しており、
+			幅の狭い画面では2次元（横方向の）スクロールが発生してしまう */
+		.layout {
+			display: flex;
+			width: 900px;
+		}
+
+		.sidebar {
+			width: 200px;
+			background: #ddd;
+			padding: 16px;
+			flex-shrink: 0;
+		}
+
+		.main {
+			flex: 1;
+			padding: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-8-01: 画面の大きさにコンテンツを最適化していない（悪い例）</h1>
+
+	<div class="layout" id="layout">
+		<div class="sidebar">サイドバー（固定200px）</div>
+		<div class="main">メインコンテンツ（レイアウト全体が固定900px幅）</div>
+	</div>
+
+	<p id="readout"></p>
+
+	<script>
+		document.getElementById('readout').textContent =
+			`このレイアウトの実際の幅：${document.getElementById('layout').scrollWidth}px（画面幅が狭くても縮まらないため横スクロールが発生する）`;
+	</script>
+</body>
+</html>

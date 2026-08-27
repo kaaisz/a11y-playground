@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-6-03: 動画・音声が勝手に再生される（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.player {
+			width: 360px;
+			height: 160px;
+			background: #111;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 4px;
+		}
+
+		.status {
+			margin-top: 16px;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-6-03: 動画・音声が勝手に再生される（悪い例）</h1>
+
+	<!--悪い例：ページを開いた瞬間、ユーザーの了解を得ずに音声を自動再生しようとする
+		スクリーンリーダーの読み上げをかき消してしまったり、意図せず音が流れ続けたりする恐れがある-->
+	<div class="player" aria-hidden="true">▶ 自動再生される動画</div>
+	<p class="status" id="status">読み込み中…</p>
+
+	<script>
+		window.addEventListener('load', () => {
+			const utterance = new SpeechSynthesisUtterance('ようこそ！自動的に再生が始まりました。');
+			utterance.lang = 'ja-JP';
+			speechSynthesis.speak(utterance);
+			document.getElementById('status').textContent =
+				'ページ読み込みと同時に自動再生を試みました（多くのブラウザはユーザー操作なしの音声再生を制限しています）。';
+		});
+	</script>
+</body>
+</html>

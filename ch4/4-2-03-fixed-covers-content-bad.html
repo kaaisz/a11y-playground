@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-2-03: ズームすると固定要素が画面を覆ってしまう（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.demo-header,
+		.demo-footer {
+			position: fixed;
+			left: 0;
+			right: 0;
+			background: #0057a8;
+			color: #fff;
+			padding: 12px 16px;
+			box-sizing: border-box;
+			font-weight: bold;
+		}
+
+		/* 悪い例：ウインドウの高さが低くなっても固定を解除しない
+			（ブラウザのズーム機能で拡大した状態は、画面が狭くなったのと同じ状態） */
+		.demo-header {
+			top: 0;
+		}
+
+		.demo-footer {
+			bottom: 0;
+		}
+
+		main {
+			padding: 60px 0;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-2-03: ズームすると固定要素が画面を覆ってしまう（悪い例）</h1>
+
+	<div class="demo-header">デモ用ヘッダ（常に固定）</div>
+	<main>
+		<p>ウィンドウの高さを480px未満にしてみてください（ブラウザのズーム機能で拡大した状態を再現しています）。</p>
+		<p>ヘッダとフッタが画面を覆ったままになり、閲覧できるコンテンツの範囲が狭くなります。</p>
+	</main>
+	<div class="demo-footer">デモ用フッタ（常に固定）</div>
+</body>
+</html>

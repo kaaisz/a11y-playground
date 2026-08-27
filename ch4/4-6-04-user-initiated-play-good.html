@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-6-04: ユーザーの了解を得て動画・音声を再生する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.player {
+			width: 360px;
+			height: 160px;
+			background: #111;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 4px;
+		}
+
+		button {
+			margin-top: 16px;
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-6-04: ユーザーの了解を得て動画・音声を再生する（改善例）</h1>
+
+	<!--改善例：再生ボタンを設け、ユーザーが自分のタイミングで再生を開始できるようにする
+		ページを開いただけでは音声は流れない-->
+	<div class="player" aria-hidden="true">▶ 動画</div>
+	<button type="button" id="play">再生する</button>
+
+	<script>
+		document.getElementById('play').addEventListener('click', () => {
+			const utterance = new SpeechSynthesisUtterance('再生ボタンが押されたので再生を開始しました。');
+			utterance.lang = 'ja-JP';
+			speechSynthesis.speak(utterance);
+		});
+	</script>
+</body>
+</html>

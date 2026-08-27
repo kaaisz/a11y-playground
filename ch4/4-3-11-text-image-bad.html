@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-3-11: 文字画像でテキストのレイアウトを固定している（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		img {
+			display: block;
+			image-rendering: pixelated;
+		}
+
+		.note {
+			max-width: 400px;
+			color: #666;
+			margin-top: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-3-11: 文字画像でテキストのレイアウトを固定している（悪い例）</h1>
+
+	<!--悪い例：デザインツールで作成した見出しをラスター画像として書き出して使っている
+		拡大するとジャギーが目立ち、文字色やフォントをユーザー側で変更することもできない-->
+	<canvas id="canvas" width="320" height="80" hidden></canvas>
+	<img id="banner" alt="セール開催中">
+
+	<p class="note">
+		文字を画像化しているため、拡大表示すると輪郭がぼやけたりジャギーが目立ったりします。
+		また文字色やフォントの変更、自動翻訳やルビの付与もできません。
+	</p>
+
+	<script>
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#0057a8';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.fillStyle = '#ffffff';
+		ctx.font = 'bold 32px sans-serif';
+		ctx.textBaseline = 'middle';
+		ctx.fillText('セール開催中', 20, 40);
+		document.getElementById('banner').src = canvas.toDataURL();
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-9-03: ページがランドマークで適切に分割されていない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.block {
+			padding: 12px;
+			border: 1px dashed #767676;
+			margin-bottom: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-9-03: ページがランドマークで適切に分割されていない（悪い例）</h1>
+
+	<!--悪い例：div要素のみでページ全体を構成しており、
+		header・nav・main・footerなどのランドマークが存在しない
+		スクリーンリーダーはランドマークジャンプで領域を把握できない-->
+	<div class="block">
+		<div>サイトロゴ</div>
+	</div>
+	<div class="block">
+		<div>ホーム</div>
+		<div>商品一覧</div>
+		<div>お問い合わせ</div>
+	</div>
+	<div class="block">
+		<h2>商品一覧</h2>
+		<p>ここに商品の一覧が表示されます。</p>
+	</div>
+	<div class="block">
+		<div>© 2026 サンプルサイト</div>
+	</div>
+
+	<p id="readout"></p>
+	<script>
+		const landmarkTags = ['header', 'nav', 'main', 'footer', 'aside'];
+		const found = landmarkTags.filter((tag) => document.querySelector(tag));
+		document.getElementById('readout').textContent = `このページに存在するランドマーク要素：${found.length === 0 ? 'なし' : found.join(', ')}`;
+	</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>4-6-01: 動画・音声で音声を聞かないと内容が理解できない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.player {
+			width: 360px;
+			height: 200px;
+			background: #111;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 4px;
+		}
+
+		button {
+			margin-top: 16px;
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>4-6-01: 動画・音声で音声を聞かないと内容が理解できない（悪い例）</h1>
+
+	<!--悪い例：音声（この例では音声合成による読み上げ）でのみ内容を説明し、
+		キャプション（字幕）を提供していない。音声を聞けないユーザーは内容を理解できない-->
+	<div class="player" aria-hidden="true">▶ 動画（音声のみで解説）</div>
+	<button type="button" id="play">再生する（音声のみ）</button>
+
+	<script>
+		document.getElementById('play').addEventListener('click', () => {
+			const utterance = new SpeechSynthesisUtterance(
+				'この製品には3つの新機能があります。1つ目は自動保存、2つ目は共有リンク、3つ目はダークモードです。'
+			);
+			utterance.lang = 'ja-JP';
+			speechSynthesis.speak(utterance);
+		});
+	</script>
+</body>
+</html>
