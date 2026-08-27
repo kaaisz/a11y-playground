@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5-7-05: aria-expanded属性とNameプロパティを併用している（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		button {
+			border: 0;
+			background: transparent;
+			padding: 8px;
+			cursor: pointer;
+		}
+
+		svg {
+			fill: #333;
+		}
+
+		nav {
+			display: flex;
+			flex-direction: column;
+			background: #ccc;
+			width: 200px;
+			margin-top: 8px;
+		}
+
+		nav a {
+			padding: 8px 16px;
+			color: #111;
+		}
+	</style>
+</head>
+<body>
+	<h1>5-7-05: aria-expanded属性とNameプロパティを併用している（悪い例）</h1>
+
+	<!--悪い例：aria-expanded 属性と Name プロパティの両方でメニューボタンの開閉状態を伝えている-->
+	<button type="button" id="menuButton" aria-expanded="false" aria-controls="menu">
+		<svg role="img" aria-label="メニューを開く" viewBox="0 0 448 512" width="24" height="24">
+			<path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+		</svg>
+	</button>
+	<nav id="menu" style="display: none">
+		<a href="#">ホーム</a>
+		<a href="#">商品一覧</a>
+		<a href="#">お問い合わせ</a>
+	</nav>
+
+	<script>
+		// 悪い例：開閉状態を aria-expanded 属性と Name プロパティ（aria-label）の
+		// 両方で伝えてしまっている。NVDA で読み上げると「メニューを閉じる、ボタン、展開」のように
+		// 開閉状態を表す文言が2回読み上げられてしまう
+		const button = document.getElementById('menuButton');
+		const label = button.querySelector('svg');
+		const menu = document.getElementById('menu');
+		button.addEventListener('click', () => {
+			const expanded = button.getAttribute('aria-expanded') === 'true';
+			button.setAttribute('aria-expanded', String(!expanded));
+			menu.style.display = expanded ? 'none' : 'flex';
+			label.setAttribute('aria-label', expanded ? 'メニューを開く' : 'メニューを閉じる');
+		});
+	</script>
+</body>
+</html>
