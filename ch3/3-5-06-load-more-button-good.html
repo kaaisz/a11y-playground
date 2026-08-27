@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-5-06: 「もっと読み込む」ボタンを設ける（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+			max-width: 320px;
+		}
+
+		li {
+			padding: 8px 12px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		li a {
+			display: block;
+		}
+
+		button {
+			display: block;
+			margin-top: 12px;
+			padding: 8px 16px;
+		}
+
+		footer {
+			margin-top: 16px;
+			padding: 8px;
+			border: 2px solid #06c;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-5-06: 「もっと読み込む」ボタンを設ける（改善例）</h1>
+
+	<!--改善例：スクロールでは自動的に読み込まず、ボタンを押したときにのみ項目を追加する
+		Tabキーで footer要素まで確実にたどり着ける-->
+	<ul id="list"></ul>
+	<button type="button" id="load-more">もっと読み込む</button>
+
+	<footer>Tabキーで確実にたどり着ける（footer要素）</footer>
+
+	<script>
+		const list = document.getElementById('list');
+		let count = 0;
+
+		const addItems = (n) => {
+			for (let i = 0; i < n; i += 1) {
+				count += 1;
+				const li = document.createElement('li');
+				const a = document.createElement('a');
+				a.href = '#';
+				a.textContent = `アイテム ${count}`;
+				li.appendChild(a);
+				list.appendChild(li);
+			}
+		};
+
+		document.getElementById('load-more').addEventListener('click', () => addItems(10));
+
+		addItems(10);
+	</script>
+</body>
+</html>

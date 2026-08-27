@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-5-03: フォーカストラップが発生する（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		[contenteditable] {
+			border: 1px solid #767676;
+			padding: 8px;
+			max-width: 320px;
+			min-height: 4em;
+		}
+
+		button {
+			display: block;
+			margin-top: 16px;
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-5-03: フォーカストラップが発生する（悪い例）</h1>
+
+	<!--悪い例：リッチテキストエディタで Tab キーによるタブ文字の入力を実装すると、
+		Tab キーを押してもフォーカスがエディタの外に出られなくなってしまう
+		（キーボードのみで操作している場合、これより下の要素を操作できない）-->
+	<div contenteditable="true" role="textbox" aria-multiline="true" aria-label="本文" id="editor">ここに入力できます。Tabキーを押してみてください。</div>
+
+	<button type="button">この下にあるボタン（キーボードだけでは到達できない）</button>
+
+	<script>
+		document.getElementById('editor').addEventListener('keydown', (event) => {
+			if (event.key === 'Tab') {
+				event.preventDefault();
+				document.execCommand('insertText', false, '\t');
+			}
+		});
+	</script>
+</body>
+</html>

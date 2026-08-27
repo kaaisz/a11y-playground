@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-03: label要素を使ってフォームコントロールのエラーをマークアップする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: block;
+			font-weight: bold;
+		}
+
+		.error {
+			display: block;
+			color: #c00;
+			font-weight: normal;
+		}
+
+		input {
+			display: block;
+			padding: 8px;
+			width: 260px;
+			margin-top: 4px;
+		}
+
+		input[aria-invalid="true"] {
+			border: 2px dotted #c00;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-03: label要素を使ってフォームコントロールのエラーをマークアップする（改善例）</h1>
+
+	<!--改善例：label要素を使ってフォームコントロールのエラーをマークアップする-->
+	<label for="username">
+		<span>ユーザー名（半角英数字で入力）</span>
+		<span class="error">エラー：すでに同じユーザー名が登録されています。</span>
+	</label>
+	<input type="text" aria-invalid="true" id="username">
+</body>
+</html>

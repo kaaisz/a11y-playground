@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-15: ユーザー自身が操作を検証する手段がない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+			max-width: 320px;
+		}
+
+		li {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 8px 12px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		button {
+			padding: 4px 12px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-15: ユーザー自身が操作を検証する手段がない（悪い例）</h1>
+
+	<!--悪い例：確認する機会を与えずに削除処理を実行してしまう-->
+	<ul id="repo-list">
+		<li>
+			<span>my-project</span>
+			<button type="button" class="delete">削除</button>
+		</li>
+		<li>
+			<span>sample-app</span>
+			<button type="button" class="delete">削除</button>
+		</li>
+	</ul>
+
+	<script>
+		document.getElementById('repo-list').addEventListener('click', (event) => {
+			if (event.target.classList.contains('delete')) {
+				event.target.closest('li').remove();
+			}
+		});
+	</script>
+</body>
+</html>

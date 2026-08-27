@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-05: fieldset要素とlegend要素を使ってグループのエラーをマークアップする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		fieldset {
+			max-width: 320px;
+		}
+
+		fieldset[aria-invalid="true"] {
+			border: 2px dotted #c00;
+		}
+
+		.error {
+			display: block;
+			color: #c00;
+			font-weight: normal;
+		}
+
+		fieldset label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-top: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-05: fieldset要素とlegend要素を使ってグループのエラーをマークアップする（改善例）</h1>
+
+	<!--良い例：fieldset 要素と legend 要素を使ってフォームコントロールのエラーをマークアップする-->
+	<fieldset role="radiogroup" aria-invalid="true">
+		<legend>
+			<span>商品の色（どれか1つを選択）</span>
+			<span class="error">エラー：色が選択されていません</span>
+		</legend>
+		<label><input type="radio" name="product-color"> 青</label>
+		<label><input type="radio" name="product-color"> 緑</label>
+		<label><input type="radio" name="product-color"> 黄</label>
+		<label><input type="radio" name="product-color"> 赤</label>
+	</fieldset>
+</body>
+</html>

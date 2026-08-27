@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-06: label要素を使ってフォームコントロールにラベルと説明を関連付ける（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: block;
+			font-weight: bold;
+		}
+
+		label .description {
+			display: block;
+			margin-top: 4px;
+			color: #666;
+			font-weight: normal;
+			font-size: 0.9rem;
+		}
+
+		input {
+			display: block;
+			padding: 8px;
+			width: 260px;
+			margin-top: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-06: label要素を使ってフォームコントロールにラベルと説明を関連付ける（改善例）</h1>
+
+	<!--改善例：label 要素を使ってフォームコントロールにラベルと説明を関連付ける-->
+	<label for="username">
+		ユーザー名
+		<span class="description">（半角英数字で入力）</span>
+	</label>
+	<input type="text" id="username">
+</body>
+</html>

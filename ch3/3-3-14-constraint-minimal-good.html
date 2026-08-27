@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-14: 入力の制約を最小限にする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+
+		.description {
+			color: #666;
+			font-weight: normal;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-14: 入力の制約を最小限にする（改善例）</h1>
+
+	<!--改善例：ハイフンの有無・全角半角をユーザーに強制せず、システム側で正規化する-->
+	<form>
+		<label>電話番号
+			<span class="description">ハイフンはあってもなくても構いません（例：03-1234-5678 / 0312345678）</span>
+			<input type="tel" id="tel" inputmode="numeric">
+		</label>
+		<label>郵便番号
+			<span class="description">全角・半角どちらでも構いません（例：123-4567 / １２３－４５６７）</span>
+			<input type="text" id="zip" inputmode="numeric">
+		</label>
+		<button type="submit">送信</button>
+	</form>
+
+	<script>
+		// 良い例：ユーザーに書式の統一を強制せず、システム側でハイフン・全角数字を正規化する
+		const normalize = (value) => value
+			.replace(/[０-９]/g, (char) => String.fromCharCode(char.charCodeAt(0) - 0xFEE0))
+			.replace(/[‐－ー―]/g, '-')
+			.replace(/-/g, '');
+
+		['tel', 'zip'].forEach((id) => {
+			const field = document.getElementById(id);
+			field.addEventListener('blur', () => {
+				field.value = normalize(field.value);
+			});
+		});
+	</script>
+</body>
+</html>

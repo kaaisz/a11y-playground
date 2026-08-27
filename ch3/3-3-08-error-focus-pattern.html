@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-08: パターン1：送信時にフォームコントロールへフォーカスする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+
+		input[aria-invalid="true"] {
+			border: 2px dotted #c00;
+		}
+
+		.error {
+			color: #c00;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-08: パターン1：送信時にフォームコントロールへフォーカスする（改善例）</h1>
+
+	<!--改善例：送信時にエラーが発生したフォームコントロールへフォーカスを移動する-->
+	<form novalidate>
+		<label for="username">
+			ユーザー名
+			<span class="error" id="username-error" hidden>エラー：ユーザー名を入力してください。</span>
+		</label>
+		<input type="text" id="username" aria-describedby="username-error">
+		<button type="submit">送信</button>
+	</form>
+
+	<script>
+		document.querySelector('form').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const username = document.getElementById('username');
+			const error = document.getElementById('username-error');
+			if (!username.value) {
+				error.hidden = false;
+				username.setAttribute('aria-invalid', 'true');
+				username.focus();
+			} else {
+				error.hidden = true;
+				username.removeAttribute('aria-invalid');
+			}
+		});
+	</script>
+</body>
+</html>

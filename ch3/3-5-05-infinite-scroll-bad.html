@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-5-05: 無限スクロールでキーボード操作が先に進めなくなる（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+			max-width: 320px;
+			max-height: 240px;
+			overflow-y: auto;
+			border: 1px solid #767676;
+		}
+
+		li {
+			padding: 8px 12px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		li a {
+			display: block;
+		}
+
+		footer {
+			margin-top: 16px;
+			padding: 8px;
+			border: 2px solid #06c;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-5-05: 無限スクロールでキーボード操作が先に進めなくなる（悪い例）</h1>
+
+	<!--悪い例：リストの末尾にフォーカスするたびスクロールが発生し、
+		項目が自動的に追加され続けるため、Tabキーだけではリストより後ろの要素（footer）に
+		いつまでもたどり着けない-->
+	<ul id="list"></ul>
+
+	<footer>ここまでキーボードだけでたどり着くのが困難（footer要素）</footer>
+
+	<script>
+		const list = document.getElementById('list');
+		let count = 0;
+
+		const addItems = (n) => {
+			for (let i = 0; i < n; i += 1) {
+				count += 1;
+				const li = document.createElement('li');
+				const a = document.createElement('a');
+				a.href = '#';
+				a.textContent = `アイテム ${count}`;
+				li.appendChild(a);
+				list.appendChild(li);
+			}
+			observeLast();
+		};
+
+		let observer;
+		const observeLast = () => {
+			if (observer) observer.disconnect();
+			const last = list.lastElementChild;
+			if (!last) return;
+			observer = new IntersectionObserver((entries) => {
+				if (entries[0].isIntersecting) {
+					addItems(10);
+				}
+			}, { root: list });
+			observer.observe(last);
+		};
+
+		addItems(10);
+	</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-04: フォームコントロール・グループのラベルと説明をわかりやすく配置する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			margin-bottom: 32px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 4px;
+			font-weight: bold;
+		}
+
+		.description {
+			display: block;
+			margin-bottom: 4px;
+			color: #666;
+			font-weight: normal;
+			font-size: 0.9rem;
+		}
+
+		input[type="text"] {
+			padding: 8px;
+			width: 260px;
+		}
+
+		/* 改善例：チェックボックスを縦に並べてラベルを整列させる */
+		.checkbox-list {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		.checkbox-list label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-04: フォームコントロール・グループのラベルと説明をわかりやすく配置する（改善例）</h1>
+
+	<section>
+		<h2>改善例：ラベルと説明をフォームコントロールの前に配置する</h2>
+		<!--改善例：ラベルと説明をフォームコントロールの前に配置する-->
+		<label for="password">
+			パスワード
+			<span class="description">8文字以上、英数字と記号を組み合わせて入力してください</span>
+		</label>
+		<input type="text" id="password">
+	</section>
+
+	<section>
+		<h2>改善例：チェックボックスを縦に並べてラベルを整列させる</h2>
+		<!--改善例：チェックボックスを縦に並べてラベルを整列させる-->
+		<span>興味のあるトピック（3つまで選択）</span>
+		<div class="checkbox-list">
+			<label><input type="checkbox" name="topic"> 政治</label>
+			<label><input type="checkbox" name="topic"> 経済</label>
+			<label><input type="checkbox" name="topic"> 国際</label>
+			<label><input type="checkbox" name="topic"> 科学</label>
+			<label><input type="checkbox" name="topic"> スポーツ</label>
+		</div>
+	</section>
+</body>
+</html>

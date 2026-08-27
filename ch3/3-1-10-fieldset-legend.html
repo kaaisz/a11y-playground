@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-10: fieldset要素とlegend要素でグループにラベルと説明を関連付ける（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		fieldset {
+			margin-bottom: 24px;
+		}
+
+		fieldset label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-top: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-10: fieldset要素とlegend要素でグループにラベルと説明を関連付ける（改善例）</h1>
+
+	<!--改善例：fieldset 要素と legend 要素を使ってラジオボタンのグループをマークアップする-->
+	<fieldset>
+		<legend>商品の色（どれか1つを選択）</legend>
+		<label><input type="radio" name="product-color"> 青</label>
+		<label><input type="radio" name="product-color"> 緑</label>
+		<label><input type="radio" name="product-color"> 黄</label>
+		<label><input type="radio" name="product-color"> 赤</label>
+	</fieldset>
+
+	<!--改善例：fieldset 要素と legend 要素を使ってチェックボックスのグループをマークアップする-->
+	<fieldset>
+		<legend>興味のあるトピック（3つまで選択）</legend>
+		<label><input type="checkbox" name="topic"> 政治</label>
+		<label><input type="checkbox" name="topic"> 経済</label>
+		<label><input type="checkbox" name="topic"> 国際</label>
+		<label><input type="checkbox" name="topic"> 科学</label>
+		<label><input type="checkbox" name="topic"> スポーツ</label>
+	</fieldset>
+</body>
+</html>

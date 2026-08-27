@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-09: inputmode属性とpattern属性でソフトウェアキーボードを最適化する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+			max-width: 320px;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-09: inputmode属性とpattern属性でソフトウェアキーボードを最適化する（改善例）</h1>
+
+	<!--良い例：ソフトウェアキーボードを最適化するため、inputmode 属性と pattern 属性が指定されている-->
+	<label>
+		クレジットカード番号：
+		<input type="text" inputmode="numeric" pattern="[0-9]*">
+	</label>
+</body>
+</html>

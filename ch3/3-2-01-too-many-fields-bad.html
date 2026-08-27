@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-01: 必要以上に入力を求めている（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-01: 必要以上に入力を求めている（悪い例）</h1>
+
+	<!--悪い例：システム上重要でない項目も含めてすべて入力必須になっている-->
+	<form>
+		<label>氏名（必須）<input type="text" required></label>
+		<label>フリガナ（必須）<input type="text" required></label>
+		<label>メールアドレス（必須）<input type="text" required></label>
+		<label>電話番号（必須）<input type="text" required></label>
+		<label>生年月日（必須）<input type="text" required></label>
+		<label>性別（必須）<input type="text" required></label>
+		<label>職業（必須）<input type="text" required></label>
+		<label>会社名（必須）<input type="text" required></label>
+		<label>部署名（必須）<input type="text" required></label>
+		<label>役職（必須）<input type="text" required></label>
+		<button type="submit">送信</button>
+	</form>
+</body>
+</html>

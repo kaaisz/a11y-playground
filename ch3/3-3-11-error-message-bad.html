@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-11: エラーの修正方法がわかりにくい（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			margin-bottom: 16px;
+			max-width: 400px;
+		}
+
+		.error {
+			color: #c00;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-11: エラーの修正方法がわかりにくい（悪い例）</h1>
+
+	<!--悪い例：難解なエラー-->
+	<section>
+		<h2>難解なエラー</h2>
+		<p class="error">エラーAB_XYZ_0123が発生しました。不正なリクエストです。</p>
+	</section>
+
+	<!--悪い例：冗長なエラー-->
+	<section>
+		<h2>冗長なエラー</h2>
+		<p class="error">申し訳ありません。お手数ですが、パスワードが短すぎるため、恐れ入りますが入力しなおしていただけますでしょうか。</p>
+	</section>
+
+	<!--悪い例：あいまいなエラー（制限値やフォーマットが示されていない）-->
+	<section>
+		<h2>あいまいなエラー</h2>
+		<p class="error">ファイルサイズが大きすぎます。</p>
+		<p class="error">ユーザー名に使用できない文字が含まれています。</p>
+	</section>
+</body>
+</html>

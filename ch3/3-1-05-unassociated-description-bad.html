@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-05: フォームコントロールに説明が関連付けられていない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			font-weight: bold;
+		}
+
+		.description {
+			color: #666;
+			font-size: 0.9rem;
+		}
+
+		input {
+			display: block;
+			padding: 8px;
+			width: 260px;
+			margin-top: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-05: フォームコントロールに説明が関連付けられていない（悪い例）</h1>
+
+	<!--悪い例：フォームコントロールに説明が関連付けられていない-->
+	<label for="username">ユーザー名</label><span class="description">（半角英数字で入力）</span>
+	<input type="text" id="username">
+</body>
+</html>

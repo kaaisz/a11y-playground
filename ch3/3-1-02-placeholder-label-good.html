@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-02: ラベルや説明をプレースホルダーの外に配置する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: block;
+			margin-bottom: 4px;
+			font-weight: bold;
+		}
+
+		.description {
+			display: block;
+			margin-bottom: 4px;
+			color: #666;
+			font-weight: normal;
+			font-size: 0.9rem;
+		}
+
+		input {
+			padding: 8px;
+			width: 260px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-02: ラベルや説明をプレースホルダーの外に配置する（改善例）</h1>
+
+	<!--改善例：ラベルと説明をプレースホルダーの外に配置する-->
+	<label for="username">
+		ユーザー名
+		<span class="description">（半角英数字で入力）</span>
+	</label>
+	<input type="text" id="username">
+</body>
+</html>

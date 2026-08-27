@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-04: 1つの入力値を表すフォームコントロールをまとめる（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-04: 1つの入力値を表すフォームコントロールをまとめる（改善例）</h1>
+
+	<!--改善例：分割せずに1つのフォームコントロールにまとめ、autocomplete属性を付与している-->
+	<form>
+		<label>氏名<input type="text" name="name" autocomplete="name"></label>
+		<label>メールアドレス<input type="email" name="email" autocomplete="email"></label>
+		<label>電話番号<input type="tel" name="tel" autocomplete="tel"></label>
+		<button type="submit">送信</button>
+	</form>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-02: 入力項目の数を必要最小限にする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-02: 入力項目の数を必要最小限にする（改善例）</h1>
+
+	<!--改善例：システム上重要な項目のみを必須にし、それ以外の項目は削除または任意にした-->
+	<form>
+		<label>氏名（必須）<input type="text" required></label>
+		<label>メールアドレス（必須）<input type="text" required></label>
+		<label>会社名（任意）<input type="text"></label>
+		<button type="submit">送信</button>
+	</form>
+</body>
+</html>

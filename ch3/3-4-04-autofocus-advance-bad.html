@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-4-04: 値の入力時にフォーカスが自動的に移動する（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		fieldset {
+			border: none;
+			padding: 0;
+			max-width: 320px;
+		}
+
+		legend {
+			font-weight: bold;
+			margin-bottom: 4px;
+			padding: 0;
+		}
+
+		.row {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		input {
+			padding: 8px;
+			width: 3em;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-4-04: 値の入力時にフォーカスが自動的に移動する（悪い例）</h1>
+
+	<!--悪い例：市外局番を3桁入力すると、ユーザーの意思にかかわらず次の入力欄へ自動的にフォーカスが移動する-->
+	<fieldset>
+		<legend>電話番号</legend>
+		<div class="row">
+			<input type="text" maxlength="3" id="tel1" aria-label="市外局番">
+			<span aria-hidden="true">-</span>
+			<input type="text" maxlength="4" id="tel2" aria-label="市内局番">
+			<span aria-hidden="true">-</span>
+			<input type="text" maxlength="4" id="tel3" aria-label="加入者番号">
+		</div>
+	</fieldset>
+
+	<script>
+		const fields = ['tel1', 'tel2', 'tel3'].map((id) => document.getElementById(id));
+		fields.forEach((field, index) => {
+			field.addEventListener('input', () => {
+				if (field.value.length >= field.maxLength && fields[index + 1]) {
+					fields[index + 1].focus();
+				}
+			});
+		});
+	</script>
+</body>
+</html>

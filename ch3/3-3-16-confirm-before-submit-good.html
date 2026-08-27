@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-16: フォームの送信前に送信内容を確認できるようにする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+			max-width: 320px;
+		}
+
+		li {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 8px 12px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		button {
+			padding: 4px 12px;
+		}
+
+		.confirm {
+			margin-top: 8px;
+			padding: 12px;
+			border: 1px solid #c00;
+			max-width: 320px;
+		}
+
+		.confirm label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 4px;
+		}
+
+		.confirm input {
+			padding: 8px;
+			width: 100%;
+			box-sizing: border-box;
+			margin-bottom: 8px;
+		}
+
+		.confirm button[type="submit"]:disabled {
+			opacity: 0.5;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-16: フォームの送信前に送信内容を確認できるようにする（改善例）</h1>
+
+	<!--良い例：削除を実行する前に、確認のためリポジトリ名の入力を求める（GitHub の例を参考）-->
+	<ul id="repo-list">
+		<li>
+			<span>my-project</span>
+			<button type="button" class="delete" data-name="my-project">削除</button>
+		</li>
+		<li>
+			<span>sample-app</span>
+			<button type="button" class="delete" data-name="sample-app">削除</button>
+		</li>
+	</ul>
+
+	<form class="confirm" id="confirm-form" hidden>
+		<label for="confirm-input" id="confirm-label"></label>
+		<input type="text" id="confirm-input" aria-describedby="confirm-hint">
+		<p id="confirm-hint">確認のため、削除するリポジトリ名を正確に入力してください。</p>
+		<button type="submit" id="confirm-submit" disabled>このリポジトリを削除する</button>
+		<button type="button" id="confirm-cancel">キャンセル</button>
+	</form>
+
+	<script>
+		const list = document.getElementById('repo-list');
+		const form = document.getElementById('confirm-form');
+		const label = document.getElementById('confirm-label');
+		const input = document.getElementById('confirm-input');
+		const submit = document.getElementById('confirm-submit');
+		let target = null;
+
+		list.addEventListener('click', (event) => {
+			if (!event.target.classList.contains('delete')) return;
+			target = event.target.closest('li');
+			const name = event.target.dataset.name;
+			label.textContent = `本当に削除する場合は「${name}」と入力してください`;
+			form.dataset.name = name;
+			input.value = '';
+			submit.disabled = true;
+			form.hidden = false;
+			input.focus();
+		});
+
+		input.addEventListener('input', () => {
+			submit.disabled = input.value !== form.dataset.name;
+		});
+
+		document.getElementById('confirm-cancel').addEventListener('click', () => {
+			form.hidden = true;
+			target = null;
+		});
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			if (submit.disabled) return;
+			target.remove();
+			form.hidden = true;
+			target = null;
+		});
+	</script>
+</body>
+</html>

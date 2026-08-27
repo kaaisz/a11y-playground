@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-5-07: aria-hidden内のフォーカス可能要素にtabindex="-1"を付与する（比較）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			max-width: 320px;
+			margin-bottom: 32px;
+			padding-bottom: 16px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		button.toggle {
+			padding: 8px 16px;
+		}
+
+		/* display: none や visibility: hidden ではなく、
+			max-height + overflow で視覚的に隠す（これらは要素をフォーカス可能なまま残す） */
+		[role="region"] {
+			overflow: hidden;
+			max-height: 200px;
+		}
+
+		[role="region"][aria-hidden="true"] {
+			max-height: 0;
+		}
+
+		[role="region"] > div {
+			padding: 8px 0;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-5-07: aria-hidden内のフォーカス可能要素にtabindex="-1"を付与する（比較）</h1>
+
+	<section>
+		<h2>悪い例：閉じているのにリンクがフォーカスできてしまう</h2>
+		<!--悪い例：aria-hidden="true" とCSSで視覚的に隠しただけでは、
+			内部の a 要素は依然として Tab キーでフォーカスできてしまう
+			スクリーンリーダーは読み上げないため、ユーザーは何にフォーカスしたのかわからず混乱する-->
+		<button type="button" class="toggle" id="toggle-bad" aria-expanded="false" aria-controls="panel-bad">
+			詳細を表示
+		</button>
+		<div role="region" id="panel-bad" aria-hidden="true">
+			<div>
+				<p>詳細な説明文がここに入ります。</p>
+				<a href="#">詳しくはこちら</a>
+			</div>
+		</div>
+
+		<script>
+			const toggleBad = document.getElementById('toggle-bad');
+			const panelBad = document.getElementById('panel-bad');
+			toggleBad.addEventListener('click', () => {
+				const expanded = toggleBad.getAttribute('aria-expanded') === 'true';
+				toggleBad.setAttribute('aria-expanded', String(!expanded));
+				panelBad.setAttribute('aria-hidden', String(expanded));
+			});
+		</script>
+	</section>
+
+	<section>
+		<h2>良い例：閉じている間はリンクをフォーカスできないようにする</h2>
+		<!--良い例：aria-hidden="true" の中のフォーカス可能な要素に tabindex="-1" を付け、
+			キーボード操作でフォーカスできないようにする-->
+		<button type="button" class="toggle" id="toggle-good" aria-expanded="false" aria-controls="panel-good">
+			詳細を表示
+		</button>
+		<div role="region" id="panel-good" aria-hidden="true">
+			<div>
+				<p>詳細な説明文がここに入ります。</p>
+				<a href="#" tabindex="-1">詳しくはこちら</a>
+			</div>
+		</div>
+
+		<script>
+			const toggleGood = document.getElementById('toggle-good');
+			const panelGood = document.getElementById('panel-good');
+			const link = panelGood.querySelector('a');
+
+			toggleGood.addEventListener('click', () => {
+				const expanded = toggleGood.getAttribute('aria-expanded') === 'true';
+				toggleGood.setAttribute('aria-expanded', String(!expanded));
+				panelGood.setAttribute('aria-hidden', String(expanded));
+				// 良い例：開いているときは tabindex を外し、閉じているときは -1 を付けなおす
+				if (expanded) {
+					link.setAttribute('tabindex', '-1');
+				} else {
+					link.removeAttribute('tabindex');
+				}
+			});
+		</script>
+	</section>
+</body>
+</html>

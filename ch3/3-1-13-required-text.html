@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-13: 入力必須をテキストで説明する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			margin-bottom: 24px;
+		}
+
+		label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 4px;
+		}
+
+		input {
+			padding: 8px;
+			width: 260px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-13: 入力必須をテキストで説明する（改善例）</h1>
+
+	<section>
+		<h2>良い例：ラベルに「（必須）」を含めた場合</h2>
+		<!--良い例：入力必須のフォームコントロール（ラベルに「（必須）」を含めた場合）-->
+		<label for="username">
+			ユーザー名（必須）
+		</label>
+		<input type="text" id="username" required>
+	</section>
+
+	<section>
+		<h2>良い例：フォームの冒頭で必須を示した場合</h2>
+		<!--良い例：入力必須のフォームコントロール（フォームの冒頭で必須を示した場合）-->
+		<strong>「＊」が付いている項目は入力必須です。</strong>
+		<label for="email" style="margin-top: 8px;">
+			メールアドレス *
+		</label>
+		<input type="text" id="email" required>
+	</section>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-09: パターン2：送信時にエラーサマリーを表示する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+
+		input[aria-invalid="true"] {
+			border: 2px dotted #c00;
+		}
+
+		/* 良い例：エラーサマリーでエラーの概要をまとめる */
+		.error-summary {
+			border: 2px solid #c00;
+			padding: 12px 16px;
+			margin-bottom: 16px;
+			max-width: 320px;
+		}
+
+		.error-summary h2 {
+			font-size: 1rem;
+			margin: 0 0 8px;
+			color: #c00;
+		}
+
+		.error-summary a {
+			color: #c00;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-09: パターン2：送信時にエラーサマリーを表示する（改善例）</h1>
+
+	<!--良い例：エラーサマリーでエラーの概要をまとめる。エラーサマリーを表示したときにフォーカスする-->
+	<section class="error-summary" id="error-summary" tabindex="-1" hidden>
+		<h2>入力された情報に問題があります。</h2>
+		<ul id="error-list"></ul>
+	</section>
+
+	<form novalidate>
+		<label for="username">ユーザー名</label>
+		<input type="text" id="username">
+
+		<label for="password">パスワード（10文字以上）</label>
+		<input type="password" id="password">
+
+		<button type="submit">送信</button>
+	</form>
+
+	<script>
+		const errors = {
+			username: {
+				message: 'ユーザー名を入力してください。',
+				validate: (value) => value.length > 0,
+			},
+			password: {
+				message: 'パスワードは10文字以上で入力してください。',
+				validate: (value) => value.length >= 10,
+			},
+		};
+
+		document.querySelector('form').addEventListener('submit', (event) => {
+			event.preventDefault();
+
+			const summary = document.getElementById('error-summary');
+			const list = document.getElementById('error-list');
+			list.textContent = '';
+
+			const failed = [];
+			for (const [id, { message, validate }] of Object.entries(errors)) {
+				const field = document.getElementById(id);
+				const isValid = validate(field.value);
+				field.toggleAttribute('aria-invalid', !isValid);
+				if (!isValid) {
+					failed.push({ id, message });
+				}
+			}
+
+			if (failed.length === 0) {
+				summary.hidden = true;
+				return;
+			}
+
+			failed.forEach(({ id, message }) => {
+				const li = document.createElement('li');
+				const a = document.createElement('a');
+				a.href = `#${id}`;
+				a.textContent = message;
+				li.appendChild(a);
+				list.appendChild(li);
+			});
+
+			summary.hidden = false;
+			summary.focus();
+		});
+	</script>
+</body>
+</html>

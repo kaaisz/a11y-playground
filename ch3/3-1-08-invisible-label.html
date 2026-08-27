@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-08: title属性・aria-label属性で不可視のラベルを付ける（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			margin-bottom: 24px;
+			display: flex;
+			gap: 8px;
+			align-items: center;
+		}
+
+		input {
+			padding: 8px;
+			width: 200px;
+		}
+
+		button {
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-08: title属性・aria-label属性で不可視のラベルを付ける（改善例）</h1>
+
+	<section>
+		<!--良い例：title 属性を使って不可視のラベルを付ける-->
+		<input type="search" title="検索キーワード">
+		<button>検索</button>
+	</section>
+
+	<section>
+		<!--良い例：aria-label属性を使って不可視のラベルを付ける-->
+		<input type="search" aria-label="検索キーワード">
+		<button>検索</button>
+	</section>
+</body>
+</html>

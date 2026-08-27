@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-5-02: 削除前に適切な位置へフォーカスを移動する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+			max-width: 320px;
+		}
+
+		li {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 8px 12px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		button {
+			padding: 4px 12px;
+		}
+
+		.empty {
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-5-02: 削除前に適切な位置へフォーカスを移動する（改善例）</h1>
+
+	<!--改善例：削除する前に、次の項目（なければ前の項目、それもなければリスト自体）へ
+		フォーカスを移動してから要素を削除する。フォーカスが body 要素に落ちない-->
+	<ul id="list">
+		<li><span>タスク1</span><button type="button" class="remove">削除</button></li>
+		<li><span>タスク2</span><button type="button" class="remove">削除</button></li>
+		<li><span>タスク3</span><button type="button" class="remove">削除</button></li>
+	</ul>
+
+	<script>
+		const list = document.getElementById('list');
+
+		list.addEventListener('click', (event) => {
+			if (!event.target.classList.contains('remove')) return;
+
+			const li = event.target.closest('li');
+			const next = li.nextElementSibling;
+			const prev = li.previousElementSibling;
+
+			if (next) {
+				next.querySelector('.remove').focus();
+			} else if (prev) {
+				prev.querySelector('.remove').focus();
+			} else {
+				list.setAttribute('tabindex', '-1');
+				list.focus();
+			}
+
+			li.remove();
+
+			if (!list.children.length) {
+				list.textContent = '';
+				const empty = document.createElement('p');
+				empty.className = 'empty';
+				empty.textContent = 'タスクはありません。';
+				list.replaceWith(empty);
+			}
+		});
+	</script>
+</body>
+</html>

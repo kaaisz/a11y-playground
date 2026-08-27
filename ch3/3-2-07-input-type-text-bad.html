@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-07: 入力値の種類に対して適切な入力タイプが選択されていない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-07: 入力値の種類に対して適切な入力タイプが選択されていない（悪い例）</h1>
+
+	<form>
+		<!--悪い例：数値の入力欄に type="text"が指定されている-->
+		<label>商品の個数：
+			<input type="text">
+		</label>
+
+		<!--悪い例：日付の入力欄に type="text"が指定されている-->
+		<label>商品到着日：
+			<input type="text">
+		</label>
+	</form>
+</body>
+</html>

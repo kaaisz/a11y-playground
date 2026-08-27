@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-08: 入力値の種類に応じて入力タイプを指定する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-08: 入力値の種類に応じて入力タイプを指定する（改善例）</h1>
+
+	<form>
+		<!--改善例：数値の入力欄に type="number" が指定されている-->
+		<label>商品の個数：
+			<input type="number">
+		</label>
+
+		<!--改善例：日付の入力欄に type="date" が指定されている-->
+		<label>商品到着日：
+			<input type="date">
+		</label>
+	</form>
+</body>
+</html>

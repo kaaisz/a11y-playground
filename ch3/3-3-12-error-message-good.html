@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-12: エラーの修正方法を理解しやすくする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			margin-bottom: 16px;
+			max-width: 400px;
+		}
+
+		.error {
+			color: #c00;
+		}
+
+		ul {
+			color: #c00;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-12: エラーの修正方法を理解しやすくする（改善例）</h1>
+
+	<!--良い例：平易・簡潔・具体的なエラーメッセージ-->
+	<section>
+		<h2>具体的な制限値を示す</h2>
+		<p class="error">パスワードは10文字以上で入力してください。</p>
+	</section>
+
+	<section>
+		<h2>具体的なフォーマットを示す</h2>
+		<p class="error">ユーザー名にはアルファベット（a〜z）、数字（0〜9）、ピリオド（.）のみ使用できます。</p>
+	</section>
+
+	<!--良い例：フォーマットが複雑な場合は、満たさない主要な原因を列挙する-->
+	<section>
+		<h2>複雑なフォーマットの主要な原因を列挙する</h2>
+		<p class="error">メールアドレスの形式が正しくありません。下記に該当していないか確認してください。</p>
+		<ul>
+			<li>空白が含まれている</li>
+			<li>@以降の文字を入力していない</li>
+			<li>存在しないドメインになっている</li>
+		</ul>
+	</section>
+
+	<!--良い例：修正候補を提案する-->
+	<section>
+		<h2>修正候補を提案する</h2>
+		<p class="error">「Tokoy」に該当する都市が見つかりませんでした。もしかして次の都市ですか？</p>
+		<ul>
+			<li><a href="#">Tokyo（東京）</a></li>
+		</ul>
+	</section>
+</body>
+</html>

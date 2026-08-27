@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-11: 選択肢のある入力値に対して適切なフォームコントロールが選択されていない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+			max-width: 320px;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-11: 選択肢のある入力値に対して適切なフォームコントロールが選択されていない（悪い例）</h1>
+
+	<!--悪い例：選択肢のある入力値に対してテキストコントロールが使われている-->
+	<label>
+		商品の色（青・緑・黄・赤のいずれかを入力してください）
+		<input type="text">
+	</label>
+</body>
+</html>

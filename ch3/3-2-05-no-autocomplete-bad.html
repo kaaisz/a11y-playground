@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-05: ブラウザによる自動補完が使えない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-05: ブラウザによる自動補完が使えない（悪い例）</h1>
+
+	<!--悪い例：自動補完が機能しないフォーム-->
+	<form>
+		<label>クレジットカード名義：
+			<input type="text" name="credit-name">
+		</label>
+		<label>クレジットカード番号：
+			<input type="text" name="credit-number">
+		</label>
+		<button>送信</button>
+	</form>
+</body>
+</html>

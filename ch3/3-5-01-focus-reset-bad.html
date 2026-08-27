@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-5-01: 要素の削除によってフォーカスがリセットされる（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+			max-width: 320px;
+		}
+
+		li {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 8px 12px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		button {
+			padding: 4px 12px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-5-01: 要素の削除によってフォーカスがリセットされる（悪い例）</h1>
+
+	<!--悪い例：フォーカスしている削除ボタンごと要素を削除すると、
+		フォーカスの行き先を指定していないため body 要素にリセットされてしまう
+		この状態で Tab キーを押すとページの先頭からやりなおしになる-->
+	<ul id="list">
+		<li><span>タスク1</span><button type="button" class="remove">削除</button></li>
+		<li><span>タスク2</span><button type="button" class="remove">削除</button></li>
+		<li><span>タスク3</span><button type="button" class="remove">削除</button></li>
+	</ul>
+
+	<script>
+		document.getElementById('list').addEventListener('click', (event) => {
+			if (event.target.classList.contains('remove')) {
+				event.target.closest('li').remove();
+			}
+		});
+	</script>
+</body>
+</html>

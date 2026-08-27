@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-5-04: Tabキーによるフォーカストラップを避ける（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		[contenteditable] {
+			border: 1px solid #767676;
+			padding: 8px;
+			max-width: 320px;
+			min-height: 4em;
+		}
+
+		.hint {
+			color: #666;
+			font-size: 0.9rem;
+			max-width: 320px;
+		}
+
+		button {
+			display: block;
+			margin-top: 16px;
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-5-04: Tabキーによるフォーカストラップを避ける（改善例）</h1>
+
+	<!--改善例：Tab キーはフォーカス移動という標準の役割のまま残し、
+		字下げには別のショートカット（Ctrl+]）を割り当てる。
+		Tab キーを押すとエディタの外（次のボタン）へフォーカスが移動できる-->
+	<p class="hint" id="editor-hint">字下げするには [Ctrl]+[]] キーを押してください。</p>
+	<div contenteditable="true" role="textbox" aria-multiline="true" aria-label="本文" aria-describedby="editor-hint" id="editor">ここに入力できます。Tabキーを押してみてください。</div>
+
+	<button type="button">この下にあるボタン（Tabキーで到達できる）</button>
+
+	<script>
+		document.getElementById('editor').addEventListener('keydown', (event) => {
+			if (event.key === ']' && event.ctrlKey) {
+				event.preventDefault();
+				document.execCommand('insertText', false, '\t');
+			}
+		});
+	</script>
+</body>
+</html>

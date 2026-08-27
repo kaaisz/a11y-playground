@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-4-03: 選択肢が少ない場合はリンクで実装する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		nav ul {
+			list-style: none;
+			display: flex;
+			gap: 12px;
+			padding: 0;
+		}
+
+		nav a {
+			color: #06c;
+		}
+
+		nav a[aria-current="page"] {
+			font-weight: bold;
+			color: inherit;
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-4-03: 選択肢が少ない場合はリンクで実装する（改善例）</h1>
+
+	<!--改善例：セレクトボックスを使わず、選択可能な言語をリンクとして表示する
+		リンクはキーボードでフォーカスしただけでは画面遷移しない-->
+	<nav aria-label="言語切り替え">
+		<ul>
+			<li><a href="#" aria-current="page">日本語</a></li>
+			<li><a href="#">English</a></li>
+			<li><a href="#">中文</a></li>
+			<li><a href="#">한국어</a></li>
+		</ul>
+	</nav>
+</body>
+</html>

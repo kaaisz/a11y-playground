@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-12: 入力必須の説明が伝わらない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 4px;
+		}
+
+		input {
+			padding: 8px;
+			width: 260px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-12: 入力必須の説明が伝わらない（悪い例）</h1>
+
+	<!--悪い例：予告なく「＊」で入力必須を示している。required 属性も付いていない-->
+	<label for="username">ユーザー名 *</label>
+	<input type="text" id="username">
+</body>
+</html>

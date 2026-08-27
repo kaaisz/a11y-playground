@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-13: 選択項目が多い場合はセレクトボックス・リストボックスを使う（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		section {
+			margin-bottom: 24px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+			max-width: 320px;
+		}
+
+		select {
+			padding: 8px;
+			font-weight: normal;
+		}
+
+		select[multiple] {
+			height: 6em;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-13: 選択項目が多い場合はセレクトボックス・リストボックスを使う（改善例）</h1>
+
+	<section>
+		<h2>良い例：都道府県を選択するセレクトボックス（単一選択）</h2>
+		<!--良い例：都道府県を選択するセレクトボックス-->
+		<label>都道府県：
+			<select>
+				<option value="" selected>（未選択）</option>
+				<option value="北海道">北海道</option>
+				<option value="青森県">青森県</option>
+				<option value="岩手県">岩手県</option>
+			</select>
+		</label>
+	</section>
+
+	<section>
+		<h2>良い例：訪問済みの都道府県を選択するリストボックス（複数選択）</h2>
+		<!--良い例：multiple 属性を付けたリストボックス-->
+		<label>訪問済みの都道府県：
+			<select multiple>
+				<option value="北海道">北海道</option>
+				<option value="青森県">青森県</option>
+				<option value="岩手県">岩手県</option>
+			</select>
+		</label>
+	</section>
+</body>
+</html>

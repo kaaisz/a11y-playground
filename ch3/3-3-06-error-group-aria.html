@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-06: WAI-ARIAを使ってグループのエラーをマークアップする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		div[role="radiogroup"] {
+			max-width: 320px;
+		}
+
+		div[role="radiogroup"][aria-invalid="true"] {
+			border: 2px dotted #c00;
+			padding: 8px;
+		}
+
+		#group-label {
+			font-weight: bold;
+		}
+
+		#group-description {
+			color: #666;
+			font-size: 0.9rem;
+		}
+
+		#group-error {
+			color: #c00;
+		}
+
+		div[role="radiogroup"] label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-top: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-06: WAI-ARIAを使ってグループのエラーをマークアップする（改善例）</h1>
+
+	<!--良い例：WAI-ARIA を使ってフォームコントロールのエラーをマークアップする-->
+	<div id="group-label">商品の色</div>
+	<div id="group-description">（どれか1つを選択）</div>
+	<div id="group-error">エラー：色が選択されていません</div>
+	<div
+		role="radiogroup"
+		aria-invalid="true"
+		aria-labelledby="group-label"
+		aria-describedby="group-description group-error"
+	>
+		<label><input type="radio" name="product-color"> 青</label>
+		<label><input type="radio" name="product-color"> 緑</label>
+		<label><input type="radio" name="product-color"> 黄</label>
+		<label><input type="radio" name="product-color"> 赤</label>
+	</div>
+</body>
+</html>

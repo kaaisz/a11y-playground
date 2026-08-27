@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-07: 多様なユーザーへエラーを通知する方法を検討していない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+
+		/* 悪い例：エラーがフォームから離れた場所に表示される */
+		.error {
+			margin-top: 400px;
+			color: #c00;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-07: 多様なユーザーへエラーを通知する方法を検討していない（悪い例）</h1>
+
+	<!--悪い例：送信ボタンにカーソルがあるまま、離れた場所にエラーを表示するだけで
+		フォーカス移動も aria-live もない -->
+	<form novalidate>
+		<label>ユーザー名
+			<input type="text" id="username">
+		</label>
+		<button type="submit" id="submit">送信</button>
+	</form>
+
+	<p class="error" id="error" hidden>エラー：ユーザー名を入力してください。</p>
+
+	<script>
+		document.querySelector('form').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const username = document.getElementById('username');
+			if (!username.value) {
+				document.getElementById('error').hidden = false;
+			}
+		});
+	</script>
+</body>
+</html>

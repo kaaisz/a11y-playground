@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-14: 選択項目が著しく多い場合はコンボボックスを使う（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+			max-width: 320px;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-14: 選択項目が著しく多い場合はコンボボックスを使う（改善例）</h1>
+
+	<!--良い例：都道府県を選択するコンボボックス-->
+	<label>都道府県：
+		<input type="text" list="prefecture-list">
+	</label>
+	<datalist id="prefecture-list">
+		<option value="北海道">北海道</option>
+		<option value="青森県">青森県</option>
+		<option value="岩手県">岩手県</option>
+	</datalist>
+</body>
+</html>

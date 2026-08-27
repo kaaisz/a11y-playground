@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-4-02: セレクトボックスの値の変更と反映を分ける（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			gap: 8px;
+			align-items: center;
+		}
+
+		select,
+		button {
+			padding: 8px;
+		}
+
+		.status {
+			margin-top: 16px;
+			color: #06c;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-4-02: セレクトボックスの値の変更と反映を分ける（改善例）</h1>
+
+	<!--改善例：値の変更ボタンを別に設け、ボタンを押したときにのみ画面遷移する-->
+	<form id="lang-form">
+		<label for="lang">言語切り替え</label>
+		<select id="lang">
+			<option value="日本語" selected>日本語</option>
+			<option value="English">English</option>
+			<option value="中文">中文</option>
+			<option value="한국어">한국어</option>
+		</select>
+		<button type="submit">変更する</button>
+	</form>
+
+	<p class="status" id="status"></p>
+
+	<script>
+		document.getElementById('lang-form').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const value = document.getElementById('lang').value;
+			document.getElementById('status').textContent = `${value} に切り替わりました（画面遷移が発生した想定）`;
+		});
+	</script>
+</body>
+</html>

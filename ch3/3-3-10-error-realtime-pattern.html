@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-10: パターン3：入力時にリアルタイムで検証する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+			max-width: 320px;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+
+		input[aria-invalid="true"] {
+			border: 2px dotted #c00;
+		}
+
+		.error {
+			color: #c00;
+			font-weight: normal;
+			min-height: 1.2em;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-10: パターン3：入力時にリアルタイムで検証する（改善例）</h1>
+
+	<!--良い例：入力時にリアルタイムでエラーを表示する。あらかじめ aria-live="polite" の要素を用意しておく-->
+	<label for="username">
+		ユーザー名（利用可能かリアルタイムで確認します）
+	</label>
+	<input type="text" id="username" aria-describedby="username-error">
+	<span aria-live="polite" class="error" id="username-error"></span>
+
+	<script>
+		const taken = new Set(['admin', 'taro']);
+		const input = document.getElementById('username');
+		const error = document.getElementById('username-error');
+
+		input.addEventListener('input', () => {
+			const value = input.value.trim().toLowerCase();
+			if (value && taken.has(value)) {
+				error.textContent = 'エラー：すでに同じユーザー名が登録されています。';
+				input.setAttribute('aria-invalid', 'true');
+			} else {
+				error.textContent = '';
+				input.removeAttribute('aria-invalid');
+			}
+		});
+	</script>
+</body>
+</html>

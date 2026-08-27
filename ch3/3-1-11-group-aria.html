@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-11: WAI-ARIAを使ってグループにラベルと説明を関連付ける（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		div[role="radiogroup"],
+		div[role="group"] {
+			margin-bottom: 24px;
+		}
+
+		div[role="radiogroup"] label,
+		div[role="group"] label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-top: 4px;
+		}
+
+		#radiogroup-label,
+		#group-label {
+			font-weight: bold;
+		}
+
+		#radiogroup-description,
+		#group-description {
+			color: #666;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-11: WAI-ARIAを使ってグループにラベルと説明を関連付ける（改善例）</h1>
+
+	<!--改善例：WAI-ARIA を使ってラジオボタンのグループをマークアップする-->
+	<div id="radiogroup-label">商品の色</div>
+	<div id="radiogroup-description">（どれか1つを選択）</div>
+	<div
+		role="radiogroup"
+		aria-labelledby="radiogroup-label"
+		aria-describedby="radiogroup-description"
+	>
+		<label><input type="radio" name="product-color"> 青</label>
+		<label><input type="radio" name="product-color"> 緑</label>
+		<label><input type="radio" name="product-color"> 黄</label>
+		<label><input type="radio" name="product-color"> 赤</label>
+	</div>
+
+	<!--改善例：WAI-ARIA を使ってチェックボックスのグループをマークアップする-->
+	<div id="group-label">興味のあるトピック</div>
+	<div id="group-description">（3つまで選択）</div>
+	<div
+		role="group"
+		aria-labelledby="group-label"
+		aria-describedby="group-description"
+	>
+		<label><input type="checkbox" name="topic"> 政治</label>
+		<label><input type="checkbox" name="topic"> 経済</label>
+		<label><input type="checkbox" name="topic"> 国際</label>
+		<label><input type="checkbox" name="topic"> 科学</label>
+		<label><input type="checkbox" name="topic"> スポーツ</label>
+	</div>
+</body>
+</html>

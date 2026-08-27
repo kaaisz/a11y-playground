@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-03: 1つの入力値を表すフォームコントロールが分割されている（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+			max-width: 360px;
+		}
+
+		fieldset {
+			border: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		legend {
+			font-weight: bold;
+			margin-bottom: 4px;
+			padding: 0;
+		}
+
+		.row {
+			display: flex;
+			gap: 8px;
+		}
+
+		input {
+			padding: 8px;
+			width: 0;
+			flex: 1;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-03: 1つの入力値を表すフォームコントロールが分割されている（悪い例）</h1>
+
+	<form>
+		<!--悪い例：名前が「姓」と「名」の2つのフォームコントロールに分割されている-->
+		<fieldset>
+			<legend>氏名</legend>
+			<div class="row">
+				<label>姓<input type="text"></label>
+				<label>名<input type="text"></label>
+			</div>
+		</fieldset>
+
+		<!--悪い例：メールアドレスが「＠」の前後で2つのフォームコントロールに分割されている-->
+		<fieldset>
+			<legend>メールアドレス</legend>
+			<div class="row">
+				<input type="text" aria-label="メールアドレス（＠より前）" style="flex: 2;">
+				<span aria-hidden="true">＠</span>
+				<input type="text" aria-label="メールアドレス（＠より後）" style="flex: 2;">
+			</div>
+		</fieldset>
+
+		<!--悪い例：電話番号が市外局番・市内局番・加入者番号の3つのフォームコントロールに分割されている-->
+		<fieldset>
+			<legend>電話番号</legend>
+			<div class="row">
+				<input type="text" aria-label="市外局番" style="flex: 1;">
+				<span aria-hidden="true">-</span>
+				<input type="text" aria-label="市内局番" style="flex: 1;">
+				<span aria-hidden="true">-</span>
+				<input type="text" aria-label="加入者番号" style="flex: 1;">
+			</div>
+		</fieldset>
+
+		<button type="submit">送信</button>
+	</form>
+</body>
+</html>

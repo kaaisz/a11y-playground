@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-13: 必要以上に入力を制約している（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+
+		.description {
+			color: #666;
+			font-weight: normal;
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-13: 必要以上に入力を制約している（悪い例）</h1>
+
+	<!--悪い例：ハイフンの有無や全角・半角をユーザーに強制している-->
+	<form>
+		<label>電話番号
+			<span class="description">ハイフンを含めて入力してください（例：03-1234-5678）</span>
+			<input type="tel" pattern="\d{2,4}-\d{2,4}-\d{4}">
+		</label>
+		<label>郵便番号（全角数字）
+			<span class="description">全角数字で入力してください（例：１２３ー４５６７）</span>
+			<input type="text" pattern="[０-９]{3}ー[０-９]{4}">
+		</label>
+		<button type="submit">送信</button>
+	</form>
+</body>
+</html>

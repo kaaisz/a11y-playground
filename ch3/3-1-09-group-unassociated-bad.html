@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-1-09: グループにラベルと説明が関連付けられていない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		div.group {
+			margin-bottom: 24px;
+		}
+
+		div.group > span {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 8px;
+		}
+
+		div.group label {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-1-09: グループにラベルと説明が関連付けられていない（悪い例）</h1>
+
+	<!--悪い例：ラジオボタンのグループにラベルと説明が関連付けられていない-->
+	<div class="group">
+		<span>商品の色（どれか1つを選択）</span>
+		<label><input type="radio" name="product-color"> 青</label>
+		<label><input type="radio" name="product-color"> 緑</label>
+		<label><input type="radio" name="product-color"> 黄</label>
+		<label><input type="radio" name="product-color"> 赤</label>
+	</div>
+
+	<!--悪い例：チェックボックスのグループにラベルと説明が関連付けられていない-->
+	<div class="group">
+		<span>興味のあるトピック（3つまで選択）</span>
+		<label><input type="checkbox" name="topic"> 政治</label>
+		<label><input type="checkbox" name="topic"> 経済</label>
+		<label><input type="checkbox" name="topic"> 国際</label>
+		<label><input type="checkbox" name="topic"> 科学</label>
+		<label><input type="checkbox" name="topic"> スポーツ</label>
+	</div>
+</body>
+</html>

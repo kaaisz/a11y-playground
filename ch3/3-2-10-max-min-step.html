@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-2-10: max属性・min属性・step属性・pattern属性でインタフェースからの入力を制限する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			max-width: 320px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-2-10: max属性・min属性・step属性・pattern属性でインタフェースからの入力を制限する（改善例）</h1>
+
+	<form>
+		<!--良い例：商品の個数を1〜10個、1個刻みに制限している-->
+		<label>商品の個数（1〜10個）：
+			<input type="number" min="1" max="10" step="1">
+		</label>
+
+		<!--（良い例：pattern属性を使って入力値の最大長を3文字にした例
+			maxlength 属性は貼り付けた値を予告なく切り詰めてしまうため使わない -->
+		<label>略号（3文字まで）：
+			<input type="text" pattern=".{0,3}">
+		</label>
+	</form>
+</body>
+</html>

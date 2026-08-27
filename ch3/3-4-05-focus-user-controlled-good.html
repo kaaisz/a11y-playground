@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-4-05: フォーカスの移動をユーザーに委ねる（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			font-weight: bold;
+			max-width: 320px;
+		}
+
+		input {
+			padding: 8px;
+			font-weight: normal;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-4-05: フォーカスの移動をユーザーに委ねる（改善例）</h1>
+
+	<!--改善例：入力欄を分割せず1つにまとめれば、
+		フォーカスを自動的に移動させる必要自体がなくなる-->
+	<label>電話番号
+		<input type="tel" inputmode="numeric" placeholder="0312345678">
+	</label>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3-3-17: フォームの送信後に送信内容を取り消せるようにする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+			max-width: 320px;
+		}
+
+		li {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 8px 12px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		li.deleted {
+			color: #767676;
+		}
+
+		li.deleted span {
+			text-decoration: line-through;
+		}
+
+		button {
+			padding: 4px 12px;
+		}
+
+		.status {
+			margin-top: 12px;
+			color: #06c;
+		}
+	</style>
+</head>
+<body>
+	<h1>3-3-17: フォームの送信後に送信内容を取り消せるようにする（改善例）</h1>
+
+	<!--良い例：削除後もゴミ箱のように一定期間取り消せるようにする（Gmail の例を参考）-->
+	<ul id="mail-list">
+		<li data-id="1">
+			<span>件名：来週のミーティングについて</span>
+			<button type="button" class="delete">削除</button>
+		</li>
+		<li data-id="2">
+			<span>件名：資料のご確認をお願いします</span>
+			<button type="button" class="delete">削除</button>
+		</li>
+	</ul>
+
+	<p class="status" aria-live="polite" id="status"></p>
+
+	<script>
+		const list = document.getElementById('mail-list');
+		const status = document.getElementById('status');
+
+		list.addEventListener('click', (event) => {
+			const li = event.target.closest('li');
+			if (!li) return;
+
+			if (event.target.classList.contains('delete')) {
+				li.classList.add('deleted');
+				const button = event.target;
+				button.textContent = '元に戻す';
+				button.classList.remove('delete');
+				button.classList.add('undo');
+				status.textContent = 'メールをゴミ箱に移動しました。';
+				return;
+			}
+
+			if (event.target.classList.contains('undo')) {
+				li.classList.remove('deleted');
+				const button = event.target;
+				button.textContent = '削除';
+				button.classList.remove('undo');
+				button.classList.add('delete');
+				status.textContent = 'メールを元に戻しました。';
+			}
+		});
+	</script>
+</body>
+</html>
