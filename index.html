@@ -424,6 +424,48 @@
         <li><a href="ch5/5-8-04-routing-anchor.html">5-8-04: 非インタラクティブなdiv要素とa要素によるナビゲーションの比較</a></li>
     </ul>
 
+    <h2>第6章 デザインシステムとアクセシビリティ</h2>
+    <h3>6.5 デザインシステムだけではアクセシブルにならない</h3>
+    <ul>
+        <li><a href="ch6/6-5-01-escape-key-conflict-bad.html">6-5-01: モーダル上のドロップダウンでEscキーが競合する（悪い例）</a></li>
+        <li><a href="ch6/6-5-02-escape-key-stop-propagation-good.html">6-5-02: Escキーの伝播を止めて競合を防ぐ（改善例）</a></li>
+    </ul>
+    <p style="max-width: 640px; color: #666; font-size: 0.9rem;">
+        第6章・第7章はデザインシステムの構築や組織運営に関する内容が中心で、実装コードのサンプルがほとんど含まれていません。
+        本プロジェクトはコードを実際に動くHTMLとして再現することが目的のため、両章はこの1件のバグ再現例を除き割愛しています。
+    </p>
+
+    <h2>第8章 アクセシブルなUI設計の原理を導く</h2>
+    <h3>8.3 アンチパターンと対策①ー1画面に多くの状態を持つ</h3>
+    <ul>
+        <li><a href="ch8/8-3-01-accordion-form-bad.html">8-3-01: アコーディオン型の複数ステップフォーム（悪い例）</a></li>
+        <li><a href="ch8/8-3-02-one-thing-per-page-good.html">8-3-02: 1画面1フォームに分割する（改善例）</a></li>
+        <li><a href="ch8/8-3-03-master-detail-bad.html">8-3-03: Master-Detail構成で選択結果の変化に気付きにくい（悪い例）</a></li>
+        <li><a href="ch8/8-3-04-separate-pages-good.html">8-3-04: 一覧画面と詳細画面を独立させる（改善例）</a></li>
+        <li><a href="ch8/8-3-05-info-modal-bad.html">8-3-05: 情報表示のみのモーダルダイアログ（悪い例）</a></li>
+        <li><a href="ch8/8-3-06-disclosure-good.html">8-3-06: ディスクロージャーで情報を表示する（改善例）</a></li>
+    </ul>
+
+    <h3>8.6 アンチパターンと対策④ーユーザーの要求ではない動作</h3>
+    <ul>
+        <li><a href="ch8/8-6-01-scroll-snap-bad.html">8-6-01: スクロールスナップで読みたい位置に留まれない（悪い例）</a></li>
+        <li><a href="ch8/8-6-02-free-scroll-good.html">8-6-02: スクロールスナップを使わない（改善例）</a></li>
+        <li><a href="ch8/8-6-03-unexpected-modal-bad.html">8-6-03: 予想外の訴求モーダルダイアログ（悪い例）</a></li>
+        <li><a href="ch8/8-6-04-non-blocking-banner-good.html">8-6-04: 訴求を控えめなインライン表示にする（改善例）</a></li>
+        <li><a href="ch8/8-6-05-forced-new-tab-bad.html">8-6-05: リンクが予告なく新規タブで開く（悪い例）</a></li>
+        <li><a href="ch8/8-6-06-same-tab-or-announced-good.html">8-6-06: 新規タブは既定にせず、必要な場合は明示する（改善例）</a></li>
+    </ul>
+
+    <h3>8.7 アンチパターンと対策⑤ー確認や報告が多い</h3>
+    <ul>
+        <li><a href="ch8/8-7-01-confirm-dialog-bad.html">8-7-01: 削除に単純な確認モーダルダイアログを使う（悪い例）</a></li>
+        <li><a href="ch8/8-7-02-two-step-confirm-good.html">8-7-02: 2段階の操作で確認する（改善例）</a></li>
+    </ul>
+    <p style="max-width: 640px; color: #666; font-size: 0.9rem;">
+        8.1・8.2・8.4・8.5・8.8・8.9節は方法論や他節（3.1〜3.3, 4.4, 4.5, 4.8, 4.9等）の要約・引用が中心で、
+        新規の実装コードがほとんど含まれないため割愛しています。
+    </p>
+
     <script>
         (function () {
             var button = document.getElementById('theme-toggle');

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-6-02: スクロールスナップを使わない（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 改善例：スクロールスナップは使わず、ユーザーが望む位置で自由に止められるようにする
+			代替手段がないため、単純に採用しないことが対策になる */
+		.scroller {
+			height: 300px;
+			width: 360px;
+			overflow-y: scroll;
+			border: 1px solid #767676;
+		}
+
+		.section {
+			height: 300px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.2rem;
+		}
+
+		.section:nth-child(odd) {
+			background: #eef;
+			color: #111;
+		}
+
+		.section:nth-child(even) {
+			background: #dfd;
+			color: #111;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-6-02: スクロールスナップを使わない（改善例）</h1>
+
+	<div class="scroller">
+		<div class="section">セクション1：はじめに</div>
+		<div class="section">セクション2：機能の紹介（途中で自由に止まって読めます）</div>
+		<div class="section">セクション3：料金プラン</div>
+	</div>
+</body>
+</html>

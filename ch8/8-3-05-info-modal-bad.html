@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-3-05: 情報表示のみのモーダルダイアログ（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.5);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.overlay[hidden] {
+			display: none;
+		}
+
+		.modal {
+			background: #fff;
+			color: #111;
+			padding: 24px;
+			border-radius: 8px;
+			width: 320px;
+		}
+
+		button {
+			padding: 8px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-3-05: 情報表示のみのモーダルダイアログ（悪い例）</h1>
+
+	<!--悪い例：単なる補足情報の表示に、モードを必要とするモーダルダイアログを使っている
+		ほかの操作をすべて止めさせ、視界を占有してしまう-->
+	<button type="button" id="open">送料について</button>
+
+	<div class="overlay" id="overlay" hidden>
+		<div class="modal" role="dialog" aria-modal="true" aria-labelledby="title">
+			<h2 id="title">送料について</h2>
+			<p>3,000円以上のご購入で送料が無料になります。北海道・沖縄・離島は別途送料がかかります。</p>
+			<button type="button" id="close">閉じる</button>
+		</div>
+	</div>
+
+	<script>
+		const overlay = document.getElementById('overlay');
+		document.getElementById('open').addEventListener('click', () => { overlay.hidden = false; });
+		document.getElementById('close').addEventListener('click', () => { overlay.hidden = true; });
+	</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-6-04: 訴求を控えめなインライン表示にする（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.banner {
+			background: #eef;
+			color: #111;
+			padding: 12px 16px;
+			border-radius: 4px;
+			max-width: 400px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 12px;
+			margin-bottom: 16px;
+		}
+
+		.banner button {
+			padding: 4px 10px;
+			flex-shrink: 0;
+		}
+
+		article {
+			max-width: 400px;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-6-04: 訴求を控えめなインライン表示にする（改善例）</h1>
+
+	<!--改善例：訴求はページの流れを止めないインラインのバナーとして表示する
+		ユーザーが読んでいる作業を妨げず、任意のタイミングで閉じたり無視したりできる-->
+	<div class="banner" id="banner">
+		<span>📱 モバイルアプリならもっと便利に使えます</span>
+		<button type="button" id="dismiss">閉じる</button>
+	</div>
+
+	<article>
+		<h2>お知らせ：新機能をリリースしました</h2>
+		<p>この度、ダッシュボード画面に新しいグラフ表示機能を追加しました。より見やすくデータを確認いただけます。</p>
+	</article>
+
+	<script>
+		document.getElementById('dismiss').addEventListener('click', () => {
+			document.getElementById('banner').remove();
+		});
+	</script>
+</body>
+</html>

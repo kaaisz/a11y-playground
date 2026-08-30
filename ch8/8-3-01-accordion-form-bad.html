@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-3-01: アコーディオン型の複数ステップフォーム（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.panel {
+			border: 1px solid #767676;
+			border-radius: 4px;
+			margin-bottom: 8px;
+			max-width: 360px;
+		}
+
+		.panel-header {
+			width: 100%;
+			text-align: left;
+			padding: 12px 16px;
+			background: none;
+			border: none;
+			font-weight: bold;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.panel-body {
+			padding: 0 16px 16px;
+		}
+
+		.panel-body[hidden] {
+			display: none;
+		}
+
+		.panel.done .panel-header {
+			color: #067d06;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+		}
+
+		input {
+			padding: 6px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		button.submit {
+			margin-top: 8px;
+			padding: 6px 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-3-01: アコーディオン型の複数ステップフォーム（悪い例）</h1>
+
+	<!--悪い例：配送先・配送オプション・支払い情報の3ステップが1画面のアコーディオンに
+		詰め込まれている。あるパネルを送信すると折りたたまれ、次のパネルが自動で開く
+		どこが開いていてどこが閉じているかの状態把握が必要になり、
+		画面拡大時やスクリーンリーダー利用時は展開されたことに気付きにくい-->
+	<div class="panel" id="panel1">
+		<div class="panel-header">1. 配送先</div>
+		<div class="panel-body" id="body1">
+			<label>郵便番号<input type="text"></label>
+			<label>住所<input type="text"></label>
+			<button type="button" class="submit" data-next="panel2" data-current="panel1">次へ</button>
+		</div>
+	</div>
+
+	<div class="panel" id="panel2">
+		<div class="panel-header">2. 配送オプション</div>
+		<div class="panel-body" id="body2" hidden>
+			<label>お届け希望日<input type="text"></label>
+			<button type="button" class="submit" data-next="panel3" data-current="panel2">次へ</button>
+		</div>
+	</div>
+
+	<div class="panel" id="panel3">
+		<div class="panel-header">3. 支払い情報</div>
+		<div class="panel-body" id="body3" hidden>
+			<label>カード番号<input type="text"></label>
+			<button type="button" class="submit" data-current="panel3">注文を確定する</button>
+		</div>
+	</div>
+
+	<script>
+		document.querySelectorAll('.submit').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const current = btn.dataset.current;
+				const next = btn.dataset.next;
+				document.getElementById(`body${current.slice(-1)}`).hidden = true;
+				document.getElementById(current).classList.add('done');
+				if (next) {
+					document.getElementById(`body${next.slice(-1)}`).hidden = false;
+				}
+			});
+		});
+	</script>
+</body>
+</html>

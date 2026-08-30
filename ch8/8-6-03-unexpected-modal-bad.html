@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-6-03: 予想外の訴求モーダルダイアログ（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.5);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.overlay[hidden] {
+			display: none;
+		}
+
+		.modal {
+			background: #fff;
+			color: #111;
+			padding: 24px;
+			border-radius: 8px;
+			width: 320px;
+			text-align: center;
+		}
+
+		button {
+			padding: 8px 16px;
+			margin-top: 12px;
+		}
+
+		article {
+			max-width: 400px;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-6-03: 予想外の訴求モーダルダイアログ（悪い例）</h1>
+
+	<!--悪い例：ユーザーが記事を読み始めた数秒後、サービス側の都合で
+		予測できないタイミングにモーダルダイアログが出現し、操作を強制的に中断させる-->
+	<article>
+		<h2>お知らせ：新機能をリリースしました</h2>
+		<p>この度、ダッシュボード画面に新しいグラフ表示機能を追加しました。より見やすくデータを確認いただけます。</p>
+	</article>
+
+	<div class="overlay" id="overlay" hidden>
+		<div class="modal" role="dialog" aria-modal="true" aria-labelledby="title">
+			<h2 id="title">📱 アプリのダウンロードはこちら</h2>
+			<p>モバイルアプリならもっと便利に使えます！</p>
+			<button type="button" id="close">閉じる</button>
+		</div>
+	</div>
+
+	<script>
+		// 悪い例：ユーザーの操作とは無関係に、一定時間後に自動でモーダルを表示する
+		setTimeout(() => {
+			document.getElementById('overlay').hidden = false;
+		}, 3000);
+		document.getElementById('close').addEventListener('click', () => {
+			document.getElementById('overlay').hidden = true;
+		});
+	</script>
+</body>
+</html>

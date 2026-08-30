@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>6-5-02: Escキーの伝播を止めて競合を防ぐ（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.5);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.overlay[hidden] {
+			display: none;
+		}
+
+		.modal {
+			background: #fff;
+			color: #111;
+			padding: 24px;
+			border-radius: 8px;
+			width: 320px;
+			position: relative;
+		}
+
+		.dropdown {
+			position: relative;
+			margin-top: 16px;
+		}
+
+		.listbox {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			background: #fff;
+			border: 1px solid #767676;
+			list-style: none;
+			margin: 4px 0 0;
+			padding: 4px 0;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.listbox[hidden] {
+			display: none;
+		}
+
+		.listbox li {
+			padding: 8px 12px;
+			cursor: pointer;
+		}
+
+		.listbox li:hover {
+			background: #eef;
+		}
+
+		button {
+			padding: 8px 16px;
+		}
+
+		.status {
+			margin-top: 16px;
+			color: #666;
+		}
+	</style>
+</head>
+<body>
+	<h1>6-5-02: Escキーの伝播を止めて競合を防ぐ（改善例）</h1>
+
+	<button type="button" id="open">モーダルを開く</button>
+	<p class="status" id="status"></p>
+
+	<!--改善例：ドロップダウンのEscキー処理で event.stopPropagation() を呼び、
+		イベントが document まで伝播しないようにする。Escを押すとドロップダウンだけが閉じ、
+		モーダルは開いたままになる。もう一度Escを押すとモーダルが閉じる（一番手前の階層から順に閉じる）-->
+	<div class="overlay" id="overlay" hidden>
+		<div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+			<h2 id="modal-title">商品を編集</h2>
+
+			<div class="dropdown">
+				<button type="button" id="ddButton" aria-haspopup="listbox" aria-expanded="false">カテゴリを選択 ▾</button>
+				<ul class="listbox" id="listbox" role="listbox" hidden>
+					<li role="option">家電</li>
+					<li role="option">書籍</li>
+					<li role="option">食品</li>
+				</ul>
+			</div>
+
+			<button type="button" id="close" style="margin-top: 24px;">閉じる</button>
+		</div>
+	</div>
+
+	<script>
+		const overlay = document.getElementById('overlay');
+		const openBtn = document.getElementById('open');
+		const closeBtn = document.getElementById('close');
+		const ddButton = document.getElementById('ddButton');
+		const listbox = document.getElementById('listbox');
+		const status = document.getElementById('status');
+
+		const openModal = () => {
+			overlay.hidden = false;
+			status.textContent = '';
+		};
+
+		const closeModal = () => {
+			overlay.hidden = true;
+			openBtn.focus();
+		};
+
+		openBtn.addEventListener('click', openModal);
+		closeBtn.addEventListener('click', closeModal);
+
+		ddButton.addEventListener('click', () => {
+			const expanded = ddButton.getAttribute('aria-expanded') === 'true';
+			ddButton.setAttribute('aria-expanded', String(!expanded));
+			listbox.hidden = expanded;
+		});
+
+		// 改善例：ドロップダウンのEscキー処理で stopPropagation() を呼び、
+		// イベントがモーダルのハンドラーまで伝わらないようにする
+		ddButton.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && listbox.hidden === false) {
+				event.stopPropagation();
+				listbox.hidden = true;
+				ddButton.setAttribute('aria-expanded', 'false');
+				status.textContent = 'ドロップダウンだけが閉じました（モーダルは開いたままです）';
+			}
+		});
+
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && !overlay.hidden) {
+				closeModal();
+				status.textContent = 'モーダルが閉じました';
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-6-01: スクロールスナップで読みたい位置に留まれない（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		/* 悪い例：スクロールを「みなし決定」として扱い、
+			ユーザーが途中で読むのをやめて止めようとしても、次のセクションまで
+			自動的にスクロールされてしまう（スクロールハイジャック） */
+		.scroller {
+			height: 300px;
+			width: 360px;
+			overflow-y: scroll;
+			scroll-snap-type: y mandatory;
+			border: 1px solid #767676;
+		}
+
+		.section {
+			height: 300px;
+			scroll-snap-align: start;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.2rem;
+		}
+
+		.section:nth-child(odd) {
+			background: #eef;
+			color: #111;
+		}
+
+		.section:nth-child(even) {
+			background: #dfd;
+			color: #111;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-6-01: スクロールスナップで読みたい位置に留まれない（悪い例）</h1>
+
+	<div class="scroller">
+		<div class="section">セクション1：はじめに</div>
+		<div class="section">セクション2：機能の紹介（ここで少しだけ読みたくても、途中で止められません）</div>
+		<div class="section">セクション3：料金プラン</div>
+	</div>
+</body>
+</html>

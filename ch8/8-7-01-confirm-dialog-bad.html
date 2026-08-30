@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-7-01: 削除に単純な確認モーダルダイアログを使う（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+			max-width: 320px;
+		}
+
+		li {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 8px 12px;
+			border-bottom: 1px solid #ccc;
+		}
+
+		button {
+			padding: 4px 12px;
+		}
+
+		.overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.5);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.overlay[hidden] {
+			display: none;
+		}
+
+		.modal {
+			background: #fff;
+			color: #111;
+			padding: 24px;
+			border-radius: 8px;
+			width: 280px;
+			text-align: center;
+		}
+
+		.modal .actions {
+			display: flex;
+			gap: 8px;
+			justify-content: center;
+			margin-top: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-7-01: 削除に単純な確認モーダルダイアログを使う（悪い例）</h1>
+
+	<!--悪い例：削除のたびに「本当によろしいですか？」だけを尋ねるモーダルダイアログを出す
+		モーダルダイアログそのものが持つ問題（視界の占有・操作負担の増加）に加え、
+		この確認は削除操作を防ぐ役には立っておらず、ただ手間を増やしているだけ-->
+	<ul id="list">
+		<li><span>タスク1</span><button type="button" class="delete" data-name="タスク1">削除</button></li>
+		<li><span>タスク2</span><button type="button" class="delete" data-name="タスク2">削除</button></li>
+	</ul>
+
+	<div class="overlay" id="overlay" hidden>
+		<div class="modal" role="dialog" aria-modal="true" aria-labelledby="title">
+			<p id="title">本当に削除しますか？</p>
+			<div class="actions">
+				<button type="button" id="confirm">削除する</button>
+				<button type="button" id="cancel">キャンセル</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const overlay = document.getElementById('overlay');
+		let target = null;
+
+		document.getElementById('list').addEventListener('click', (event) => {
+			if (!event.target.classList.contains('delete')) return;
+			target = event.target.closest('li');
+			overlay.hidden = false;
+		});
+
+		document.getElementById('confirm').addEventListener('click', () => {
+			target.remove();
+			overlay.hidden = true;
+		});
+
+		document.getElementById('cancel').addEventListener('click', () => {
+			overlay.hidden = true;
+		});
+	</script>
+</body>
+</html>

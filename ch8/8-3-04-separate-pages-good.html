@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-3-04: 一覧画面と詳細画面を独立させる（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		main {
+			max-width: 360px;
+		}
+
+		.list {
+			list-style: none;
+			padding: 0;
+		}
+
+		.list a {
+			display: block;
+			padding: 8px 0;
+		}
+
+		.back {
+			display: inline-block;
+			margin-bottom: 12px;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-3-04: 一覧画面と詳細画面を独立させる（改善例）</h1>
+
+	<!--改善例：一覧と詳細を独立した画面にする。項目を選択すると画面全体が切り替わるため
+		変化に明確に気付ける。ブラウザの「戻る」ナビゲーションで一覧に戻れる-->
+	<main id="app"></main>
+
+	<script>
+		const contents = {
+			1: { title: 'お知らせA', body: 'お知らせAの本文です。' },
+			2: { title: 'お知らせB', body: 'お知らせBの本文です。' },
+			3: { title: 'お知らせC', body: 'お知らせCの本文です。' },
+		};
+
+		const render = () => {
+			const hash = location.hash.replace(/^#\/?/, '');
+			const app = document.getElementById('app');
+
+			if (contents[hash]) {
+				const content = contents[hash];
+				app.innerHTML = `
+					<a class="back" href="#">← お知らせ一覧に戻る</a>
+					<h2>${content.title}</h2>
+					<p>${content.body}</p>
+				`;
+				return;
+			}
+
+			app.innerHTML = `
+				<h2>お知らせ一覧</h2>
+				<ul class="list">
+					${Object.entries(contents).map(([id, c]) => `<li><a href="#${id}">${c.title}</a></li>`).join('')}
+				</ul>
+			`;
+		};
+
+		window.addEventListener('hashchange', render);
+		render();
+	</script>
+</body>
+</html>

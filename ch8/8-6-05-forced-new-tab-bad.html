@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-6-05: リンクが予告なく新規タブで開く（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>8-6-05: リンクが予告なく新規タブで開く（悪い例）</h1>
+
+	<!--悪い例：サービス提供側の都合で target="_blank" が付けられており、
+		予告や表示上の目印もないまま新規タブで開いてしまう
+		ユーザーは「同じタブで開く」という選択肢を奪われる-->
+	<p>
+		ご利用にあたっては<a href="#" target="_blank" id="terms">利用規約</a>をご確認ください。
+	</p>
+
+	<p id="readout"></p>
+	<script>
+		const terms = document.getElementById('terms');
+		document.getElementById('readout').textContent =
+			`このリンクの target 属性：${terms.target || '(なし)'} ／ 見た目には新規タブで開く目印がありません`;
+	</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-7-02: 2段階の操作で確認する（改善例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		ul {
+			list-style: none;
+			padding: 0;
+			max-width: 320px;
+		}
+
+		li {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 8px 12px;
+			border-bottom: 1px solid #ccc;
+			gap: 8px;
+		}
+
+		button {
+			padding: 4px 12px;
+		}
+
+		button.confirm-delete {
+			background: #c00;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-7-02: 2段階の操作で確認する（改善例）</h1>
+
+	<!--改善例：iPhoneのアラーム削除を参考に、モーダルダイアログを使わず
+		「削除」を押すとその場で「本当に削除」ボタンが現れる2段階操作にする
+		視界を占有せず、操作の文脈も失われない-->
+	<ul id="list">
+		<li>
+			<span>タスク1</span>
+			<button type="button" class="delete" data-state="idle">削除</button>
+		</li>
+		<li>
+			<span>タスク2</span>
+			<button type="button" class="delete" data-state="idle">削除</button>
+		</li>
+	</ul>
+
+	<script>
+		document.getElementById('list').addEventListener('click', (event) => {
+			const button = event.target.closest('button');
+			if (!button) return;
+
+			if (button.dataset.state === 'idle') {
+				// 1段階目：削除ボタンを「本当に削除」ボタンに差し替える
+				button.dataset.state = 'confirming';
+				button.textContent = '本当に削除';
+				button.classList.add('confirm-delete');
+				return;
+			}
+
+			// 2段階目：確認後にはじめて削除を実行する
+			button.closest('li').remove();
+		});
+
+		// 確認状態のまま他の操作をした場合は元に戻す
+		document.addEventListener('click', (event) => {
+			document.querySelectorAll('.delete[data-state="confirming"]').forEach((btn) => {
+				if (btn !== event.target) {
+					btn.dataset.state = 'idle';
+					btn.textContent = '削除';
+					btn.classList.remove('confirm-delete');
+				}
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>8-3-03: Master-Detail構成で選択結果の変化に気付きにくい（悪い例）</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		.layout {
+			display: flex;
+			gap: 32px;
+		}
+
+		.list {
+			list-style: none;
+			padding: 0;
+			width: 160px;
+		}
+
+		.list button {
+			display: block;
+			width: 100%;
+			text-align: left;
+			padding: 8px;
+			border: none;
+			background: none;
+			cursor: pointer;
+		}
+
+		.list button[aria-current="true"] {
+			background: #eef;
+			font-weight: bold;
+		}
+
+		.detail {
+			flex: 1;
+			border: 1px solid #767676;
+			padding: 16px;
+			min-height: 120px;
+		}
+	</style>
+</head>
+<body>
+	<h1>8-3-03: Master-Detail構成で選択結果の変化に気付きにくい（悪い例）</h1>
+
+	<!--悪い例：一覧（左）で項目を選択すると、視界の外にある詳細ペイン（右）が更新される
+		画面拡大時は左右を同時に見渡せず、更新に気付かないまま操作を続けてしまう
+		スクリーンリーダー利用時も、詳細ペインの更新は明示的に通知されない-->
+	<div class="layout">
+		<ul class="list" id="list">
+			<li><button type="button" data-id="1" aria-current="true">お知らせA</button></li>
+			<li><button type="button" data-id="2">お知らせB</button></li>
+			<li><button type="button" data-id="3">お知らせC</button></li>
+		</ul>
+		<div class="detail" id="detail">
+			<h2>お知らせA</h2>
+			<p>お知らせAの本文です。</p>
+		</div>
+	</div>
+
+	<script>
+		const contents = {
+			1: { title: 'お知らせA', body: 'お知らせAの本文です。' },
+			2: { title: 'お知らせB', body: 'お知らせBの本文です。' },
+			3: { title: 'お知らせC', body: 'お知らせCの本文です。' },
+		};
+
+		document.getElementById('list').addEventListener('click', (event) => {
+			const button = event.target.closest('button');
+			if (!button) return;
+
+			document.querySelectorAll('#list button').forEach((b) => b.removeAttribute('aria-current'));
+			button.setAttribute('aria-current', 'true');
+
+			const content = contents[button.dataset.id];
+			document.getElementById('detail').innerHTML = `<h2>${content.title}</h2><p>${content.body}</p>`;
+			// 悪い例：詳細ペインの更新を通知する手段がない（aria-live もフォーカス移動もない）
+		});
+	</script>
+</body>
+</html>
