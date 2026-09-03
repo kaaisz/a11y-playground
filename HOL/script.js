@@ -41,7 +41,7 @@ aria.Utils = aria.Utils || {};
   */
   aria.Utils.focusLastDescendant = function (element) {
     for(var i = element.childNodes.length - 1; i >= 0; i--) {
-      var chld = element.childNodes[i];
+      var child = element.childNodes[i];
       if(
         aria.Utils.attemptFocus(child) ||
         aria.Utils.focusLastDescendant(child)
@@ -94,7 +94,7 @@ aria.Utils = aria.Utils || {};
   aria.closeCurrentDialog = function () {
     var currentDialog = aria.getCurrentDialog();
     if (currentDialog) {
-      currentDiialog.close();
+      currentDialog.close();
       return true;
     }
     return false;
