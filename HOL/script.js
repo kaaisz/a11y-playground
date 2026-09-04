@@ -278,7 +278,7 @@ aria.Utils = aria.Utils || {};
 		this.dialogNode.className = 'hidden';
 		this.backdropNode.classList.remove('active');
 
-		var focusAfterClosed = newFocusAfterClosed || this.newFocusAfterClosed;
+		var focusAfterClosed = newFocusAfterClosed || this.focusAfterClosed;
 		new aria.Dialog(newDialogId, focusAfterClosed, newFocusFirst);
 	}; // end replace
 
