@@ -6,6 +6,24 @@
 	display: none;
 }
 
+/* Each dialog is wrapped in its own backdrop (see script.js).
+   Making the backdrop a full-viewport fixed overlay -- independent of any
+   width breakpoint -- guarantees a later-opened dialog visually covers an
+   earlier one at every viewport width and zoom level (WCAG 1.4.10 / 1.4.4),
+   instead of relying on [role="dialog"] { position: absolute } as a side
+   effect that only applies above the 640px breakpoint. */
+.dialog-backdrop {
+	display: none;
+	position: fixed;
+	inset: 0;
+	overflow: auto;
+}
+
+.dialog-backdrop.active {
+	display: block;
+	background-color: rgb(0 0 0 / 50%);
+}
+
 [role="dialog"] {
 	box-sizing: border-box;
 	padding: 15px;
